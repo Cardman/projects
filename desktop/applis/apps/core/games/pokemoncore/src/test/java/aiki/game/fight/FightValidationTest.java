@@ -5954,7 +5954,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(data_, false);
         //invalid data_
         player_.useInInventory(MASTER_BALL);
-        assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
+        assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
     public void validate214Test(){
@@ -5969,7 +5969,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(data_, false);
         //invalid data_
         player_.useInInventory(MASTER_BALL);
-        assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
+        assertTrue(FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
     public void validate215Test(){

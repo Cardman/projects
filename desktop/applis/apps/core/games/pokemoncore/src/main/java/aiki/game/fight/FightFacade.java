@@ -159,10 +159,10 @@ public final class FightFacade {
         if (koPositionsOnGround(_fight)) {
             return false;
         }
-        return okDefault(_fight, _data, _user, _diff);
+        return okDefault(_fight, _data, _diff);
     }
 
-    private static boolean okDefault(Fight _fight, DataBase _data, Player _user, Difficulty _diff) {
+    private static boolean okDefault(Fight _fight, DataBase _data, Difficulty _diff) {
         if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
             return validSwitchAfterUsingMove(_fight, _data);
         } else if (_fight.getState() == FightState.APPRENDRE_EVOLUER) {
@@ -173,27 +173,29 @@ public final class FightFacade {
             return validSwitchWhileKoPlayer(_fight,_data);
         } else if (_fight.getState() == FightState.SWITCH_PROPOSE) {
             return validSwitchPropose(_fight,_data);
-        } else if (_fight.getState() == FightState.SURNOM) {
-            return validSurnom(_fight);
-        } else if (_fight.getState() == FightState.CAPTURE_KO) {
-            return validCaptureKo(_fight, _data, _user);
+        } else if (possibleCatch(_fight)) {
+            return FightFacade.win(_fight);
+//        } else if (_fight.getState() == FightState.SURNOM) {
+//            return validSurnom(_fight);
+//        } else if (_fight.getState() == FightState.CAPTURE_KO) {
+//            return validCaptureKo(_fight, _data, _user);
         } else {
             return false;
         }
     }
 
-    private static boolean validCaptureKo(Fight _fight, DataBase _data, Player _user) {
-        _fight.getChoices().clear();
-        if (!_user.existBall(_data)) {
-            return false;
-        }
-        return FightFacade.win(_fight);
-    }
-
-    private static boolean validSurnom(Fight _fight) {
-        _fight.getChoices().clear();
-        return _fight.getTemp().getKos().getVal(Fight.CST_PLAYER) != BoolVal.TRUE;
-    }
+//    private static boolean validCaptureKo(Fight _fight, DataBase _data, Player _user) {
+//        _fight.getChoices().clear();
+//        if (!_user.existBall(_data)) {
+//            return false;
+//        }
+//        return FightFacade.win(_fight);
+//    }
+//
+//    private static boolean validSurnom(Fight _fight) {
+//        _fight.getChoices().clear();
+//        return _fight.getTemp().getKos().getVal(Fight.CST_PLAYER) != BoolVal.TRUE;
+//    }
 
     private static boolean invalidCatchingBall(Fight _fight, DataBase _data) {
         if (_fight.getFightType().isWild() && _fight.getCatchingBalls().size() != _fight.getMult()) {
@@ -524,7 +526,7 @@ public final class FightFacade {
     }
 
     public static boolean possibleCatch(Fight _fight) {
-        return _fight.getState() == FightState.SURNOM || _fight.getState() == FightState.CAPTURE_KO;
+        return _fight.getState() == FightState.SURNOM;
     }
 
     private static boolean validSubstitutingTeam(Fight _fight) {
@@ -1642,7 +1644,7 @@ public final class FightFacade {
                 return FightState.FIN_CBT_SAUVAGE;
             }
             if (win(_fight) && _diff.getAllowCatchingKo() && _existBall) {
-                return FightState.CAPTURE_KO;
+                return FightState.SURNOM;
             }
             return FightState.FIN_CBT_SAUVAGE;
         }

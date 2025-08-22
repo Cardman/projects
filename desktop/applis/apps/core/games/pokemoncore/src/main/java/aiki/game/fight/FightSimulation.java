@@ -25,10 +25,7 @@ import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.League;
 import aiki.map.places.Place;
-import aiki.map.pokemon.PkTrainer;
-import aiki.map.pokemon.Pokemon;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.UsablePokemon;
+import aiki.map.pokemon.*;
 import aiki.util.Coords;
 import aiki.util.TargetCoordsList;
 import code.maths.Rate;
@@ -1508,8 +1505,31 @@ public class FightSimulation {
         game.getFight().getTemp().setSimulation(false);
         setComment(game.getFight().getComment().getMessages());
     }
+
+    public void simulateFightIntroWild(DataBase _d) {
+        setComment(new StringList());
+        validateTeam();
+        game.getFight().getTemp().setEvts(new PkMonteCarloEvts(PkMonteCarloEvts.parse(getSeed())));
+        introWild(_d);
+        game.getFight().getTemp().setSimulation(false);
+        setComment(game.getFight().getComment().getMessages());
+    }
     public void simulateFightStep(DataBase _d) {
         game.simulerParEtape(_d);
+        getComment().addAllElts(game.getCommentGame().getMessages());
+    }
+    public void simulateFightCatch(DataBase _d) {
+        if (!FightFacade.validate(game.getFight(), _d, game.getPlayer(), game.getDifficulty())) {
+            return;
+        }
+        game.attemptCatchingWildPokemon(_d,false);
+        getComment().addAllElts(game.getCommentGame().getMessages());
+    }
+    public void simulateFightFlee(DataBase _d) {
+        if (!FightFacade.validate(game.getFight(), _d, game.getPlayer(), game.getDifficulty())) {
+            return;
+        }
+        game.attemptFlee(_d,false);
         getComment().addAllElts(game.getCommentGame().getMessages());
     }
     public void simulateFight(DataBase _import) {
@@ -1522,6 +1542,7 @@ public class FightSimulation {
         }
         setComment(new StringList());
         game.getPlayer().swap(indexesFight(IndexConstants.FIRST_INDEX));
+        game.getFight().getTemp().setEvts(new PkMonteCarloEvts(null));
         intro(_import, true);
         game.simuler(fightSimulationActions,IndexConstants.FIRST_INDEX, _import);
         setComment(game.getFight().getComment().getMessages());
@@ -1561,6 +1582,25 @@ public class FightSimulation {
 //        } else {
 //            FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
 //        }
+        FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _d);
+    }
+
+    private void introWild(DataBase _d) {
+        game.getFight().getComment().clearMessages();
+        Fight fight_ = game.getFight();
+        fight_.getTemp().setSimulation(false);
+        Difficulty diff_ = game.getDifficulty();
+        CustList<WildPk> ls_ = new CustList<WildPk>();
+        for (PkTrainer p:foeTeam()) {
+            WildPk w_ = new WildPk();
+            w_.setLevel(p.getLevel());
+            w_.setAbility(p.getAbility());
+            w_.setGender(p.getGender());
+            w_.setItem(p.getItem());
+            w_.setName(p.getName());
+            ls_.add(w_);
+        }
+        FightFacade.initFight(fight_, game.getPlayer(), diff_, ls_, _d);
         FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _d);
     }
 

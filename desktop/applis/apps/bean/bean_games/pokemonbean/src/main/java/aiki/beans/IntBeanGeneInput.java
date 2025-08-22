@@ -32,4 +32,5 @@ public interface IntBeanGeneInput {
     IntBeanChgMoveTarget newMt(AbsMap<MoveTarget,String> _pk);
     IntBeanChgKindAction newKa(AbsMap<KindAction,String> _map);
     IntBeanChgGender newGender(AbsMap<Gender,String> _pk);
+    IntBeanChgCatchingBallFoeAction newCatch(AbsMap<String,String> _it, AbsMap<Integer,String> _map);
 }

@@ -2293,6 +2293,25 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (SimulationBean)transitSimu(new SimulationBeanStepFight(simu_), simu_.getBuilder());
     }
 
+    protected static CatchingBallFoeAction editEditSelectedPlayerPkSimuStepsNextWildCatch() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsWild();
+        CatchingBallFoeAction c_ = new CatchingBallFoeAction();
+        c_.setCatchingBall(I_BALL);
+        c_.setNickname("");
+        c_.setPlayer(0);
+        simu_.getFightForm().getCatchingBalls().getValue(0).valCatch(c_);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getUsedBallCatching().setupValue(I_BALL);
+        transitSimu(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanStepFightCatch(simu_), simu_.getBuilder());
+        return simu_.getSimulation().getGame().getFight().getCatchingBalls().get(0);
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsNextWildFlee() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsWild();
+        simu_.getFightForm().getCurrentUserFlee().valueInt(0);
+        transitSimu(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return (SimulationBean)transitSimu(new SimulationBeanStepFightFlee(simu_), simu_.getBuilder());
+    }
+
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCore() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
         assertEq("",new TeamPositionsString().def());
@@ -3087,6 +3106,24 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return intro(db_);
     }
 
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsWild() {
+        FacadeGame db_ = dbInc();
+        StatusMoveData mv_ = Instances.newStatusMoveData();
+        EffectGlobal eff_ = Instances.newEffectGlobal();
+        eff_.setWeather(true);
+        mv_.getEffects().add(eff_);
+        db_.getData().completeMembers(M_POK_07,mv_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().getCombos().getEffects().add(new ListEffectCombo(new StringList(M_POK_07),Instances.newEffectCombo()));
+        StatusMoveData mvSend_ = Instances.newStatusMoveData();
+        mvSend_.getEffects().add(Instances.newEffectTeamWhileSendFoe());
+        db_.getData().completeMembers(M_POK_08,mvSend_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_08, M_POK_08_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return introWild(db_);
+    }
+
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsNbUses() {
         FacadeGame db_ = dbInc();
         DamagingMoveData mv_ = Instances.newDamagingMoveData();
@@ -3160,6 +3197,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
         ((SimulationBean)simu_).getSeed().setupValue("0");
         return (SimulationBean)transitSimu(new SimulationBeanIntroFight((SimulationBean) simu_), simu_.getBuilder());
+    }
+
+    private static SimulationBean introWild(FacadeGame _db) {
+        FacadeGame pk_ = pkDataByFacade(_db);
+        CommonBean simu_ = simBean2(2, pk_);
+        foeTeamsSample(simu_);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
+        ((SimulationBean)simu_).getSeed().setupValue("0");
+        return (SimulationBean)transitSimu(new SimulationBeanIntroFightWild((SimulationBean) simu_), simu_.getBuilder());
     }
 
     protected static CommonBean validateDiff(int _nbTeam){

@@ -10526,7 +10526,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU,  1, diff_, data_);
         FightKo.setKoMoveTeams(fight_, tp(KEY_FOE, POKEMON_FIGHTER_ZERO), diff_, data_);
-        assertEq(FightState.CAPTURE_KO, FightFacade.fightStatement(fight_, true, diff_));
+        assertEq(FightState.SURNOM, FightFacade.fightStatement(fight_, true, diff_));
     }
 
     @Test

@@ -51,6 +51,8 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_MULTIPLICITY_FIGHT="multiplicity_fight";
     public static final String M_P_86_NAME_PK="name_pk";
     public static final String M_P_86_NEXT_BUTTON="next_button";
+    public static final String M_P_86_NEXT_BUTTON_CATCH="next_button_catch";
+    public static final String M_P_86_NEXT_BUTTON_FLEE="next_button_flee";
     public static final String M_P_86_SELECT_TEAM="select_team";
     public static final String M_P_86_NOT_KO_FOE_FIGHTERS="not_ko_foe_fighters";
     public static final String M_P_86_NOT_SELECTED_FOE="not_selected_foe";
@@ -92,6 +94,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_WIN_PTS="win_pts";
     public static final String M_P_86_WIN_TRAINER_EXP="win_trainer_exp";
     public static final String M_P_86_SIMU_BY_STEP="simu_by_step";
+    public static final String M_P_86_SIMU_BY_STEP_WILD="simu_by_step_wild";
     public static final String M_P_86_ACTION="action_but";
     public static final String M_P_86_PLAYER_HEADER="player_header";
     public static final String M_P_86_FOE_HEADER="foe_header";
@@ -111,6 +114,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_FIGHT_STATE_ATTAQUES="fs_attaques";
     public static final String M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER="fs_apprendre_evoluer";
     public static final String M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE="fs_switch_apres_attaque";
+    public static final String M_P_86_FIGHT_STATE_SURNOM="fs_surnom";
     public static final String M_P_86_FIGHT_STATE_RIEN="fs_rien";
     public static final String M_P_86_USED_ITEMS_WHILE_ROUND="used_items_while_round";
     public static final String M_P_86_EVO_CHOICES="evo_choices";
@@ -265,6 +269,12 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_ITEM_USE="item_use";
     public static final String M_P_86_ITEM_USE_NB="item_use_nb";
     public static final String M_P_86_SEED="seed";
+    public static final String M_P_86_CATCHING_BALL_ITEM_LS="catching_ball_item_ls";
+    public static final String M_P_86_CATCHING_BALL_ITEM="catching_ball_item";
+    public static final String M_P_86_PLAYER_INDEX="player_index";
+    public static final String M_P_86_CAUGHT="caught";
+    public static final String M_P_86_TAKE_IN_TEAM="take_in_team";
+    public static final String M_P_86_USER_FLEE="user_flee";
     private static final String ENABLED = "Enabled";
     private static final String ACTIF = "Actif";
     private static final String CURRENT_PP = "Current pp";
@@ -325,6 +335,8 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_MULTIPLICITY_FIGHT,"Multiplicity of the fight");
         e_.add(M_P_86_NAME_PK,"Name");
         e_.add(M_P_86_NEXT_BUTTON,">>");
+        e_.add(M_P_86_NEXT_BUTTON_CATCH,"Attempt catch");
+        e_.add(M_P_86_NEXT_BUTTON_FLEE,"Attempt flee");
         e_.add(M_P_86_SELECT_TEAM,"Select a team");
         e_.add(M_P_86_NOT_KO_FOE_FIGHTERS,"Not ko front pokemon of the foe trainer");
         e_.add(M_P_86_NOT_SELECTED_FOE,"No selected foe trainer");
@@ -369,6 +381,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_PLAYER_HEADER,"Player index");
         e_.add(M_P_86_FOE_HEADER,"Foe index");
         e_.add(M_P_86_SIMU_BY_STEP,"Simulate fight round by round with a seed");
+        e_.add(M_P_86_SIMU_BY_STEP_WILD,"Simulate wild fight round by round with a seed");
         e_.add(M_P_86_NB_FLEE_ATTEMPT,"The number of attempts of flee is:");
         e_.add(M_P_86_NB_ROUND,"The number of elapsed rounds is:");
         e_.add(M_P_86_WINNING_MONEY,"The won money is:");
@@ -385,6 +398,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_FIGHT_STATE_ATTAQUES,"moves");
         e_.add(M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER,"learn and evolve player team");
         e_.add(M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE,"switch after using move");
+        e_.add(M_P_86_FIGHT_STATE_SURNOM,"nickname phase");
         e_.add(M_P_86_FIGHT_STATE_RIEN,"no fight");
         e_.add(M_P_86_USED_ITEMS_WHILE_ROUND,"used items while round");
         e_.add(M_P_86_EVO_CHOICES,"choices of moves and evolutions");
@@ -539,6 +553,12 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_ITEM_USE,"Item");
         e_.add(M_P_86_ITEM_USE_NB,"Quantity");
         e_.add(M_P_86_SEED,"Seed");
+        e_.add(M_P_86_CATCHING_BALL_ITEM_LS,"Wild");
+        e_.add(M_P_86_CATCHING_BALL_ITEM,"Catching ball");
+        e_.add(M_P_86_PLAYER_INDEX,"Player fighter index to catch");
+        e_.add(M_P_86_CAUGHT,"Caught");
+        e_.add(M_P_86_TAKE_IN_TEAM,"Take caught fighter in team");
+        e_.add(M_P_86_USER_FLEE,"Player fighter index to flee");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -591,6 +611,8 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_MULTIPLICITY_FIGHT,"Multiplicité du combat");
         f_.add(M_P_86_NAME_PK,"Nom");
         f_.add(M_P_86_NEXT_BUTTON,">>");
+        f_.add(M_P_86_NEXT_BUTTON_CATCH,"Tentative de capture");
+        f_.add(M_P_86_NEXT_BUTTON_FLEE,"Tentative de fuite");
         f_.add(M_P_86_SELECT_TEAM,"Sélectionner une équipe");
         f_.add(M_P_86_NOT_KO_FOE_FIGHTERS,"Pokemon de front non ko du dresseur ennemi");
         f_.add(M_P_86_NOT_SELECTED_FOE,"Pas de dresseur ennemi sélectionné");
@@ -635,6 +657,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_PLAYER_HEADER,"Joueur indice");
         f_.add(M_P_86_FOE_HEADER,"Ennemi indice");
         f_.add(M_P_86_SIMU_BY_STEP,"Simuler le combat tour à tour avec une graine");
+        f_.add(M_P_86_SIMU_BY_STEP_WILD,"Simuler le combat sauvage tour à tour avec une graine");
         f_.add(M_P_86_NB_FLEE_ATTEMPT,"Le nombre de tentatives de fuites est de:");
         f_.add(M_P_86_NB_ROUND,"Le nombre de tours écoulés est de:");
         f_.add(M_P_86_WINNING_MONEY,"L'argent gagné vaut:");
@@ -651,6 +674,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_FIGHT_STATE_ATTAQUES,"attaques");
         f_.add(M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER,"apprendre et évoluer pour l'équipe du joueur");
         f_.add(M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE,"échange après utilisation d'attaque");
+        f_.add(M_P_86_FIGHT_STATE_SURNOM,"phase de surnom");
         f_.add(M_P_86_FIGHT_STATE_RIEN,"pas de combat");
         f_.add(M_P_86_USED_ITEMS_WHILE_ROUND,"objets utilisés lors du tour");
         f_.add(M_P_86_EVO_CHOICES,"choix d'attaques et d'évolution");
@@ -805,6 +829,12 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_ITEM_USE,"Objet");
         f_.add(M_P_86_ITEM_USE_NB,"Quantité");
         f_.add(M_P_86_SEED,"Graine");
+        f_.add(M_P_86_CATCHING_BALL_ITEM_LS,"Sauvage");
+        f_.add(M_P_86_CATCHING_BALL_ITEM,"Balle de capture");
+        f_.add(M_P_86_PLAYER_INDEX,"Indice du combattant du joueur pour capturer");
+        f_.add(M_P_86_CAUGHT,"Attrapé");
+        f_.add(M_P_86_TAKE_IN_TEAM,"Prendre le combattant capturé dans l'équipe");
+        f_.add(M_P_86_USER_FLEE,"Indice du combattant du joueur pour fuir");
         return f_;
     }
 }

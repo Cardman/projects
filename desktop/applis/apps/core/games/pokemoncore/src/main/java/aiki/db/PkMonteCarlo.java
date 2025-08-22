@@ -2,7 +2,6 @@ package aiki.db;
 
 import code.maths.*;
 import code.maths.montecarlo.*;
-import code.util.*;
 
 public final class PkMonteCarlo<E> {
     private final DataBase dataBase;
@@ -10,7 +9,7 @@ public final class PkMonteCarlo<E> {
     private final PkMonteCarloEvts evts;
 
     public PkMonteCarlo(DataBase _d, AbMonteCarlo<E> _l) {
-        this(_d,_l,new PkMonteCarloEvts(new CustList<LgInt>()));
+        this(_d,_l,new PkMonteCarloEvts(null));
     }
 
     public PkMonteCarlo(DataBase _d, AbMonteCarlo<E> _l, PkMonteCarloEvts _e) {

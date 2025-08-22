@@ -403,7 +403,7 @@ public final class Fight {
     private final TransientFight temp;
     public Fight() {
         temp = new TransientFight();
-        temp.setEvts(new PkMonteCarloEvts(new CustList<LgInt>()));
+        temp.setEvts(new PkMonteCarloEvts(null));
 //        damage.setDamage(Rate.zero());
 //        damage.setDamageClone(Rate.zero());
 //        damage.setDamageCount(Rate.zero());

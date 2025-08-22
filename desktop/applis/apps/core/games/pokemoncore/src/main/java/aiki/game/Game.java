@@ -1297,7 +1297,7 @@ public final class Game {
     public void endFight(DataBase _import) {
         boolean existBall_ = player.existBall(_import);
         FightState etat_=FightFacade.fightStatement(fight,existBall_,difficulty);
-        if (etat_==FightState.CAPTURE_KO) {
+        if (etat_==FightState.SURNOM) {
             fight.setState(etat_);
             return;
         }

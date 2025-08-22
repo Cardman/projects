@@ -253,6 +253,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt(h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt());
         h_.getGenInput().newGender(new IdMap<Gender, String>()).valGender(h_.getGenInput().newGender(new IdMap<Gender, String>()).valGender());
         h_.getGenInput().newEt(new IdMap<EnvironmentType, String>()).valueEt(h_.getGenInput().newEt(new IdMap<EnvironmentType, String>()).valueEt());
+        h_.getGenInput().newCatch(new StringMap<String>(),new IntMap<String>()).valCatch(h_.getGenInput().newCatch(new StringMap<String>(),new IntMap<String>()).valCatch());
         SimulationBean s_ = new SimulationBean();
         s_.setBuilder(h_);
         PageFormSimu page_ = h_.initPageForm(s_);

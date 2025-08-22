@@ -35,11 +35,15 @@ public final class PkMonteCarloEvts {
     }
 
     public LgInt tryIncr(){
-        if (!evts.isEmpty()) {
+        if (simulatedRoundByRound() && !evts.isEmpty()) {
             LgInt e_ = evts.get(index);
             index = (index + 1) % evts.size();
             return e_;
         }
         return null;
+    }
+
+    public boolean simulatedRoundByRound() {
+        return evts != null;
     }
 }

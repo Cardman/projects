@@ -4,7 +4,7 @@ import aiki.beans.*;
 import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
 import aiki.game.fight.util.*;
-import aiki.gui.components.editor.NbDefValue;
+import aiki.gui.components.editor.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
@@ -241,5 +241,20 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
         GeneComponentModelElt<Gender> ch_ = new GeneComponentModelElt<Gender>(api, _map, new GenderDefValue());
         helper.feedParent(ch_.geneEnum());
         return new DefBeanChgGender(ch_);
+    }
+
+    @Override
+    public IntBeanChgCatchingBallFoeAction newCatch(AbsMap<String, String> _it, AbsMap<Integer, String> _map) {
+        GeneComponentModelElt<String> cat_ = new GeneComponentModelElt<String>(api, _it,new EmptyDefValue());
+        GeneComponentModelElt<Integer> pl_ = new GeneComponentModelElt<Integer>(api, _map,new NbDefValue<Integer>(Fighter.BACK));
+        AbsCustCheckBox caught_ = api.getCompoFactory().newCustCheckBox();
+        AbsCustCheckBox team_ = api.getCompoFactory().newCustCheckBox();
+        GeneComponentModelText nickname_ = new GeneComponentModelText(api);
+        helper.feedParent(cat_.geneEnum());
+        helper.feedParent(caught_);
+        helper.feedParent(pl_.geneEnum());
+        helper.feedParent(team_);
+        helper.feedParent(nickname_.geneString());
+        return new DefBeanChgCatchingBallFoeAction(cat_,nickname_,pl_,caught_,team_);
     }
 }

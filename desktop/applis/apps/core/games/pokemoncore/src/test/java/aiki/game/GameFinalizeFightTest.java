@@ -84,7 +84,7 @@ public class GameFinalizeFightTest extends InitializationDataBase{
         game_.endFight(data_);
         assertTrue(game_.getFight().getFightType().isExisting());
         assertTrue(game_.getFight().getFightType().isWild());
-        assertEq(FightState.CAPTURE_KO, game_.getFight().getState());
+        assertEq(FightState.SURNOM, game_.getFight().getState());
         assertEq(newCoords(0, 0, 2, 0), game_.getPlayerCoords());
         assertEq(InterfaceType.COMBAT_PK_SAUV, game_.getInterfaceType());
     }

@@ -127,4 +127,9 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     public IntBeanChgGender newGender(AbsMap<Gender, String> _pk) {
         return new BeanChgGender();
     }
+
+    @Override
+    public IntBeanChgCatchingBallFoeAction newCatch(AbsMap<String, String> _it, AbsMap<Integer, String> _map) {
+        return new BeanChgCatchingBallFoeAction();
+    }
 }

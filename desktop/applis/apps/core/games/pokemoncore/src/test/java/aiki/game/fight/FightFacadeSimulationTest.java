@@ -3895,7 +3895,195 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.simulateFightStep(data_);
         assertEq(FightState.ATTAQUES,fightSimulation_.getGame().getFight().getState());
     }
-
+    @Test
+    public void simulateFightStep9Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, data_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        Pokemon pk_ = new WildPk();
+        pk_.setName(PICHU);
+        pk_.setAbility(ATTENTION);
+        foeTeam_.add(new PkTrainer(pk_, new StringList(CHARGE)));
+        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1,1,EnvironmentType.ROCK);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel( 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel( 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel( 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        fightSimulation_.setSeed("0");
+        fightSimulation_.simulateFightIntroWild(data_);
+        fightSimulation_.getGame().getFight().getFighter(Fight.toUserFighter(0)).setFirstChosenMove(CHARGE);
+        fightSimulation_.simulateFightCatch(data_);
+        assertEq(FightState.ATTAQUES,fightSimulation_.getGame().getFight().getState());
+    }
+    @Test
+    public void simulateFightStep10Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, data_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        Pokemon pk_ = new WildPk();
+        pk_.setName(PICHU);
+        pk_.setAbility(ATTENTION);
+        foeTeam_.add(new PkTrainer(pk_, new StringList(CHARGE)));
+        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1,1,EnvironmentType.ROCK);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel( 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel( 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel( 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        fightSimulation_.setSeed("0");
+        fightSimulation_.simulateFightIntroWild(data_);
+        fightSimulation_.getGame().getFight().getCatchingBalls().get(0).setCatchingBall(MASTER_BALL);
+        fightSimulation_.simulateFightCatch(data_);
+        assertEq(FightState.SURNOM,fightSimulation_.getGame().getFight().getState());
+    }
+    @Test
+    public void simulateFightStep11Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, data_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        Pokemon pk_ = new WildPk();
+        pk_.setName(PICHU);
+        pk_.setAbility(ATTENTION);
+        foeTeam_.add(new PkTrainer(pk_, new StringList(CHARGE)));
+        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1,1,EnvironmentType.ROCK);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel( 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel( 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel( 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        fightSimulation_.setSeed("0");
+        fightSimulation_.simulateFightIntroWild(data_);
+        fightSimulation_.getGame().getFight().getUserTeam().getMembers().getValue(0).setGroundPlace(Fighter.BACK);
+        fightSimulation_.simulateFightCatch(data_);
+        assertEq(FightState.ATTAQUES,fightSimulation_.getGame().getFight().getState());
+    }
+    @Test
+    public void simulateFightStep12Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, data_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        Pokemon pk_ = new WildPk();
+        pk_.setName(PICHU);
+        pk_.setAbility(ATTENTION);
+        foeTeam_.add(new PkTrainer(pk_, new StringList(CHARGE)));
+        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1,1,EnvironmentType.ROCK);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel( 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel( 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel( 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        fightSimulation_.setSeed("0");
+        fightSimulation_.simulateFightIntroWild(data_);
+        fightSimulation_.simulateFightFlee(data_);
+        assertFalse(fightSimulation_.getGame().getFight().getFightType().isExisting());
+    }
+    @Test
+    public void simulateFightStep13Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        FightSimulation fightSimulation_ = new FightSimulation(diff_, data_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        Pokemon pk_ = new WildPk();
+        pk_.setName(PICHU);
+        pk_.setAbility(ATTENTION);
+        foeTeam_.add(new PkTrainer(pk_, new StringList(CHARGE)));
+        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1,1,EnvironmentType.ROCK);
+        WildPk pokemon_ = new WildPk();
+        pokemon_.setLevel( 3);
+        pokemon_.setName(PTITARD);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel( 25);
+        pokemon_.setName(TETARTE);
+        pokemon_.setAbility(ABSORB_EAU);
+        pokemon_.setItem(OEUF_CHANCE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        pokemon_ = new WildPk();
+        pokemon_.setLevel( 3);
+        pokemon_.setName(NINGALE);
+        pokemon_.setAbility(OEIL_COMPOSE);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setGender(Gender.NO_GENDER);
+        fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
+        fightSimulation_.setSeed("0");
+        fightSimulation_.simulateFightIntroWild(data_);
+        fightSimulation_.getGame().getFight().getUserTeam().getMembers().getValue(0).setGroundPlace(Fighter.BACK);
+        fightSimulation_.simulateFightFlee(data_);
+        assertEq(FightState.ATTAQUES,fightSimulation_.getGame().getFight().getState());
+    }
     private Fight simulate4(DataBase _data, Difficulty _diff, Player _player, StringList _foeMoves) {
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         foeTeam_.add(pkTrainer(1, _foeMoves));

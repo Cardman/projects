@@ -277,6 +277,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SEED);
         seed = DifficultyBeanForm.txt(getBuilder().getGenInput(), this, "");
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SIMU_BY_STEP)).addEvt(new SimulationBeanIntroFight(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SIMU_BY_STEP_WILD)).addEvt(new SimulationBeanIntroFightWild(this));
         if (!ok) {
             formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NOT_SELECTED_PLAYER_PK);
         }
@@ -446,6 +447,10 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         getBuilder().button(CONFIRM).addEvt(new SimulationBeanValidateFightCoreForm(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanResetFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanStepFight(this));
+        if (simulation.getGame().getFight().getFightType().isWild()) {
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON_CATCH)).addEvt(new SimulationBeanStepFightCatch(this));
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON_FLEE)).addEvt(new SimulationBeanStepFightFlee(this));
+        }
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISPLAY_COMMENTS)).addEvt(new SimulationBeanDisplayComments(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HIDE_COMMENTS)).addEvt(new SimulationBeanHideComments(this));
         new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
@@ -1533,6 +1538,15 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         stepNumber++;
     }
 
+    public void introFightWild() {
+        simulation.setSeed(seed.tryRet());
+        simulation.simulateFightIntroWild(getDataBase());
+        currentUserList = curUserList();
+        fightState = fightStateList();
+        getForms().put(SIMU_CST_SIMULATION_STATE, SimulationSteps.SIMULATION_STEP);
+        stepNumber++;
+    }
+
     private AbsMap<TeamPosition,String> curUserList() {
         AbsMap<TeamPosition,String> ls_ = new TeamPositionsString();
         ls_.addEntry(new TeamPosition(0, Fighter.BACK), "");
@@ -1552,11 +1566,18 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         ls_.addEntry(FightState.ATTAQUES, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_ATTAQUES));
         ls_.addEntry(FightState.APPRENDRE_EVOLUER, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER));
         ls_.addEntry(FightState.SWITCH_APRES_ATTAQUE, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE));
+        ls_.addEntry(FightState.SURNOM, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_SURNOM));
         ls_.addEntry(FightState.RIEN, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_RIEN));
         return ls_;
     }
     public void stepFight() {
         simulation.simulateFightStep(getDataBase());
+    }
+    public void stepFightCatch() {
+        simulation.simulateFightCatch(getDataBase());
+    }
+    public void stepFightFlee() {
+        simulation.simulateFightFlee(getDataBase());
     }
     public void simulateFight() {
         ok = true;

@@ -92,7 +92,7 @@ public final class FacadeGameFightKoTest extends InitializationDataBase {
         facadeGame_.setFirstChosenMoveFoeTarget( 0);
         facadeGame_.roundAllThrowers(false);
         facadeGame_.learnAndEvolve();
-        assertEq(FightState.CAPTURE_KO, facadeGame_.getFight().getState());
+        assertEq(FightState.SURNOM, facadeGame_.getFight().getState());
     }
 
     @Test

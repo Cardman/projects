@@ -3,6 +3,7 @@ package aiki.beans.simulation;
 import aiki.beans.*;
 import aiki.beans.game.*;
 import aiki.comparators.*;
+import aiki.db.*;
 import aiki.game.fight.*;
 import aiki.game.fight.enums.*;
 import aiki.game.fight.util.*;
@@ -28,6 +29,8 @@ public final class SimulationFightForm extends SimulationCommonForm {
     private final SimulationBeanUpdateEntryValues<String, BoolVal> stillEnabledMoves;
     private final SimulationBeanUpdateEntryValues<String, ActivityOfMove> enabledMoves;
     private final SimulationBeanUpdateEntryValues<Integer, CustList<Integer>> playerFightersAgainstFoe;
+    private final IdMap<CatchingBallFoeAction,IntBeanChgCatchingBallFoeAction> catchingBalls;
+    private IntBeanChgInt currentUserFlee;
     private SimulationBeanUpdateEntryValues<String, Long> usedItemsWhileRound;
     private SimulationBeanUpdateEntryValues<Integer, ChoiceOfEvolutionAndMoves> choices;
     private SimulationBeanUpdateEntryValues<MoveTarget, MoveTarget> allyChoice;
@@ -68,6 +71,41 @@ public final class SimulationFightForm extends SimulationCommonForm {
         usedItems(sortedUsedItems());
         evosChoices();
         allyChoices();
+        catchingBalls = new IdMap<CatchingBallFoeAction,IntBeanChgCatchingBallFoeAction>();
+        if (_s.getSimulation().getGame().getFight().getFightType().isWild()) {
+            getBean().initPage();
+            getBean().setTitledBorder(getBean().messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CATCHING_BALL_ITEM_LS));
+            getBean().initGrid();
+            getBean().getBuilder().colCount(5);
+            getBean().headerCol(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CATCHING_BALL_ITEM);
+            getBean().headerCol(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CAUGHT);
+            getBean().headerCol(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PLAYER_INDEX);
+            getBean().headerCol(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_TAKE_IN_TEAM);
+            getBean().headerCol(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NICKNAME);
+            DictionaryComparator<String, String> its_ = DictionaryComparatorUtil.buildItemsStrElts(_s.getDataBase(), _s.getLanguage());
+            its_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
+            CustList<Integer> allKeys_ = getBean().getSimulation().getGame().getFight().getUserTeam().getMembers().getKeys();
+            IntMap<String> rep_ = new IntMap<String>();
+            rep_.addEntry(Fighter.BACK,DataBase.EMPTY_STRING);
+            for (Integer i: allKeys_) {
+                rep_.addEntry(i,Long.toString(i));
+            }
+            for (CatchingBallFoeAction t:_s.getSimulation().getGame().getFight().getCatchingBalls()) {
+                IntBeanChgCatchingBallFoeAction b_ = _s.getBuilder().getGenInput().newCatch(its_,rep_);
+                CatchingBallFoeAction a_ = new CatchingBallFoeAction();
+                a_.setTeam(t.isTeam());
+                a_.setNickname(t.getNickname());
+                a_.setPlayer(t.getPlayer());
+                a_.setCaught(t.isCaught());
+                a_.setCatchingBall(t.getCatchingBall());
+                b_.valCatch(a_);
+                catchingBalls.addEntry(t,b_);
+            }
+            getBean().feedParents();
+            getBean().feedParents();
+            DifficultyBeanForm.formatMessage(_s,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_USER_FLEE);
+            currentUserFlee = DifficultyBeanForm.selectInt(_s.getBuilder().getGenInput(), _s, rep_, rep_.indexOfEntry(_s.getSimulation().getGame().getFight().getCurrentUserFlee()));
+        }
         getTeamsForm().clear();
         getTeamsForm().add(new SimulationTeamForm(_s,getBean().getSimulation().getGame().getFight().getUserTeam(),getBean().messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_TITLE_PLAYER)));
         getBean().initPage();
@@ -275,6 +313,18 @@ public final class SimulationFightForm extends SimulationCommonForm {
         choices.actionBean();
         allyChoice.actionBean();
         playerFightersAgainstFoe.actionBean();
+        for (EntryCust<CatchingBallFoeAction,IntBeanChgCatchingBallFoeAction> s:catchingBalls.entryList()) {
+            CatchingBallFoeAction value_ = s.getValue().valCatch();
+            CatchingBallFoeAction key_ = s.getKey();
+            key_.setTeam(value_.isTeam());
+            key_.setCaught(value_.isCaught());
+            key_.setCatchingBall(value_.getCatchingBall());
+            key_.setNickname(value_.getNickname());
+            key_.setPlayer(value_.getPlayer());
+        }
+        if (currentUserFlee != null) {
+            getBean().getSimulation().getGame().getFight().setCurrentUserFlee(currentUserFlee.valueInt());
+        }
         for (SimulationTeamForm s: teamsForm) {
             s.update();
         }
@@ -365,5 +415,13 @@ public final class SimulationFightForm extends SimulationCommonForm {
 
     public MoveTargetsParam<SimulationBeanRemoveEntry<MoveTarget, MoveTarget>> getAllyChoiceRem() {
         return allyChoiceRem;
+    }
+
+    public IntBeanChgInt getCurrentUserFlee() {
+        return currentUserFlee;
+    }
+
+    public IdMap<CatchingBallFoeAction, IntBeanChgCatchingBallFoeAction> getCatchingBalls() {
+        return catchingBalls;
     }
 }

@@ -415,6 +415,9 @@ final class FightArtificialIntelligence {
     }
 
     private static void choiceFoeArtificialIntelligenceWild(Fight _fight, Difficulty _diff, DataBase _import) {
+        if (_fight.getTemp().getEvts().simulatedRoundByRound()) {
+            return;
+        }
         for (EntryCust<Integer,Fighter> e: FightOrder.filteredFoe(_fight)) {
             StringList attaquesUtilisables_= FightFacade.allowedMovesNotEmpty(_fight,Fight.toFoeFighter(e.getKey()), _import);
             MonteCarloString loi_ = new MonteCarloString();
