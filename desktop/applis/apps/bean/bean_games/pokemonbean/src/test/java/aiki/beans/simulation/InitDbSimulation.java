@@ -2300,7 +2300,6 @@ public abstract class InitDbSimulation extends InitDbConstr {
         c_.setNickname("");
         c_.setPlayer(0);
         simu_.getFightForm().getCatchingBalls().getValue(0).valCatch(c_);
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getUsedBallCatching().setupValue(I_BALL);
         transitSimu(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         transitSimu(new SimulationBeanStepFightCatch(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getCatchingBalls().get(0);
@@ -3107,7 +3106,23 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsWild() {
+        FacadeGame db_ = dbIncWild();
+        return introWild(db_);
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsWildMany() {
+        FacadeGame db_ = dbIncWild();
+        return introWildMany(db_);
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsWildTwoTeams() {
+        FacadeGame db_ = dbIncWild();
+        return introWildTwoTeams(db_);
+    }
+
+    private static FacadeGame dbIncWild() {
         FacadeGame db_ = dbInc();
+        db_.getData().initValue(DataBase.BALL_DEF,I_BALL);
         StatusMoveData mv_ = Instances.newStatusMoveData();
         EffectGlobal eff_ = Instances.newEffectGlobal();
         eff_.setWeather(true);
@@ -3121,7 +3136,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_08, M_POK_08_TR);
         db_.getData().completeVariables();
         db_.getData().completeMembersCombos();
-        return introWild(db_);
+        return db_;
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsNbUses() {
@@ -3201,11 +3216,32 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     private static SimulationBean introWild(FacadeGame _db) {
         FacadeGame pk_ = pkDataByFacade(_db);
+        CommonBean simu_ = simBean2(1, pk_);
+        foeTeamSample(simu_);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
+        ((SimulationBean)simu_).getSeed().setupValue("0");
+        assertTrue(((SimulationBean)simu_).enabledWild());
+        return (SimulationBean)transitSimu(new SimulationBeanIntroFightWild((SimulationBean) simu_), simu_.getBuilder());
+    }
+
+    private static SimulationBean introWildTwoTeams(FacadeGame _db) {
+        FacadeGame pk_ = pkDataByFacade(_db);
         CommonBean simu_ = simBean2(2, pk_);
         foeTeamsSample(simu_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
         ((SimulationBean)simu_).getSeed().setupValue("0");
-        return (SimulationBean)transitSimu(new SimulationBeanIntroFightWild((SimulationBean) simu_), simu_.getBuilder());
+        assertFalse(((SimulationBean)simu_).enabledWild());
+        return (SimulationBean)simu_;
+    }
+
+    private static SimulationBean introWildMany(FacadeGame _db) {
+        FacadeGame pk_ = pkDataByFacade(_db);
+        CommonBean simu_ = simBean2(1, pk_);
+        foeTeamSampleMany(simu_);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
+        ((SimulationBean)simu_).getSeed().setupValue("0");
+        assertFalse(((SimulationBean)simu_).enabledWild());
+        return (SimulationBean)simu_;
     }
 
     protected static CommonBean validateDiff(int _nbTeam){
@@ -4830,6 +4866,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     private static void foeTeamSample(CommonBean _simu) {
         selectTeam(_simu,0);
+        pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_02_TR, A_SIM_1_TR, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _simu, 4);
+        setMult(_simu,2);
+        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu), _simu.getBuilder());
+    }
+
+    private static void foeTeamSampleMany(CommonBean _simu) {
+        selectTeam(_simu,0);
+        pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_02_TR, A_SIM_1_TR, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_02_TR, A_SIM_1_TR, _simu, 4);

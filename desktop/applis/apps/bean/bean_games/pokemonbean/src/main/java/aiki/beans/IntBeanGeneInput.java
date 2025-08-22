@@ -19,6 +19,7 @@ public interface IntBeanGeneInput {
     IntBeanChgEnvironmentType newEt(AbsMap<EnvironmentType,String> _map);
     IntBeanChgString newText();
     IntBeanChgSubmit newSubmit(String _text);
+    IntBeanChgSubmit newSubmit(String _text, boolean _enabled);
     IntBeanChgActivityOfMove newAc();
     IntBeanChgActivityOfMove newAc(boolean _incrCount);
     IntBeanChgAffectedMove newAff(AbsMap<String,String> _mv);

@@ -277,12 +277,16 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SEED);
         seed = DifficultyBeanForm.txt(getBuilder().getGenInput(), this, "");
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SIMU_BY_STEP)).addEvt(new SimulationBeanIntroFight(this));
-        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SIMU_BY_STEP_WILD)).addEvt(new SimulationBeanIntroFightWild(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SIMU_BY_STEP_WILD), enabledWild()).addEvt(new SimulationBeanIntroFightWild(this));
         if (!ok) {
             formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NOT_SELECTED_PLAYER_PK);
         }
         new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getFoeTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
         new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
+    }
+
+    public boolean enabledWild() {
+        return simulation.getFoeTeamsAll().size() == 1 && simulation.getFoeTeamsAll().get(0).size() <= 4;
     }
 
     private void evolutions() {

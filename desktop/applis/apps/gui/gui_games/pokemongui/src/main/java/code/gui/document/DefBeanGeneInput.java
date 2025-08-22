@@ -114,7 +114,13 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
 
     @Override
     public IntBeanChgSubmit newSubmit(String _text) {
+        return newSubmit(_text,true);
+    }
+
+    @Override
+    public IntBeanChgSubmit newSubmit(String _text, boolean _enabled) {
         AbsButton but_ = api.getCompoFactory().newPlainButton(_text);
+        but_.setEnabled(_enabled);
         DefBeanChgSubmit sub_ = new DefBeanChgSubmit(but_,helper);
         helper.feedParent(but_);
         return sub_;

@@ -64,6 +64,11 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     }
 
     @Override
+    public IntBeanChgSubmit newSubmit(String _text, boolean _enabled) {
+        return new AbsBeanChgSubmit();
+    }
+
+    @Override
     public IntBeanChgActivityOfMove newAc() {
         return newAc(true);
     }

@@ -104,6 +104,10 @@ public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
     public IntBeanChgSubmit button(String _txt) {
         return getGenInput().newSubmit(_txt);
     }
+
+    public IntBeanChgSubmit button(String _txt, boolean _enabled) {
+        return getGenInput().newSubmit(_txt,_enabled);
+    }
     public IntBeanGeneInput getGenInput() {
         return genInput;
     }
