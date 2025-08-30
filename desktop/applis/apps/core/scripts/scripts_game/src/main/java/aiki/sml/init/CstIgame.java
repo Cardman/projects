@@ -1948,7 +1948,6 @@ protected static final String I_VOSTOURNO = "VOSTOURNO";
 protected static final String I_VULNE_ASSURANCE = "VULNE_ASSURANCE";
 protected static final String I_WAILMER = "WAILMER";
 protected static final String I_WAILORD = "WAILORD";
-protected static final String I_WATER = "WATER";
 protected static final String I_WATTOUAT = "WATTOUAT";
 protected static final String I_XATU = "XATU";
 protected static final String I_XERNEAS = "XERNEAS";

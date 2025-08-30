@@ -46,7 +46,6 @@ m2017effectPartnerStatus_.setWeddingAlly(true);
 m2017effectPartnerStatus_.setRestoredHpRateLovedAlly(Rate.newRate(R_1_2));
 m2017custListEffectPartnerStatus_.add(m2017effectPartnerStatus_);
 m2017statusBeginRoundSimple_.setEffectsPartner(m2017custListEffectPartnerStatus_);
-m2017statusBeginRoundSimple_.setFail(ES);
 return m2017statusBeginRoundSimple_;
 }
 static Status m1(){
@@ -57,10 +56,8 @@ CustList<EffectEndRoundStatus> m2018custListEffectEndRoundStatus_ = new CustList
 EffectEndRoundSingleStatus m2018effectEndRoundSingleStatus_=Instances.newEffectEndRoundSingleStatus();
 m2018effectEndRoundSingleStatus_.setIncrementingDamageByRounds(false);
 m2018effectEndRoundSingleStatus_.setInflictedRateHpTarget(Rate.newRate(R_1_8));
-m2018effectEndRoundSingleStatus_.setFailEndRound(ES);
 m2018effectEndRoundSingleStatus_.setEndRoundRank(55);
 m2018effectEndRoundSingleStatus_.setTargetChoice(TargetChoice.NOTHING);
-m2018effectEndRoundSingleStatus_.setFail(ES);
 m2018custListEffectEndRoundStatus_.add(m2018effectEndRoundSingleStatus_);
 m2018statusSimple_.setEffectEndRound(m2018custListEffectEndRoundStatus_);
 IdMap<Statistic,Rate> m2018enumMapStatisticRate_=new IdMap<Statistic,Rate>(new CollCapacity(1));
@@ -75,7 +72,6 @@ m2019statusSimple_.setStatusType(StatusType.RELATION_UNIQUE);
 m2019statusSimple_.setCatchingRate(Rate.newRate(R_3_2));
 CustList<EffectEndRoundStatus> m2019custListEffectEndRoundStatus_ = new CustList<EffectEndRoundStatus>(new CollCapacity(1));
 EffectEndRoundStatusRelation m2019effectEndRoundStatusRelation_=Instances.newEffectEndRoundStatusRelation();
-m2019effectEndRoundStatusRelation_.setThievedHpRateTargetToUser(Rate.newRate(R_0));
 m2019effectEndRoundStatusRelation_.setInflictedRateHpTarget(Rate.newRate(R_1_4));
 m2019effectEndRoundStatusRelation_.setFailEndRound(A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+I_SOMMEIL+OS+I_SOMMEIL_REPOS+RB+RP+RP+OE+R_0);
 m2019effectEndRoundStatusRelation_.setEndRoundRank(58);
@@ -83,7 +79,6 @@ m2019effectEndRoundStatusRelation_.setTargetChoice(TargetChoice.NOTHING);
 m2019effectEndRoundStatusRelation_.setFail(A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+I_SOMMEIL+OS+I_SOMMEIL_REPOS+RB+RP+RP+OE+R_0);
 m2019custListEffectEndRoundStatus_.add(m2019effectEndRoundStatusRelation_);
 m2019statusSimple_.setEffectEndRound(m2019custListEffectEndRoundStatus_);
-m2019statusSimple_.setFail(ES);
 return m2019statusSimple_;
 }
 static Status m3(){
@@ -98,7 +93,6 @@ m2020statusBeginRoundAutoDamage_.setLawForUsingAMove(m2020monteCarloBoolean_);
 m2020statusBeginRoundAutoDamage_.setStatusType(StatusType.INDIVIDUEL);
 m2020statusBeginRoundAutoDamage_.setCatchingRate(Rate.newRate(R_3));
 m2020statusBeginRoundAutoDamage_.setDisabledEffIfSwitch(true);
-m2020statusBeginRoundAutoDamage_.setFail(ES);
 return m2020statusBeginRoundAutoDamage_;
 }
 static Status m4(){
@@ -121,15 +115,11 @@ m2022statusSimple_.setStatusType(StatusType.RELATION_UNIQUE);
 m2022statusSimple_.setCatchingRate(Rate.newRate(R_3_2));
 CustList<EffectEndRoundStatus> m2022custListEffectEndRoundStatus_ = new CustList<EffectEndRoundStatus>(new CollCapacity(1));
 EffectEndRoundStatusRelation m2022effectEndRoundStatusRelation_=Instances.newEffectEndRoundStatusRelation();
-m2022effectEndRoundStatusRelation_.setThievedHpRateTargetToUser(Rate.newRate(R_0));
 m2022effectEndRoundStatusRelation_.setInflictedRateHpTarget(Rate.newRate(R_1_8));
-m2022effectEndRoundStatusRelation_.setFailEndRound(ES);
 m2022effectEndRoundStatusRelation_.setEndRoundRank(57);
 m2022effectEndRoundStatusRelation_.setTargetChoice(TargetChoice.NOTHING);
-m2022effectEndRoundStatusRelation_.setFail(ES);
 m2022custListEffectEndRoundStatus_.add(m2022effectEndRoundStatusRelation_);
 m2022statusSimple_.setEffectEndRound(m2022custListEffectEndRoundStatus_);
-m2022statusSimple_.setFail(ES);
 return m2022statusSimple_;
 }
 static Status m6(){
@@ -143,7 +133,6 @@ m2023statusBeginRoundSimple_.setCatchingRate(Rate.newRate(R_2));
 IdMap<Statistic,Rate> m2023enumMapStatisticRate_=new IdMap<Statistic,Rate>(new CollCapacity(1));
 m2023enumMapStatisticRate_.addEntry(Statistic.SPEED,Rate.newRate(R_1_4));
 m2023statusBeginRoundSimple_.setMultStat(m2023enumMapStatisticRate_);
-m2023statusBeginRoundSimple_.setFail(ES);
 return m2023statusBeginRoundSimple_;
 }
 static Status m7(){
@@ -156,7 +145,6 @@ m2024statusBeginRoundSimple_.setCatchingRate(Rate.newRate(R_5_4));
 m2024statusBeginRoundSimple_.setDisabledEffIfSwitch(true);
 m2024statusBeginRoundSimple_.setIncrementEndRound(63);
 m2024statusBeginRoundSimple_.setIncrementingEndRound(true);
-m2024statusBeginRoundSimple_.setFail(ES);
 return m2024statusBeginRoundSimple_;
 }
 static Status m8(){
@@ -167,10 +155,8 @@ CustList<EffectEndRoundStatus> m2025custListEffectEndRoundStatus_ = new CustList
 EffectEndRoundSingleStatus m2025effectEndRoundSingleStatus_=Instances.newEffectEndRoundSingleStatus();
 m2025effectEndRoundSingleStatus_.setIncrementingDamageByRounds(true);
 m2025effectEndRoundSingleStatus_.setInflictedRateHpTarget(Rate.newRate(R_1_4));
-m2025effectEndRoundSingleStatus_.setFailEndRound(ES);
 m2025effectEndRoundSingleStatus_.setEndRoundRank(56);
 m2025effectEndRoundSingleStatus_.setTargetChoice(TargetChoice.NOTHING);
-m2025effectEndRoundSingleStatus_.setFail(ES);
 m2025custListEffectEndRoundStatus_.add(m2025effectEndRoundSingleStatus_);
 m2025statusSimple_.setEffectEndRound(m2025custListEffectEndRoundStatus_);
 m2025statusSimple_.setFail(V_FIGHTER_CLONE+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_TYPES+RB+OC+LB+I_POISON+OS+I_ACIER+RB+RP+RP+GT+R_0);
@@ -184,10 +170,8 @@ CustList<EffectEndRoundStatus> m2026custListEffectEndRoundStatus_ = new CustList
 EffectEndRoundSingleStatus m2026effectEndRoundSingleStatus_=Instances.newEffectEndRoundSingleStatus();
 m2026effectEndRoundSingleStatus_.setIncrementingDamageByRounds(false);
 m2026effectEndRoundSingleStatus_.setInflictedRateHpTarget(Rate.newRate(R_1_8));
-m2026effectEndRoundSingleStatus_.setFailEndRound(ES);
 m2026effectEndRoundSingleStatus_.setEndRoundRank(54);
 m2026effectEndRoundSingleStatus_.setTargetChoice(TargetChoice.NOTHING);
-m2026effectEndRoundSingleStatus_.setFail(ES);
 m2026custListEffectEndRoundStatus_.add(m2026effectEndRoundSingleStatus_);
 m2026statusSimple_.setEffectEndRound(m2026custListEffectEndRoundStatus_);
 m2026statusSimple_.setFail(V_FIGHTER_CLONE+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_TYPES+RB+OC+LB+I_POISON+OS+I_ACIER+RB+RP+RP+GT+R_0);
@@ -200,7 +184,6 @@ m2027monteCarloBoolean_.addQuickEvent(BoolVal.FALSE,LgInt.newLgInt(R_1));
 m2027statusBeginRoundSimple_.setLawForUsingAMove(m2027monteCarloBoolean_);
 m2027statusBeginRoundSimple_.setStatusType(StatusType.INDIVIDUEL);
 m2027statusBeginRoundSimple_.setCatchingRate(Rate.newRate(R_5_2));
-m2027statusBeginRoundSimple_.setFail(ES);
 return m2027statusBeginRoundSimple_;
 }
 static Status m11(){
@@ -210,7 +193,6 @@ m2028monteCarloBoolean_.addQuickEvent(BoolVal.FALSE,LgInt.newLgInt(R_1));
 m2028statusBeginRoundSimple_.setLawForUsingAMove(m2028monteCarloBoolean_);
 m2028statusBeginRoundSimple_.setStatusType(StatusType.INDIVIDUEL);
 m2028statusBeginRoundSimple_.setCatchingRate(Rate.newRate(R_5_2));
-m2028statusBeginRoundSimple_.setFail(ES);
 return m2028statusBeginRoundSimple_;
 }
 static Status m12(){
@@ -220,11 +202,9 @@ m2029statusSimple_.setCatchingRate(Rate.newRate(R_3_2));
 CustList<EffectEndRoundStatus> m2029custListEffectEndRoundStatus_ = new CustList<EffectEndRoundStatus>(new CollCapacity(1));
 EffectEndRoundStatusRelation m2029effectEndRoundStatusRelation_=Instances.newEffectEndRoundStatusRelation();
 m2029effectEndRoundStatusRelation_.setThievedHpRateTargetToUser(Rate.newRate(R_1_8));
-m2029effectEndRoundStatusRelation_.setInflictedRateHpTarget(Rate.newRate(R_0));
 m2029effectEndRoundStatusRelation_.setFailEndRound(V_CIBLE_CLONE+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_TYPES+RB+OC+LB+I_PLANTE+RB+RP+RP+GT+R_0);
 m2029effectEndRoundStatusRelation_.setEndRoundRank(38);
 m2029effectEndRoundStatusRelation_.setTargetChoice(TargetChoice.NOTHING);
-m2029effectEndRoundStatusRelation_.setFail(ES);
 m2029custListEffectEndRoundStatus_.add(m2029effectEndRoundStatusRelation_);
 m2029statusSimple_.setEffectEndRound(m2029custListEffectEndRoundStatus_);
 m2029statusSimple_.setFail(V_FIGHTER_CLONE+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_FIGHTER_TYPES+RB+OC+LB+I_PLANTE+RB+RP+RP+GT+R_0);
