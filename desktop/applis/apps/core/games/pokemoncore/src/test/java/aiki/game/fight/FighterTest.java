@@ -718,9 +718,14 @@ public class FighterTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
         assertTrue(!activity_.isIncrementCount());
-        assertEq(1, fighter_.getEnabledMovesConstChoices().size());
+        assertEq(2, fighter_.getEnabledMovesConstChoices().size());
         assertTrue(fighter_.getEnabledMovesConstChoices().contains(ROULADE));
         activity_ = fighter_.getEnabledMovesConstChoices().getVal(ROULADE);
+        assertEq(0, activity_.getNbTurn());
+        assertTrue(!activity_.isEnabled());
+        assertTrue(activity_.isIncrementCount());
+        assertTrue(fighter_.getEnabledMovesConstChoices().contains(BROUHAHA_2));
+        activity_ = fighter_.getEnabledMovesConstChoices().getVal(BROUHAHA_2);
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
         assertTrue(activity_.isIncrementCount());

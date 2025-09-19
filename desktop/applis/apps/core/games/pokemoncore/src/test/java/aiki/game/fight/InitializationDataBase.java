@@ -221,6 +221,7 @@ public class InitializationDataBase extends EquallablePkUtil {
     protected static final String BAIN_DE_SMOG = InitializationMoves.BAIN_DE_SMOG;
     protected static final String PLONGEE = InitializationMoves.PLONGEE;
     protected static final String BROUHAHA = InitializationMoves.BROUHAHA;
+    protected static final String BROUHAHA_2 = InitializationMoves.BROUHAHA_2;
     protected static final String ECHANGE_BIS = InitializationMoves.ECHANGE_BIS;
     protected static final String DETEINTE = InitializationMoves.DETEINTE;
     protected static final String AIDE = InitializationMoves.AIDE;

@@ -2895,6 +2895,45 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     @Test
+    public void processEffectTargets30Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(BROUHAHA_2,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(SEISME,10L);
+        Fight fight_ = processEffectTargets5(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, ABRI));
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
+        Fighter fighter_ = fight_.getFighter(thrower_);
+        fighter_.setCurrentAbility(NULL_REF);
+        fighter_.backUpObject(NULL_REF);
+        fighter_.setFirstChosenMoveTarget(BROUHAHA_2, tc(KEY_FOE, POKEMON_TARGET_ZERO));
+        fighter_.activerAttaqueBlocantLanceur(BROUHAHA_2);
+        fighter_.getEnabledMovesConstChoices().getVal(BROUHAHA_2).setNbTurn(1);
+        fight_.getEnabledMoves().getVal(BROUHAHA_2).setEnabled(true);
+        fight_.getEnabledMoves().getVal(BROUHAHA_2).setNbTurn(1);
+        fighter_.setRemainedHp(Rate.one());
+        fighter_ = fight_.getFighter(target_);
+        fighter_.setFirstChosenMove(ABRI);
+        FightRound.initRound(fight_);
+        fighter_.successUsingMove();
+        processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
+        assertEq(1, fight_.getTemp().getSuccessfulEffects().size());
+        assertSame(BoolVal.FALSE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        fighter_ = fight_.getFighter(thrower_);
+        assertFalse(fighter_.isSuccessfulMove());
+        assertEq(10, fighter_.powerPointsMove(BROUHAHA_2));
+        processEffectTargets(fight_, thrower_, thrower_, false, IndexConstants.SECOND_INDEX, Ints.newList(0), diff_, data_);
+        assertFalse(fight_.getEnabledMoves().getVal(BROUHAHA_2).isEnabled());
+        assertEq(0,fight_.getEnabledMoves().getVal(BROUHAHA_2).getNbTurn());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+    }
+
+    @Test
     public void processEffectTargets1SimulationTest() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
@@ -3354,7 +3393,42 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPEED));
     }
-
+    @Test
+    public void endRoundThrower12Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(FORCE_NATURE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(ROULADE,10L);
+        Fight fight_ = processEffectTargets7(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(JACKPOT, PAR_ICI, COPIE));
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ONE);
+        Fighter fighter_ = fight_.getFighter(thrower_);
+        fighter_.setCurrentAbility(TURBO);
+        fighter_.backUpObject(BAIE_MICLE);
+        String move_ = ROULADE;
+        fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ONE));
+        fighter_.activerAttaqueBlocantLanceur(move_);
+        fighter_.getEnabledMovesConstChoices().getVal(move_).setNbTurn(1);
+        fighter_ = fight_.getFighter(target_);
+        fighter_.setFirstChosenMove(ABRI);
+        FightRound.initRound(fight_);
+        fighter_.successUsingMove();
+        processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
+        FightRound.endRoundThrower(fight_, thrower_, move_, false, data_);
+        fighter_ =fight_.getFighter(thrower_);
+        assertFalse(fighter_.getEnabledMovesConstChoices().getVal(move_).isEnabled());
+        assertEq(0,fighter_.getEnabledMovesConstChoices().getVal(move_).getNbTurn());
+        StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
+        assertEq(0, successfulMoves_.size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertEq(LgInt.zero(), fighter_.getNbRepeatingSuccessfulMoves());
+        assertTrue(!fighter_.isNeedingToRecharge());
+        assertEq(10, fighter_.powerPointsMove(move_));
+    }
     @Test
     public void roundThrowerMove1Test() {
         DataBase data_ = initDb();

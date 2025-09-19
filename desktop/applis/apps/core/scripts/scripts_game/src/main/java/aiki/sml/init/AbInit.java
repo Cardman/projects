@@ -1012,11 +1012,8 @@ return m75abilityData_;
 static AbilityData m72(){
 AbilityData m76abilityData_ = Instances.newAbilityData();
 StringList m76stringList_=new StringList(new CollCapacity(5));
-m76stringList_.add(I_IMPLORE);
-m76stringList_.add(I_LARCIN);
 m76stringList_.add(I_TOURMAGIK);
 m76stringList_.add(I_PASSE_PASSE);
-m76stringList_.add(I_SABOTAGE);
 m76abilityData_.setImmuMove(m76stringList_);
 return m76abilityData_;
 }

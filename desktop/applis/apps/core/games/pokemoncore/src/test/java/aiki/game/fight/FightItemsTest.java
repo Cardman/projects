@@ -67,7 +67,8 @@ public class FightItemsTest extends InitializationDataBase {
     public void canUseObjectIfPossible1Test() {
         DataBase data_ = initDb();
         Fight fight_ = canUseObjectIfPossible(data_);
-        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_));
+        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,true));
     }
 
     @Test
@@ -75,12 +76,14 @@ public class FightItemsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = canUseObjectIfPossible(data_);
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).activerAttaque(EMBARGO);
-        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_));
-        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,true));
+        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,true));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).activerAttaque(PROVOC);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).activerAttaque(PROVOC);
-        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_));
-        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,false));
     }
 
     @Test
@@ -88,11 +91,15 @@ public class FightItemsTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = canUseObjectIfPossible(data_);
         fight_.enableGlobalMove(ZONE_MAGIQUE);
-        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_));
-        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,true));
+        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,true));
         fight_.enableGlobalMove(ZONE_ETRANGE);
-        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_));
-        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,true));
+        assertTrue(!FightItems.canUseObjectIfPossible(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,true));
     }
 
     @Test
@@ -101,7 +108,8 @@ public class FightItemsTest extends InitializationDataBase {
         Fight fight_ = canUseObjectIfPossible(data_);
         fight_.enableGlobalMove(BROUHAHA);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).activerAttaque(CYCLE_V);
-        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_));
+        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(FightItems.canUseObjectIfPossible(fight_,tp(KEY_FOE, POKEMON_FIGHTER_ZERO), data_,true));
     }
 
     @Test
@@ -248,13 +256,17 @@ public class FightItemsTest extends InitializationDataBase {
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setCurrentAbility(ATTENTION);
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).setCurrentAbility(TENSION);
-        assertTrue(FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertTrue(FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,true));
         fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).setCurrentAbility(TENSION);
-        assertTrue(!FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertTrue(!FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(!FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,true));
         fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).setCurrentAbility(TERA_VOLTAGE);
-        assertTrue(FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertTrue(FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,true));
         fight_.enableGlobalMove(ZONE_MAGIQUE);
-        assertTrue(!FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_));
+        assertTrue(!FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,false));
+        assertTrue(!FightItems.canUseBerry(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO), data_,true));
     }
 
     @Test

@@ -264,7 +264,8 @@ public class FightInvokeTest extends InitializationDataBase {
         MoveData move_ = data_.getMove(METRONOME);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
         StringList list_ = invokableMoves(fight_, eff_, data_);
-        assertEq(252, list_.size());
+        assertEq(253, list_.size());
+        assertTrue(StringUtil.contains(list_, BROUHAHA_2));
         assertTrue(StringUtil.contains(list_, ABIME));
         assertTrue(StringUtil.contains(list_, ACUPRESSION));
         assertTrue(StringUtil.contains(list_, ADAPTATION));
@@ -672,7 +673,7 @@ public class FightInvokeTest extends InitializationDataBase {
         TeamPositionList list_ = FightOrder.targetsEffect(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),effet_,diff_,data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)));
-        assertEq(253, invokableMoves(fight_, effet_, data_).size());
+        assertEq(254, invokableMoves(fight_, effet_, data_).size());
         assertTrue(FightSuccess.successfulMove(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),tp(KEY_FOE, POKEMON_FIGHTER_ZERO),METRONOME, IndexConstants.FIRST_INDEX,true,data_).isSuccessful());
         FightInvoke.effectInvoke(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),tp(KEY_FOE, POKEMON_FIGHTER_ZERO), effet_, data_);
         StringList invokedMoves_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_ZERO).getAlreadyInvokedMovesRound();

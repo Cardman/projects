@@ -97,7 +97,7 @@ m874effectDamage_.setUserAttack(true);
 m874effectDamage_.setStatisAtt(Statistic.ATTACK);
 m874effectDamage_.setTargetDefense(true);
 m874effectDamage_.setStatisDef(Statistic.DEFENSE);
-m874effectDamage_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m874effectDamage_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 m874custListEffect_.add(m874effectDamage_);
 m874damagingMoveData_.setEffects(m874custListEffect_);
 MonteCarloNumber m874monteCarloNumber_=new MonteCarloNumber(new CollCapacity(1));
@@ -106,7 +106,7 @@ m874damagingMoveData_.setRepeatRoundLaw(m874monteCarloNumber_);
 m874damagingMoveData_.setRankIncrementNbRound(18);
 m874damagingMoveData_.setConstUserChoice(true);
 m874damagingMoveData_.setStoppableMoveSolo(true);
-m874damagingMoveData_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m874damagingMoveData_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 return m874damagingMoveData_;
 }
 static MoveData m53(){

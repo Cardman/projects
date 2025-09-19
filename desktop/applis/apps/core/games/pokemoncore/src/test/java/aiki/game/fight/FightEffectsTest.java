@@ -4975,6 +4975,21 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     @Test
+    public void effectGlobal11Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        Fight fight_ = effectDamageRate(diff_, data_);
+        fight_.getEnabledMoves().getVal(BROUHAHA_2).setEnabled(true);
+        fight_.getEnabledMoves().getVal(BROUHAHA_2).setNbTurn(1);
+        EffectGlobal eff_ = (EffectGlobal) data_.getMove(BROUHAHA_2).getEffects().last();
+        FightEffects.effectGlobal(fight_, eff_, BROUHAHA_2, data_);
+        assertEq(1, fight_.getEnabledMoves().getVal(BROUHAHA_2).getNbTurn());
+        assertTrue(fight_.getEnabledMoves().getVal(BROUHAHA_2).isEnabled());
+    }
+
+    @Test
     public void effectMultiplyUsedMovePower1Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();

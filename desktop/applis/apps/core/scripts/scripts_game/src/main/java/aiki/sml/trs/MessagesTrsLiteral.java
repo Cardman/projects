@@ -90,6 +90,7 @@ e.add(MessagesDataBaseConstants.DEF_LANCEUR_DEGATS_RECUS_TOUR,DataBase.CAT_FORMU
 e.add(MessagesDataBaseConstants.DEF_LANCEUR_MASSE,DataBase.MOVE_FORMULA+"\tusr_weight\tWeight of the user");
 e.add(MessagesDataBaseConstants.DEF_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT,DataBase.TYPE_FORMULA+"\teff_base_sent_fighter__{0}\tRate of efficiency of the type {0} against the types of the sent fighter");
 e.add(MessagesDataBaseConstants.DEF_LANCEUR_NOM,DataBase.MOVE_FORMULA+"\tuser_name\tName of the user");
+e.add(MessagesDataBaseConstants.DEF_CIBLE_NOM,DataBase.MOVE_FORMULA+"\ttarget_name\tName of the target");
 e.add(MessagesDataBaseConstants.DEF_PK_UT_GENRE,DataBase.ITEM_FORMULA+"\tpk_player_gr\tGender of the pokemon of the player");
 e.add(MessagesDataBaseConstants.DEF_FIGHTER_NB_UTILISATION,DataBase.MOVE_FORMULA+"\tcbt_nb_uses__{0}\tNumber of uses of the move {0} of the fighter");
 e.add(MessagesDataBaseConstants.DEF_NB_TOUR,DataBase.MOVE_FORMULA+"\tnb_rd__{0}\tnumber of round of the move {0}");
@@ -208,7 +209,8 @@ f.add(MessagesDataBaseConstants.DEF_CIBLE_DISPARAIT,DataBase.MOVE_FORMULA+"\tcib
 f.add(MessagesDataBaseConstants.DEF_LANCEUR_DEGATS_RECUS_TOUR,DataBase.CAT_FORMULA+"\tlanc_deg_rec_tr__{0}\tDégâts subis par le lanceur par des attaques de catégorie {0}.");
 f.add(MessagesDataBaseConstants.DEF_LANCEUR_MASSE,DataBase.MOVE_FORMULA+"\tlanc_masse\tMasse du lanceur");
 f.add(MessagesDataBaseConstants.DEF_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT,DataBase.TYPE_FORMULA+"\teff_base_cbt_envoye__{0}\tCoefficient d''efficacité du type {0} sur les types du combattant entrant");
-f.add(MessagesDataBaseConstants.DEF_LANCEUR_NOM,DataBase.MOVE_FORMULA+"\tcbt_nom\tNom du lanceur");
+f.add(MessagesDataBaseConstants.DEF_LANCEUR_NOM,DataBase.MOVE_FORMULA+"\tlanc_nom\tNom du lanceur");
+f.add(MessagesDataBaseConstants.DEF_CIBLE_NOM,DataBase.MOVE_FORMULA+"\tcible_nom\tNom de la cible");
 f.add(MessagesDataBaseConstants.DEF_PK_UT_GENRE,DataBase.ITEM_FORMULA+"\tpk_ut_gr\tGenre du pokemon du joueur");
 f.add(MessagesDataBaseConstants.DEF_FIGHTER_NB_UTILISATION,DataBase.MOVE_FORMULA+"\tcbt_nb_ut__{0}\tNombre d''utilisation de l''attaque {0} du combattant");
 f.add(MessagesDataBaseConstants.DEF_NB_TOUR,DataBase.MOVE_FORMULA+"\tnb_tr__{0}\tnombre de tour de l''attaque {0}");

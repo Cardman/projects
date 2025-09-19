@@ -439,6 +439,7 @@ final class FightEffects {
             storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.CST_PLAYER);
         } else {
             String objetCible_=creatureCible_.getItem();
+            creatureCible_.setLastUsedItem(DataBase.EMPTY_STRING);
             creatureCible_.backUpObject(DataBase.EMPTY_STRING);
             _fight.addSwitchItemsMessage(_cible, objetCible_, DataBase.EMPTY_STRING, _import);
             storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.CST_PLAYER);
@@ -456,7 +457,7 @@ final class FightEffects {
 
     private static boolean effectSwitchObjectsUseObjectAsPossible(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, DataBase _import, Fighter _creatureCible) {
         boolean storeTargetObject_ = false;
-        if (FightItems.canUseBerry(_fight, _lanceur, _import)) {
+        if (FightItems.canUseBerry(_fight, _lanceur, _import, true)) {
             Item objet_ = _creatureCible.ficheObjet(_import);
             if (objet_ instanceof Berry) {
                 FightItems.enableBerry(_fight, _lanceur, _creatureCible.getItem(), _import, (Berry) objet_);
@@ -474,6 +475,7 @@ final class FightEffects {
             Item objet_= _creatureCible.ficheObjet(_import);
             if(objet_ instanceof Berry){
                 storeTargetObject_ = NumberUtil.eq(_cible.getTeam(), Fight.CST_PLAYER);
+                _creatureCible.setLastUsedItem(DataBase.EMPTY_STRING);
                 _creatureCible.backUpObject(DataBase.EMPTY_STRING);
                 _fight.addSwitchItemsMessage(_cible, objetCible_, DataBase.EMPTY_STRING, _import);
             }
@@ -2138,23 +2140,14 @@ final class FightEffects {
     }
 
     static void effectGlobal(Fight _fight, EffectGlobal _effet,String _nomAttaque,DataBase _import){
-        if(_effet.getCanceledIfUsed()){
-            _fight.getEnabledMoves().getVal(_nomAttaque).setEnabled(!_fight.getEnabledMoves().getVal(_nomAttaque).isEnabled());
-            if(!_fight.getEnabledMoves().getVal(_nomAttaque).isEnabled()){
-                _fight.getEnabledMoves().getVal(_nomAttaque).reset();
-                _fight.addDisabledWeatherMessage(_nomAttaque, _import);
-            }
-        }else{
-            _fight.getEnabledMoves().getVal(_nomAttaque).enableReset();
-            _fight.addEnabledWeatherMessage(_nomAttaque, _import);
+        if (!StringUtil.contains(_import.getMovesConstChoices(),_nomAttaque)) {
+            effectGlobalChgtCount(_fight, _effet, _nomAttaque, _import);
         }
         if(!_fight.getEnabledMoves().getVal(_nomAttaque).isEnabled()){
             return;
         }
         for(String e:_effet.getCancelEffects()){
-            _fight.getEnabledMoves().getVal(e).disable();
-            _fight.getEnabledMoves().getVal(e).reset();
-            _fight.addDisabledWeatherMessage(e, _import);
+            cancelEffect(_fight, _import, e);
             if (_fight.getStillEnabledMoves().contains(e)) {
                 _fight.getStillEnabledMoves().put(e, BoolVal.FALSE);
             }
@@ -2177,6 +2170,25 @@ final class FightEffects {
         for(TeamPosition c:FightOrder.frontFighters(_fight)){
             Fighter creature_ = _fight.getFighter(c);
             StringUtil.removeAllElements(creature_.getProtectedAgainstMoveTypes(), _effet.getDisableImmuAgainstTypes());
+        }
+    }
+
+    static void cancelEffect(Fight _fight, DataBase _import, String _e) {
+        _fight.getEnabledMoves().getVal(_e).disable();
+        _fight.getEnabledMoves().getVal(_e).reset();
+        _fight.addDisabledWeatherMessage(_e, _import);
+    }
+
+    private static void effectGlobalChgtCount(Fight _fight, EffectGlobal _effet, String _nomAttaque, DataBase _import) {
+        if(_effet.getCanceledIfUsed()){
+            _fight.getEnabledMoves().getVal(_nomAttaque).setEnabled(!_fight.getEnabledMoves().getVal(_nomAttaque).isEnabled());
+            if(!_fight.getEnabledMoves().getVal(_nomAttaque).isEnabled()){
+                _fight.getEnabledMoves().getVal(_nomAttaque).reset();
+                _fight.addDisabledWeatherMessage(_nomAttaque, _import);
+            }
+        }else{
+            _fight.getEnabledMoves().getVal(_nomAttaque).enableReset();
+            _fight.addEnabledWeatherMessage(_nomAttaque, _import);
         }
     }
 

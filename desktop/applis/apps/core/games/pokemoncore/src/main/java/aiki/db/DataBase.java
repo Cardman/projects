@@ -172,6 +172,7 @@ public final class DataBase {
     public static final String DEF_TARGET_PSEUDO_GLOBALE="9";
     public static final String DEF_TARGET_TOUS_ADV="10";
     public static final String DEF_TARGET_UNIQUE_IMPORTE="11";
+    public static final String DEF_TARGET_ADV_IMPORTE="13";
     public static final String DEF_TARGET_NOTHING="12";
 
     public static final String DEF_SEX_GIRL= "0";

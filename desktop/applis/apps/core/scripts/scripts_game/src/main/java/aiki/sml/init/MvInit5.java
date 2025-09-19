@@ -786,7 +786,7 @@ m1111monteCarloString_.addQuickEvent(ES,LgInt.newLgInt(R_9));
 m1111monteCarloString_.addQuickEvent(I_PARALYSIE,LgInt.newLgInt(R_1));
 m1111effectStatus_.setLawStatus(m1111monteCarloString_);
 StringMap<String> m1111stringMapString_=new StringMap<String>(new CollCapacity(1));
-m1111stringMapString_.addEntry(I_PARALYSIE,A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+I_PARALYSIE+RB+RP+RP+GT+R_0+OO+V_CIBLE_CLONE+GT+R_0);
+m1111stringMapString_.addEntry(I_PARALYSIE,A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_STATUTS+RB+OC+LB+I_PARALYSIE+RB+RP+RP+GT+R_0+OO+V_CIBLE_CLONE+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_TYPES+RB+OC+LB+I_ELECTRIQUE+RB+RP+RP+GT+R_0);
 m1111effectStatus_.setLocalFailStatus(m1111stringMapString_);
 m1111effectStatus_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 Ints m1111ints_=new Ints(new CollCapacity(1));

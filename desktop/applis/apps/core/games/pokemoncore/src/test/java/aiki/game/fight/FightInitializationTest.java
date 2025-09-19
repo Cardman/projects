@@ -883,7 +883,8 @@ public class FightInitializationTest extends InitializationDataBase {
         FightInitialization.initFight(fight_, player_, diff_, pokemon_, data_);
         FightInitialization.initPositionsForUserTeam(fight_);
         FightInitialization.initGlobalMoves(fight_,data_);
-        assertEq(12, fight_.getEnabledMoves().size());
+        assertEq(13, fight_.getEnabledMoves().size());
+        assertTrue(fight_.getEnabledMoves().contains(BROUHAHA_2));
         assertTrue(fight_.getEnabledMoves().contains(REQUIEM));
         assertTrue(fight_.getEnabledMoves().contains(ORAGE));
         assertTrue(fight_.getEnabledMoves().contains(ORAGE_BIS));

@@ -145,6 +145,7 @@ final class InitializationPokedex extends EquallablePkUtil {
     private static final String JACKPOT = InitializationMoves.JACKPOT;
     private static final String PLONGEE = InitializationMoves.PLONGEE;
     private static final String BROUHAHA = InitializationMoves.BROUHAHA;
+    private static final String BROUHAHA_2 = InitializationMoves.BROUHAHA_2;
     private static final String REBOND = InitializationMoves.REBOND;
     private static final String DEMI_TOUR = InitializationMoves.DEMI_TOUR;
     private static final String COUD_BOUE = InitializationMoves.COUD_BOUE;

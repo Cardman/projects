@@ -126,11 +126,12 @@ m794effectDamage_.setUserAttack(true);
 m794effectDamage_.setStatisAtt(Statistic.ATTACK);
 m794effectDamage_.setTargetDefense(true);
 m794effectDamage_.setStatisDef(Statistic.DEFENSE);
-m794effectDamage_.setTargetChoice(TargetChoice.ADJ_MULT);
+m794effectDamage_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 m794custListEffect_.add(m794effectDamage_);
 EffectSwitchItems m794effectSwitchItems_=Instances.newEffectSwitchItems();
 m794effectSwitchItems_.setMoveObject(MoveItemType.USE_OBJECT_AS_POSSIBLE);
-m794effectSwitchItems_.setTargetChoice(TargetChoice.ADJ_MULT);
+m794effectSwitchItems_.setTargetChoice(TargetChoice.ADJ_UNIQ);
+m794effectSwitchItems_.setFail(LB+V_CIBLE_CAPACITE+RB+OE+LB+I_GLUE+RB+OO+V_CIBLE_CLONE+GT+R_0);
 Ints m794ints_=new Ints(new CollCapacity(1));
 m794ints_.add(0);
 m794effectSwitchItems_.setRequiredSuccessfulEffects(m794ints_);
@@ -138,7 +139,7 @@ m794custListEffect_.add(m794effectSwitchItems_);
 m794damagingMoveData_.setEffects(m794custListEffect_);
 m794damagingMoveData_.setStoppableMoveSolo(true);
 m794damagingMoveData_.setStoppableMoveMulti(true);
-m794damagingMoveData_.setTargetChoice(TargetChoice.ADJ_MULT);
+m794damagingMoveData_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 return m794damagingMoveData_;
 }
 static MoveData m429(){
@@ -787,28 +788,28 @@ m814statusMoveData_.setStoppableMoveMulti(true);
 m814statusMoveData_.setTargetChoice(TargetChoice.TOUS_ADV);
 return m814statusMoveData_;
 }
-static MoveData m449(){
-StatusMoveData m815statusMoveData_ = Instances.newStatusMoveData();
-m815statusMoveData_.setPp(20);
-StringList m815stringList_=new StringList(new CollCapacity(1));
-m815stringList_.add(I_INSECTE);
-m815statusMoveData_.setTypes(m815stringList_);
-m815stringList_=new StringList(new CollCapacity(1));
-m815stringList_.add(I_INSECTE);
-m815statusMoveData_.setBoostedTypes(m815stringList_);
-m815statusMoveData_.setPriority(3);
-m815statusMoveData_.setAccuracy(R_1);
-CustList<Effect> m815custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectSwitchPointView m815effectSwitchPointView_=Instances.newEffectSwitchPointView();
-m815effectSwitchPointView_.setPointViewChangement(PointViewChangementType.ATTRACT_DAMAGES_MOVES);
-m815effectSwitchPointView_.setTargetChoice(TargetChoice.LANCEUR);
-m815custListEffect_.add(m815effectSwitchPointView_);
-m815statusMoveData_.setEffects(m815custListEffect_);
-m815statusMoveData_.setStoppableMoveMulti(true);
-m815statusMoveData_.setStoppableMovePrio(true);
-m815statusMoveData_.setIgnVarAccurUserNeg(true);
-m815statusMoveData_.setIgnVarEvasTargetPos(true);
-m815statusMoveData_.setTargetChoice(TargetChoice.LANCEUR);
-return m815statusMoveData_;
-}
+//static MoveData m449(){
+//StatusMoveData m815statusMoveData_ = Instances.newStatusMoveData();
+//m815statusMoveData_.setPp(20);
+//StringList m815stringList_=new StringList(new CollCapacity(1));
+//m815stringList_.add(I_INSECTE);
+//m815statusMoveData_.setTypes(m815stringList_);
+//m815stringList_=new StringList(new CollCapacity(1));
+//m815stringList_.add(I_INSECTE);
+//m815statusMoveData_.setBoostedTypes(m815stringList_);
+//m815statusMoveData_.setPriority(3);
+//m815statusMoveData_.setAccuracy(R_1);
+//CustList<Effect> m815custListEffect_ = new CustList<Effect>(new CollCapacity(1));
+//EffectSwitchPointView m815effectSwitchPointView_=Instances.newEffectSwitchPointView();
+//m815effectSwitchPointView_.setPointViewChangement(PointViewChangementType.ATTRACT_DAMAGES_MOVES);
+//m815effectSwitchPointView_.setTargetChoice(TargetChoice.LANCEUR);
+//m815custListEffect_.add(m815effectSwitchPointView_);
+//m815statusMoveData_.setEffects(m815custListEffect_);
+//m815statusMoveData_.setStoppableMoveMulti(true);
+//m815statusMoveData_.setStoppableMovePrio(true);
+//m815statusMoveData_.setIgnVarAccurUserNeg(true);
+//m815statusMoveData_.setIgnVarEvasTargetPos(true);
+//m815statusMoveData_.setTargetChoice(TargetChoice.LANCEUR);
+//return m815statusMoveData_;
+//}
 }

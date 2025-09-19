@@ -13,10 +13,7 @@ import aiki.fight.items.Item;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectCounterAttack;
-import aiki.fight.moves.effects.EffectDamage;
-import aiki.fight.moves.effects.EffectOrder;
+import aiki.fight.moves.effects.*;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
@@ -574,6 +571,7 @@ final class FightRound {
     private static boolean exitEffectTarget(Fight _fight, TeamPosition _finalThrower,
                                             FightEffectState _status, Difficulty _diff, DataBase _import, TeamPosition _e) {
         if (!_status.getPreviousEffect().isEmpty() && !_fight.getTemp().getSuccessfulEffects().contains(new NbEffectFighterCoords(_status.getPreviousEffect().getMaximum(-1), _e))) {
+            possibleCancel(_fight, _status, _import);
             return false;
         }
         if(!NumberUtil.eq(_e.getTeam(),_finalThrower.getTeam()) && !_fight.getTemp().isChangeThrower()){
@@ -598,6 +596,12 @@ final class FightRound {
             return false;
         }
         return exitAccuracyOrDone(_fight, _finalThrower, _status, _diff, _import, _e);
+    }
+
+    private static void possibleCancel(Fight _fight, FightEffectState _status, DataBase _import) {
+        if (_status.getEffet() instanceof EffectGlobal) {
+            FightEffects.cancelEffect(_fight, _import, _status.getAttaqueLanceur());
+        }
     }
 
     private static void noDamage(Fight _fight, TeamPosition _finalThrower, FightEffectState _status, DataBase _import, TeamPosition _e) {
@@ -1181,6 +1185,8 @@ final class FightRound {
                 equipe_.getNbUsesMovesRound().put(_throwerMove,nb_);
                 _fight.addIncrTeamUsesMoveMessage(_lanceur.getTeam(), _throwerMove, _import);
             }
+        } else if (_import.getMove(_throwerMove).getConstUserChoice()){
+            creature_.desactiverAttaqueBlocantLanceur(_throwerMove);
         }
         if (creature_.estKo()) {
             return;

@@ -50,6 +50,7 @@ final class FightKo {
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
         Fighter creature_=_fight.getFighter(_combattant);
         creature_.variationLeftHp(creature_.getRemainingHp().opposNb());
+        creature_.infligerDegatsClone(creature_.getClone());
         _fight.addKoFighterMessage(_combattant, _import);
         creature_.exitFrontBattle();
         creature_.cancelActions();

@@ -124,10 +124,9 @@ CustList<Effect> m768custListEffect_ = new CustList<Effect>(new CollCapacity(1))
 EffectSwitchItems m768effectSwitchItems_=Instances.newEffectSwitchItems();
 m768effectSwitchItems_.setMoveObject(MoveItemType.GIVE_OBJECT_TARGET);
 m768effectSwitchItems_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-m768effectSwitchItems_.setFail(V_CIBLE_CLONE+GT+R_0+OO+A_CARDINAL+LP+LB+V_LANCEUR_OBJET+RB+RP+OE+R_0+OO+A_CARDINAL+LP+LB+V_CIBLE_OBJET+RB+RP+GT+R_0+OO+V_CIBLE_EFFET+SE+I_REFLET_MAGIK);
+m768effectSwitchItems_.setFail(A_CARDINAL+LP+LB+V_LANCEUR_OBJET+RB+RP+OE+R_0+OO+A_CARDINAL+LP+LB+V_CIBLE_OBJET+RB+RP+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_NOM+RB+OC+LB+I_GIRATINA+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_ORBE_PLATINE+RB+RP+RP+OE+R_1+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_NOM+RB+OC+LB+I_GENESECT+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_MODULE_AQUA+OS+I_MODULE_CHOC+OS+I_MODULE_CRYO+OS+I_MODULE_PYRO+RB+RP+RP+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_NOM+RB+OC+LB+I_ARCEUS+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_PLAQUE_CIEL+OS+I_PLAQUE_DRACO+OS+I_PLAQUE_FANTO+OS+I_PLAQUE_FER+OS+I_PLAQUE_FLAM+OS+I_PLAQUE_FEE+OS+I_PLAQUE_GLACE+OS+I_PLAQUE_HERBE+OS+I_PLAQUE_HYDRO+OS+I_PLAQUINSECT+OS+I_PLAQUESPRIT+OS+I_PLAQUE_OMBRE+OS+I_PLAQUE_POING+OS+I_PLAQUE_ROC+OS+I_PLAQUE_TERRE+OS+I_PLAQUE_TOXIC+OS+I_PLAQUE_VOLT+RB+RP+RP+GT+R_0);
 m768custListEffect_.add(m768effectSwitchItems_);
 m768statusMoveData_.setEffects(m768custListEffect_);
-m768statusMoveData_.setStoppableMoveSolo(true);
 m768statusMoveData_.setIgnVarAccurUserNeg(true);
 m768statusMoveData_.setIgnVarEvasTargetPos(true);
 m768statusMoveData_.setTargetChoice(TargetChoice.ADJ_UNIQ);
@@ -147,7 +146,7 @@ CustList<Effect> m769custListEffect_ = new CustList<Effect>(new CollCapacity(1))
 EffectSwitchItems m769effectSwitchItems_=Instances.newEffectSwitchItems();
 m769effectSwitchItems_.setMoveObject(MoveItemType.EXCHANGE_OBJECTS);
 m769effectSwitchItems_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-m769effectSwitchItems_.setFail(V_CIBLE_CLONE+GT+R_0);
+m769effectSwitchItems_.setFail(V_CIBLE_CLONE+GT+R_0+OO+A_CARDINAL+LP+LB+V_LANCEUR_OBJET+RB+RP+OP+A_CARDINAL+LP+LB+V_CIBLE_OBJET+RB+RP+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_NOM+OS+V_CIBLE_NOM+RB+OC+LB+I_GIRATINA+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_ORBE_PLATINE+RB+RP+RP+OE+R_1+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_NOM+OS+V_CIBLE_NOM+RB+OC+LB+I_GENESECT+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_MODULE_AQUA+OS+I_MODULE_CHOC+OS+I_MODULE_CRYO+OS+I_MODULE_PYRO+RB+RP+RP+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_NOM+OS+V_CIBLE_NOM+RB+OC+LB+I_ARCEUS+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_PLAQUE_CIEL+OS+I_PLAQUE_DRACO+OS+I_PLAQUE_FANTO+OS+I_PLAQUE_FER+OS+I_PLAQUE_FLAM+OS+I_PLAQUE_FEE+OS+I_PLAQUE_GLACE+OS+I_PLAQUE_HERBE+OS+I_PLAQUE_HYDRO+OS+I_PLAQUINSECT+OS+I_PLAQUESPRIT+OS+I_PLAQUE_OMBRE+OS+I_PLAQUE_POING+OS+I_PLAQUE_ROC+OS+I_PLAQUE_TERRE+OS+I_PLAQUE_TOXIC+OS+I_PLAQUE_VOLT+RB+RP+RP+GT+R_0);
 m769custListEffect_.add(m769effectSwitchItems_);
 m769statusMoveData_.setEffects(m769custListEffect_);
 m769statusMoveData_.setStoppableMoveSolo(true);
@@ -429,11 +428,12 @@ m778effectDamage_.setUserAttack(true);
 m778effectDamage_.setStatisAtt(Statistic.ATTACK);
 m778effectDamage_.setTargetDefense(true);
 m778effectDamage_.setStatisDef(Statistic.DEFENSE);
-m778effectDamage_.setTargetChoice(TargetChoice.ADJ_MULT);
+m778effectDamage_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
 m778custListEffect_.add(m778effectDamage_);
 EffectSwitchItems m778effectSwitchItems_=Instances.newEffectSwitchItems();
 m778effectSwitchItems_.setMoveObject(MoveItemType.USE_OBJECT_AS_POSSIBLE);
-m778effectSwitchItems_.setTargetChoice(TargetChoice.ADJ_MULT);
+m778effectSwitchItems_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m778effectSwitchItems_.setFail(LB+V_CIBLE_CAPACITE+RB+OE+LB+I_GLUE+RB+OO+V_CIBLE_CLONE+GT+R_0);
 Ints m778ints_=new Ints(new CollCapacity(1));
 m778ints_.add(0);
 m778effectSwitchItems_.setRequiredSuccessfulEffects(m778ints_);
@@ -441,7 +441,7 @@ m778custListEffect_.add(m778effectSwitchItems_);
 m778damagingMoveData_.setEffects(m778custListEffect_);
 m778damagingMoveData_.setStoppableMoveSolo(true);
 m778damagingMoveData_.setStoppableMoveMulti(true);
-m778damagingMoveData_.setTargetChoice(TargetChoice.ADJ_MULT);
+m778damagingMoveData_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
 return m778damagingMoveData_;
 }
 static MoveData m415(){

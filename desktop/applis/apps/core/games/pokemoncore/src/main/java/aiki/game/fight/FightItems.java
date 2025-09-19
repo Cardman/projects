@@ -30,7 +30,7 @@ final class FightItems {
         if(!creatureCbt_.possedeObjet()){
             return null;
         }
-        if (canUseObjectIfPossible(_fight,_cbt, _import)) {
+        if (canUseObjectIfPossible(_fight,_cbt, _import, false)) {
             return creatureCbt_.ficheObjet(_import);
         }
         return null;
@@ -49,13 +49,13 @@ final class FightItems {
         if(!(objet_ instanceof Berry)){
             return null;
         }
-        if (canUseBerry(_fight, _cbt, _import)) {
+        if (canUseBerry(_fight, _cbt, _import,false)) {
             return (Berry) objet_;
         }
         return null;
     }
-    static boolean canUseBerry(Fight _fight,TeamPosition _cbt,DataBase _import) {
-        if (!canUseObjectIfPossible(_fight,_cbt, _import)) {
+    static boolean canUseBerry(Fight _fight,TeamPosition _cbt,DataBase _import, boolean _exc) {
+        if (!canUseObjectIfPossible(_fight,_cbt, _import, _exc)) {
             return false;
         }
         Team equipeAdv_=_fight.getTeams().getVal(Fight.foe(_cbt.getTeam()));
@@ -80,11 +80,10 @@ final class FightItems {
         return FightAbilities.ignoreTargetAbility(_fight, _cbt, new TeamPosition(Fight.foe(_cbt.getTeam()), _c), _import);
     }
 
-    static boolean canUseObjectIfPossible(Fight _fight,TeamPosition _cbt,DataBase _import) {
-        Fighter creatureCbt_=_fight.getFighter(_cbt);
-        boolean prive_ = priveEffectRestriction(_import, creatureCbt_);
-        if(prive_){
-            return false;
+    static boolean canUseObjectIfPossible(Fight _fight,TeamPosition _cbt,DataBase _import, boolean _exc) {
+        boolean prive_ = priveEffectRestriction(_import, _fight.getFighter(_cbt));
+        if (_exc) {
+            prive_ = false;
         }
         for(String c:FightMoves.enabledGlobalMoves(_fight, _import)){
             MoveData fAttaque_=_import.getMove(c);

@@ -2,7 +2,7 @@ package aiki.beans.abilities;
 
 import aiki.beans.*;
 import aiki.beans.effects.EffectWhileSendingBean;
-import aiki.db.MessagesDataBaseConstants;
+import aiki.db.*;
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
