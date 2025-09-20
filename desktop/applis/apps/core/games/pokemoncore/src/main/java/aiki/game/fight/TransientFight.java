@@ -162,6 +162,7 @@ public final class TransientFight {
     /***/
     private CustList<AnimationInt> effects = new CustList<AnimationInt>();
 
+    private final TeamPositionList targetDam = new TeamPositionList();
     public TransientFight() {
         damage.setDamage(Rate.zero());
         damage.setDamageClone(Rate.zero());
@@ -630,5 +631,9 @@ public final class TransientFight {
 
     void setMustFront(boolean _m) {
         this.mustFront = _m;
+    }
+
+    TeamPositionList getTargetDam() {
+        return targetDam;
     }
 }

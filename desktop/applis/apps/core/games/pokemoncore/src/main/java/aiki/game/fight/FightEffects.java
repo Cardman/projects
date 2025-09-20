@@ -644,6 +644,7 @@ final class FightEffects {
     static void effectDamage(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,
             String _attaqueLanceur,
             Difficulty _diff,DataBase _import){
+        _fight.getTemp().getTargetDam().add(_cible);
         Fighter creatureCible_=_fight.getFighter(_cible);
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
         if (StringUtil.contains(_import.getMovesConstChoices(), _attaqueLanceur) && !_fight.getTemp().isInvokedMove() && !creatureLanceur_.getEnabledMovesConstChoices().getVal(_attaqueLanceur).isEnabled()) {

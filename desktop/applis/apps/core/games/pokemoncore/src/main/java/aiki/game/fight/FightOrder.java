@@ -5,10 +5,7 @@ import aiki.fight.items.Berry;
 import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectGlobal;
-import aiki.fight.moves.effects.EffectOrder;
-import aiki.fight.moves.effects.EffectSwitchPointView;
+import aiki.fight.moves.effects.*;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.actions.*;
@@ -423,9 +420,15 @@ final class FightOrder {
         return m_;
     }
     static TeamPositionList targetsEffect(Fight _fight,TeamPosition _lanceur,Effect _effet,Difficulty _diff,DataBase _import){
-        TeamPositionList ch_ = chosenTargets(_fight, _lanceur, _effet.getTargetChoice(), _diff, _import);
+        return targetsEffect(_fight, _lanceur, _effet, _diff, _import, new TeamPositionList());
+    }
+    static TeamPositionList targetsEffect(Fight _fight,TeamPosition _lanceur,Effect _effet,Difficulty _diff,DataBase _import, TeamPositionList _damage){
+        TeamPositionList ch_ = chosenTargets(_fight, _lanceur, _effet.getTargetChoice(), _diff, _import, _damage);
         TeamPositionList filter_ = new TeamPositionList();
         for (TeamPosition t: ch_) {
+            if (skipIfTKoTarget(_fight, _effet, t)) {
+                continue;
+            }
             if (notCaught(_fight, t)) {
                 filter_.add(t);
             }
@@ -433,11 +436,22 @@ final class FightOrder {
         return filter_;
     }
 
+    private static boolean skipIfTKoTarget(Fight _fight, Effect _effet, TeamPosition _t) {
+        return skipIfTKoTarget(_effet) && _fight.getFighter(_t).estKo();
+    }
+
+    private static boolean skipIfTKoTarget(Effect _effet) {
+        return !(_effet instanceof EffectSwitchItems) && !(_effet instanceof EffectWinMoney);
+    }
+
     static boolean notCaught(Fight _fight, TeamPosition _t) {
         return _t.getTeam() != Fight.CST_FOE || !_fight.getFightType().isWild() || !_fight.getCatchingBalls().isValidIndex(_t.getPosition()) || !_fight.getCatchingBalls().get(_t.getPosition()).isCaught();
     }
 
     static TeamPositionList chosenTargets(Fight _fight,TeamPosition _lanceur,TargetChoice _choice,Difficulty _diff,DataBase _import){
+        return chosenTargets(_fight, _lanceur, _choice, _diff, _import, new TeamPositionList());
+    }
+    static TeamPositionList chosenTargets(Fight _fight,TeamPosition _lanceur,TargetChoice _choice,Difficulty _diff,DataBase _import, TeamPositionList _list){
         if (_fight.getTemp().isMustFront() && _fight.getTeams().getVal(_lanceur.getTeam()).getMembers().getVal(_lanceur.getPosition()).estArriere()) {
             return new TeamPositionList();
         }
@@ -448,6 +462,9 @@ final class FightOrder {
             TeamPositionList cbts_ = new TeamPositionList();
             cbts_.add(_lanceur);
             return cbts_;
+        }
+        if (!_list.isEmpty()) {
+            return _list;
         }
         //fightersAtCurrentPlace
         if(_choice == TargetChoice.ALLIE){

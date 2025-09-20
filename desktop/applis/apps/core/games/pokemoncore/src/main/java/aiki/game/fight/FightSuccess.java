@@ -120,6 +120,10 @@ final class FightSuccess {
         if (move_.getTargetChoice() == TargetChoice.ALLIE || move_.getTargetChoice() == TargetChoice.ALLIES) {
             return false;
         }
+        Fighter creatureCbtCible_=_fight.getFighter(_cible);
+        if (creatureCbtCible_.estKo()) {
+            return false;
+        }
         StringList typeAttaque_=FightMoves.moveTypes(_fight,_lanceur,_attaque,_import);
         for (String t: typeAttaque_) {
             if(isProtectedAgainstMoveType(_fight,_lanceur,_cible,t,_import)){
@@ -137,7 +141,6 @@ final class FightSuccess {
                 return true;
             }
         }
-        Fighter creatureCbtCible_=_fight.getFighter(_cible);
         boolean cancelImmu_ = cancelImmu(_fight, _lanceur, _import);
         if (protItAlly(_fight, _lanceur, _cible, _attaque, _import, move_, creatureCbtCible_)) {
             return true;
@@ -145,14 +148,15 @@ final class FightSuccess {
         if (cancelImmu_) {
             return false;
         }
+        return proAbIt(_fight, _lanceur, _cible, _attaque, _import, creatureCbtCible_, typeAttaque_);
+    }
+
+    private static boolean proAbIt(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, String _attaque, DataBase _import, Fighter _creatureCbtCible, StringList _typeAttaque) {
         Rate coeffEff_= DataBase.defRateProduct();
-        for (String t: typeAttaque_) {
+        for (String t: _typeAttaque) {
             coeffEff_.multiplyBy(rateEffAgainstTarget(_fight,_lanceur,_cible,t,_import));
         }
-        if (proAbility(_fight, _lanceur, _cible, _attaque, _import, creatureCbtCible_, coeffEff_)) {
-            return true;
-        }
-        return proItem(_fight, _cible, _attaque, _import, creatureCbtCible_, coeffEff_);
+        return proAbility(_fight, _lanceur, _cible, _attaque, _import, _creatureCbtCible, coeffEff_) || proItem(_fight, _cible, _attaque, _import, _creatureCbtCible, coeffEff_);
     }
 
     private static boolean protItAlly(Fight _fight, TeamPosition _lanceur, TeamPosition _cible, String _attaque, DataBase _import, MoveData _move, Fighter _creatureCbtCible) {
@@ -603,6 +607,9 @@ final class FightSuccess {
             return true;
         }
         Fighter creatureCbtCible_=_fight.getFighter(_cible);
+        if (creatureCbtCible_.estKo()) {
+            return true;
+        }
         Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
         AbilityData ficheCapacite_ = FightAbilities.ignoredTargetAbility(_fight, _lanceur, _cible, _import);
         AbilityData fCapaciteLanceurLoc_=creatureCbtLanceur_.ficheCapaciteActuelle(_import);

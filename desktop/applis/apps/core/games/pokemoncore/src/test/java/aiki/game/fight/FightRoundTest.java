@@ -4116,6 +4116,56 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     @Test
+    public void roundThrowerMove23Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(LARCIN,10L);
+        Fight fight_ = processEffectTargets2(data_, diff_, moves_);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(thrower_);
+        fighter_.setCurrentAbility(NULL_REF);
+        fighter_.backUpObject(NULL_REF);
+        String move_ = LARCIN;
+        fighter_.setFirstChosenMoveTarget(move_,tc(KEY_FOE,POKEMON_FIGHTER_ZERO));
+        fight_.getFighter(tp(KEY_FOE,POKEMON_FIGHTER_ZERO)).setItem(POKE_BALL);
+        fight_.getFighter(tp(KEY_FOE,POKEMON_FIGHTER_ZERO)).setRemainingHp(Rate.one());
+        FightRound.initRound(fight_);
+        FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
+        assertTrue(fight_.getFighter(tp(KEY_FOE,POKEMON_FIGHTER_ZERO)).estKo());
+        assertEq(POKE_BALL, fight_.getFighter(tp(KEY_PLAYER,POKEMON_FIGHTER_ZERO)).getItem());
+    }
+
+    @Test
+    public void roundThrowerMove24Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DRACO_RAGE,10L);
+        moves_.put(COPIE,10L);
+        moves_.put(JACKPOT,10L);
+        Fight fight_ = processEffectTargets2(data_, diff_, moves_);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(thrower_);
+        fighter_.setCurrentAbility(NULL_REF);
+        fighter_.backUpObject(NULL_REF);
+        String move_ = JACKPOT;
+        fighter_.setFirstChosenMoveTarget(move_,tc(KEY_FOE,POKEMON_FIGHTER_ZERO));
+        fight_.getFighter(tp(KEY_FOE,POKEMON_FIGHTER_ZERO)).setRemainingHp(Rate.one());
+        FightRound.initRound(fight_);
+        fight_.getWinningMoney().affectZero();
+        FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
+        assertTrue(fight_.getFighter(tp(KEY_FOE,POKEMON_FIGHTER_ZERO)).estKo());
+        assertEq(new Rate("240"),fight_.getWinningMoney());
+    }
+
+    @Test
     public void roundThrowerMove1SimulationTest() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();

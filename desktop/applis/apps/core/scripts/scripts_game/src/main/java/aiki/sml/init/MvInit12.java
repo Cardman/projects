@@ -509,11 +509,11 @@ m673effectDamage_.setUserAttack(true);
 m673effectDamage_.setStatisAtt(Statistic.ATTACK);
 m673effectDamage_.setTargetDefense(true);
 m673effectDamage_.setStatisDef(Statistic.DEFENSE);
-m673effectDamage_.setTargetChoice(TargetChoice.ADJ_MULT);
+m673effectDamage_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 m673custListEffect_.add(m673effectDamage_);
 EffectSwitchItems m673effectSwitchItems_=Instances.newEffectSwitchItems();
 m673effectSwitchItems_.setMoveObject(MoveItemType.TAKE_OBJET);
-m673effectSwitchItems_.setTargetChoice(TargetChoice.ADJ_MULT);
+m673effectSwitchItems_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 m673effectSwitchItems_.setFail(LB+V_CIBLE_CAPACITE+RB+OE+LB+I_GLUE+RB+OO+V_CIBLE_CLONE+GT+R_0+OO+A_CARDINAL+LP+LB+V_CIBLE_OBJET+RB+RP+OE+R_0+OO+A_CARDINAL+LP+LB+V_LANCEUR_OBJET+RB+RP+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_NOM+RB+OC+LB+I_GIRATINA+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_ORBE_PLATINE+RB+RP+RP+OE+R_1+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_NOM+RB+OC+LB+I_GENESECT+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_MODULE_AQUA+OS+I_MODULE_CHOC+OS+I_MODULE_CRYO+OS+I_MODULE_PYRO+RB+RP+RP+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_NOM+RB+OC+LB+I_ARCEUS+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_PLAQUE_CIEL+OS+I_PLAQUE_DRACO+OS+I_PLAQUE_FANTO+OS+I_PLAQUE_FER+OS+I_PLAQUE_FLAM+OS+I_PLAQUE_FEE+OS+I_PLAQUE_GLACE+OS+I_PLAQUE_HERBE+OS+I_PLAQUE_HYDRO+OS+I_PLAQUINSECT+OS+I_PLAQUESPRIT+OS+I_PLAQUE_OMBRE+OS+I_PLAQUE_POING+OS+I_PLAQUE_ROC+OS+I_PLAQUE_TERRE+OS+I_PLAQUE_TOXIC+OS+I_PLAQUE_VOLT+RB+RP+RP+GT+R_0);
 Ints m673ints_=new Ints(new CollCapacity(1));
 m673ints_.add(0);
@@ -522,7 +522,7 @@ m673custListEffect_.add(m673effectSwitchItems_);
 m673damagingMoveData_.setEffects(m673custListEffect_);
 m673damagingMoveData_.setStoppableMoveSolo(true);
 m673damagingMoveData_.setStoppableMoveMulti(true);
-m673damagingMoveData_.setTargetChoice(TargetChoice.ADJ_MULT);
+m673damagingMoveData_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 return m673damagingMoveData_;
 }
 static MoveData m318(){

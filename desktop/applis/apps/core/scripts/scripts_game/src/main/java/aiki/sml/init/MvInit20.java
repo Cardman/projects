@@ -420,11 +420,11 @@ m911effectDamage_.setUserAttack(true);
 m911effectDamage_.setStatisAtt(Statistic.ATTACK);
 m911effectDamage_.setTargetDefense(true);
 m911effectDamage_.setStatisDef(Statistic.DEFENSE);
-m911effectDamage_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m911effectDamage_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 m911custListEffect_.add(m911effectDamage_);
 EffectSwitchItems m911effectSwitchItems_=Instances.newEffectSwitchItems();
 m911effectSwitchItems_.setMoveObject(MoveItemType.REMOVE_TARGET_OBJECT);
-m911effectSwitchItems_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m911effectSwitchItems_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 m911effectSwitchItems_.setFail(LB+V_CIBLE_CAPACITE+RB+OE+LB+I_GLUE+RB+OO+V_CIBLE_CLONE+GT+R_0+OO+A_CARDINAL+LP+LB+V_CIBLE_OBJET+RB+RP+OE+R_0+OO+A_CARDINAL+LP+LB+V_LANCEUR_OBJET+RB+RP+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_NOM+RB+OC+LB+I_GIRATINA+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_ORBE_PLATINE+RB+RP+RP+OE+R_1+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_NOM+RB+OC+LB+I_GENESECT+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_MODULE_AQUA+OS+I_MODULE_CHOC+OS+I_MODULE_CRYO+OS+I_MODULE_PYRO+RB+RP+RP+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_NOM+RB+OC+LB+I_ARCEUS+RB+RP+RP+GT+R_0+OA+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_OBJET+RB+OC+LB+I_PLAQUE_CIEL+OS+I_PLAQUE_DRACO+OS+I_PLAQUE_FANTO+OS+I_PLAQUE_FER+OS+I_PLAQUE_FLAM+OS+I_PLAQUE_FEE+OS+I_PLAQUE_GLACE+OS+I_PLAQUE_HERBE+OS+I_PLAQUE_HYDRO+OS+I_PLAQUINSECT+OS+I_PLAQUESPRIT+OS+I_PLAQUE_OMBRE+OS+I_PLAQUE_POING+OS+I_PLAQUE_ROC+OS+I_PLAQUE_TERRE+OS+I_PLAQUE_TOXIC+OS+I_PLAQUE_VOLT+RB+RP+RP+GT+R_0);
 Ints m911ints_=new Ints(new CollCapacity(1));
 m911ints_.add(0);
@@ -432,7 +432,7 @@ m911effectSwitchItems_.setRequiredSuccessfulEffects(m911ints_);
 m911custListEffect_.add(m911effectSwitchItems_);
 m911damagingMoveData_.setEffects(m911custListEffect_);
 m911damagingMoveData_.setStoppableMoveSolo(true);
-m911damagingMoveData_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m911damagingMoveData_.setTargetChoice(TargetChoice.ADJ_UNIQ);
 return m911damagingMoveData_;
 }
 static MoveData m513(){

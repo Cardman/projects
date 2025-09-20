@@ -1343,6 +1343,24 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     @Test
+    public void effectSwitchObjects14Test() {
+        DataBase data_ = initDb();
+        Fight fight_ = effectUnprotectFromMoveTypes(data_);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        FightRound.initRound(fight_);
+        Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(target_.getPosition());
+        fighter_.backUpObject(BAIE_CERIZ);
+        MoveData fMove_ = data_.getMove(SABOTAGE);
+        EffectSwitchItems effect_ = (EffectSwitchItems) fMove_.getEffects().last();
+        FightEffects.effectSwitchObjects(fight_, thrower_, target_, effect_, data_);
+        fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
+        assertEq(NULL_REF,fighter_.getItem());
+        assertEq(PLAQUE_DRACO,fighter_.getLastUsedItem());
+        StringList lostObjects_ = fight_.getLostObjects();
+        assertEq(0, lostObjects_.size());
+    }
+    @Test
     public void effectSwitchTypes1Test() {
         DataBase data_ = initDb();
         Fight fight_ = effectCommonStatistics(data_);

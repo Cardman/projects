@@ -358,6 +358,7 @@ final class FightRound {
         String firstMove_ = firstMove(_fight, _creature);
         Ints previousEffects_;
         previousEffects_ = new Ints();
+        _fight.getTemp().getTargetDam().clear();
         for(int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
             Effect effet_=fAttFinal_.getEffet(i);
             if(preliminaire_) {
@@ -481,7 +482,7 @@ final class FightRound {
         _status.setfAttFinal(fAttFinal_);
         Effect effet_=fAttFinal_.getEffet(_status.getIndex());
         _status.setEffet(effet_);
-        for(TeamPosition e:FightOrder.targetsEffect(_fight,_finalThrower,effet_,_diff,_import)){
+        for(TeamPosition e:FightOrder.targetsEffect(_fight,_finalThrower,effet_,_diff,_import, _fight.getTemp().getTargetDam())){
             if (exitEffectTarget(_fight, _finalThrower,_status,_diff,_import,e)) {
                 return;
             }

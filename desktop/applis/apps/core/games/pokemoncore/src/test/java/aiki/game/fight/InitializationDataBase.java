@@ -369,6 +369,7 @@ public class InitializationDataBase extends EquallablePkUtil {
     protected static final String MIMIQUE = InitializationMoves.MIMIQUE;
     protected static final String LUTTE = InitializationMoves.LUTTE;
     protected static final String LARCIN = InitializationMoves.LARCIN;
+    protected static final String SABOTAGE = InitializationMoves.SABOTAGE;
     protected static final String GRIBOUILLE = InitializationMoves.GRIBOUILLE;
     protected static final String GARDE_LARGE = InitializationMoves.GARDE_LARGE;
     protected static final String FORCE_NATURE = InitializationMoves.FORCE_NATURE;
