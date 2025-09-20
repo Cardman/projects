@@ -227,6 +227,7 @@ CustList<Effect> m959custListEffect_ = new CustList<Effect>(new CollCapacity(1))
 EffectSwitchAbilities m959effectSwitchAbilities_=Instances.newEffectSwitchAbilities();
 m959effectSwitchAbilities_.setExchangeAbility(ExchangeType.GIVE_TO_TARGET);
 m959effectSwitchAbilities_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m959effectSwitchAbilities_.setFail(LB+V_CIBLE_CAPACITE+RB+OE+LB+V_LANCEUR_CAPACITE+RB+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_CAPACITE+RB+OC+LB+I_MULTITYPE+OS+I_DECLIC_TACTIQUE+RB+RP+RP+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_CAPACITE+RB+OC+LB+I_CALQUE+OS+I_METEO+OS+I_DON_FLORAL+RB+RP+RP+GT+R_0);
 m959custListEffect_.add(m959effectSwitchAbilities_);
 m959statusMoveData_.setEffects(m959custListEffect_);
 m959statusMoveData_.setStoppableMoveSolo(true);

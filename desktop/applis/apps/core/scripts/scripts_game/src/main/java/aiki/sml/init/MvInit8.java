@@ -108,6 +108,7 @@ CustList<Effect> m1171custListEffect_ = new CustList<Effect>(new CollCapacity(1)
 EffectSwitchAbilities m1171effectSwitchAbilities_=Instances.newEffectSwitchAbilities();
 m1171effectSwitchAbilities_.setExchangeAbility(ExchangeType.EXCHANGE);
 m1171effectSwitchAbilities_.setTargetChoice(TargetChoice.ADJ_UNIQ);
+m1171effectSwitchAbilities_.setFail(A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_CAPACITE+OS+V_LANCEUR_CAPACITE+RB+OC+LB+I_GARDE_MYSTIK+OS+I_MULTITYPE+OS+I_DECLIC_TACTIQUE+RB+RP+RP+GT+R_0);
 m1171custListEffect_.add(m1171effectSwitchAbilities_);
 m1171statusMoveData_.setEffects(m1171custListEffect_);
 m1171statusMoveData_.setStoppableMoveSolo(true);

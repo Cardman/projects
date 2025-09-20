@@ -309,6 +309,7 @@ EffectSwitchAbilities m854effectSwitchAbilities_=Instances.newEffectSwitchAbilit
 m854effectSwitchAbilities_.setExchangeAbility(ExchangeType.GIVE_CONST);
 m854effectSwitchAbilities_.setConstAbility(I_SIMPLE);
 m854effectSwitchAbilities_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m854effectSwitchAbilities_.setFail(A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_CAPACITE+RB+OC+LB+I_SIMPLE+OS+I_MULTITYPE+OS+I_DECLIC_TACTIQUE+RB+RP+RP+GT+R_0);
 m854custListEffect_.add(m854effectSwitchAbilities_);
 m854statusMoveData_.setEffects(m854custListEffect_);
 m854statusMoveData_.setStoppableMoveSolo(true);

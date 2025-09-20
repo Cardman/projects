@@ -771,6 +771,7 @@ EffectSwitchAbilities m923effectSwitchAbilities_=Instances.newEffectSwitchAbilit
 m923effectSwitchAbilities_.setExchangeAbility(ExchangeType.GIVE_CONST);
 m923effectSwitchAbilities_.setConstAbility(I_INSOMNIA);
 m923effectSwitchAbilities_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m923effectSwitchAbilities_.setFail(A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_CAPACITE+RB+OC+LB+I_MULTITYPE+OS+I_INSOMNIA+OS+I_DECLIC_TACTIQUE+RB+RP+RP+GT+R_0);
 m923custListEffect_.add(m923effectSwitchAbilities_);
 m923statusMoveData_.setEffects(m923custListEffect_);
 m923statusMoveData_.setStoppableMoveSolo(true);

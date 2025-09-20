@@ -484,6 +484,7 @@ CustList<Effect> m672custListEffect_ = new CustList<Effect>(new CollCapacity(1))
 EffectSwitchAbilities m672effectSwitchAbilities_=Instances.newEffectSwitchAbilities();
 m672effectSwitchAbilities_.setExchangeAbility(ExchangeType.GIVE_TO_THROWER);
 m672effectSwitchAbilities_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m672effectSwitchAbilities_.setFail(LB+V_CIBLE_CAPACITE+RB+OE+LB+V_LANCEUR_CAPACITE+RB+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_CAPACITE+RB+OC+LB+I_CALQUE+OS+I_GARDE_MYSTIK+OS+I_METEO+OS+I_DON_FLORAL+OS+I_MULTITYPE+OS+I_DECLIC_TACTIQUE+RB+RP+RP+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_LANCEUR_CAPACITE+RB+OC+LB+I_MULTITYPE+OS+I_DECLIC_TACTIQUE+RB+RP+RP+GT+R_0);
 m672custListEffect_.add(m672effectSwitchAbilities_);
 m672statusMoveData_.setEffects(m672custListEffect_);
 m672statusMoveData_.setTargetChoice(TargetChoice.AUTRE_UNIQ);

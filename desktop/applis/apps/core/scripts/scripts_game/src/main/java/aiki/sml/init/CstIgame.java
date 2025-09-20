@@ -2491,6 +2491,7 @@ protected static final String V_LANCEUR_ATTAQUES = VD+SE+ MessagesDataBaseConsta
 protected static final String V_LANCEUR_ATTAQUES_TYPES = VD+SE+ MessagesDataBaseConstants.DEF_LANCEUR_ATTAQUES_TYPES;
 protected static final String V_LANCEUR_BONHEUR = VD+SE+ MessagesDataBaseConstants.DEF_LANCEUR_BONHEUR;
 protected static final String V_LANCEUR_BOOST = VD+SE+ MessagesDataBaseConstants.DEF_LANCEUR_BOOST;
+protected static final String V_LANCEUR_CAPACITE = VD+SE+ MessagesDataBaseConstants.DEF_LANCEUR_CAPACITE;
 protected static final String V_LANCEUR_CLONE = VD+SE+ MessagesDataBaseConstants.DEF_LANCEUR_CLONE;
 protected static final String V_LANCEUR_DEGATS_RECUS_TOTAL = VD+SE+ MessagesDataBaseConstants.DEF_LANCEUR_DEGATS_RECUS_TOTAL;
 protected static final String V_LANCEUR_DEGATS_RECUS_TOTAL_TOUR = VD+SE+ MessagesDataBaseConstants.DEF_LANCEUR_DEGATS_RECUS_TOTAL_TOUR;
