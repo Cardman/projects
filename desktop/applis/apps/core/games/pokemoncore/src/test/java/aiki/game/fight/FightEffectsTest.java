@@ -5729,6 +5729,26 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     @Test
+    public void effectFullHpRate8Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        Fight fight_ = processEffectTarget(diff_, data_);
+        TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
+        fighter_.setCurrentAbility(GARDE_MAGIK);
+        fighter_.setRemainedHp(new Rate("1/2"));
+        EffectDamage eff_;
+        eff_ = (EffectDamage) data_.getMove(REBONDIFEU).getEffects().first();
+        FightEffects.effectFullHpRateClosest(fight_, target_, eff_.getClosestFoeDamageRateHp(), diff_, data_, fight_.getTeams().getVal(target_.getTeam()));
+        fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
+        assertEq(new Rate("1/2"),fighter_.getRemainingHp());
+        //106/5 * 1/8 = 53/20 106/5 * 7/8 = 53/5 * 7/4 = 371/20
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+    }
+
+    @Test
     public void effectFullHpRate1SimulationTest() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();

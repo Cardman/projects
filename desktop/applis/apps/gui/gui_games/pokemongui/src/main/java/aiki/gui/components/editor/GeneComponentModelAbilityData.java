@@ -78,6 +78,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     private AbsCustCheckBox immuDamageTrappingMoves;
     private AbsCustCheckBox immuDamageAllyMoves;
     private AbsCustCheckBox immuDamageRecoil;
+    private AbsCustCheckBox immuDamageSec;
     private AbsCustCheckBox immuRechargeRound;
     private AbsCustCheckBox slowing;
     private AbsCustCheckBox immuSufferedDamageLowEff;
@@ -244,6 +245,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         form_.add(line(MessagesDataAbilityData.M_P_1_IMMU_DAMAGE_ALLY_MOVES,immuDamageAllyMoves));
         immuDamageRecoil=compoFactory_.newCustCheckBox();
         form_.add(line(MessagesDataAbilityData.M_P_1_IMMU_DAMAGE_RECOIL,immuDamageRecoil));
+        immuDamageSec=compoFactory_.newCustCheckBox();
+        form_.add(line(MessagesDataAbilityData.M_P_1_IMMU_DAMAGE_SEC,immuDamageSec));
         immuRechargeRound=compoFactory_.newCustCheckBox();
         form_.add(line(MessagesDataAbilityData.M_P_1_IMMU_RECHARGE_ROUND,immuRechargeRound));
         slowing=compoFactory_.newCustCheckBox();
@@ -369,6 +372,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         ent_.setImmuDamageTrappingMoves(immuDamageTrappingMoves.isSelected());
         ent_.setImmuDamageAllyMoves(immuDamageAllyMoves.isSelected());
         ent_.setImmuDamageRecoil(immuDamageRecoil.isSelected());
+        ent_.setImmuDamageSec(immuDamageSec.isSelected());
         ent_.setImmuRechargeRound(immuRechargeRound.isSelected());
         ent_.setSlowing(slowing.isSelected());
         ent_.setImmuSufferedDamageLowEff(immuSufferedDamageLowEff.isSelected());
@@ -459,6 +463,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         immuDamageTrappingMoves.setSelected(ability_.isImmuDamageTrappingMoves());
         immuDamageAllyMoves.setSelected(ability_.isImmuDamageAllyMoves());
         immuDamageRecoil.setSelected(ability_.isImmuDamageRecoil());
+        immuDamageSec.setSelected(ability_.isImmuDamageSec());
         immuRechargeRound.setSelected(ability_.isImmuRechargeRound());
         slowing.setSelected(ability_.isSlowing());
         immuSufferedDamageLowEff.setSelected(ability_.isImmuSufferedDamageLowEff());
@@ -616,6 +621,10 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
 
     public AbsCustCheckBox getImmuDamageRecoil(){
         return immuDamageRecoil;
+    }
+
+    public AbsCustCheckBox getImmuDamageSec() {
+        return immuDamageSec;
     }
 
     public AbsCustCheckBox getImmuRechargeRound(){

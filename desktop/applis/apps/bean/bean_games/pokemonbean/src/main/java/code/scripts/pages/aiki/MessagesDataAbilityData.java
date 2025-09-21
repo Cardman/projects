@@ -72,6 +72,7 @@ public final class MessagesDataAbilityData {
     public static final String M_P_1_IMMU_CH="immu_ch";
     public static final String M_P_1_IMMU_DAMAGE_ALLY_MOVES="immu_damage_ally_moves";
     public static final String M_P_1_IMMU_DAMAGE_RECOIL="immu_damage_recoil";
+    public static final String M_P_1_IMMU_DAMAGE_SEC="immu_damage_sec";
     public static final String M_P_1_IMMU_DAMAGE_TRAPPING_MOVES="immu_damage_trapping_moves";
     public static final String M_P_1_IMMU_LOW_STAT="immu_low_stat";
     public static final String M_P_1_IMMU_LOW_STATIS_TYPES="immu_low_statis_types";
@@ -274,6 +275,7 @@ public final class MessagesDataAbilityData {
         e_.add(M_P_1_IMMU_CH,"The ability is enabled while the ability of an other fighter is enabled.\nThe owner of this ability cannot suffer critical hit.");
         e_.add(M_P_1_IMMU_DAMAGE_ALLY_MOVES,"The ability is enabled while a fighter uses a direct move against the owner.\nThe owner of this ability does not suffer damage inflicted by a move used by a partner.");
         e_.add(M_P_1_IMMU_DAMAGE_RECOIL,"The ability is enabled after the owner using its move.\nThe owner of this ability does not suffer recoil damage by one of its moves.");
+        e_.add(M_P_1_IMMU_DAMAGE_SEC,"The ability is enabled when a move targets the owner as a close fighter from the team in which the target has suffered from the primary effect damaging move.\nThe owner of this ability does not suffer indirect damage by one of its moves.");
         e_.add(M_P_1_IMMU_DAMAGE_TRAPPING_MOVES,"The ability is enabled at the end of round of fight.\nThe owner of this ability is not trapped by trapping moves.");
         e_.add(M_P_1_IMMU_LOW_STAT,"The ability is enabled while a statistic of the owner is lowered.\nIf a move, lowering only one of these statistics, is used against this owner, the move fails.\nThe following statistics of the owner of this ability cannot be lowered:");
         e_.add(M_P_1_IMMU_LOW_STATIS_TYPES,"The ability is enabled while a statistic of a member of the team of the owner is lowered.\nHere is the statistics that cannot be lowered in function by the type:");
@@ -460,6 +462,7 @@ public final class MessagesDataAbilityData {
         f_.add(M_P_1_IMMU_CH,"La capacité est activée lorsque celle d'un autre combattant est en cours d'action.\nLe possesseur de cette capacité ne peut pas subir de coup critique.");
         f_.add(M_P_1_IMMU_DAMAGE_ALLY_MOVES,"La capacité est activée lorsque le possesseur est attaqué directement par un combattant.\nLe possesseur de cette capacité ne subit pas de dégâts causés par une attaque utilisée par un partenaire.");
         f_.add(M_P_1_IMMU_DAMAGE_RECOIL,"La capacité est activée après l'attaque du possesseur.\nLe possesseur de cette capacité ne subit pas de dégâts de recul par une de ses attaques.");
+        f_.add(M_P_1_IMMU_DAMAGE_SEC,"La capacité est activée lorsqu'une attaque cible le possesseur en tant que combattant adjacent d'une équipe dans laquelle la cible a subi l'effet primaire d'une attaque offensive.\nThe owner of this ability does not suffer indirect damage by one of its moves.");
         f_.add(M_P_1_IMMU_DAMAGE_TRAPPING_MOVES,"La capacité est activée en fin de tour du combat.\nLe possesseur de cette capacité n'est pas piégé par les attaques piégeantes.");
         f_.add(M_P_1_IMMU_LOW_STAT,"La capacité est activée lorsqu'une des statistiques du possesseur baisse.\nLes statistiques suivantes du possesseur de cette capacité ne peuvent pas être baissée:");
         f_.add(M_P_1_IMMU_LOW_STATIS_TYPES,"La capacité est activée lorsqu'une des statistiques d'un membre de l'équipe du possesseur baisse.\nSi une attaque ne faisant que de baisser une des ces statistiques est lancée contre ce possesseur, elle échoue.\nVoici les statistiques ne pouvant pas être baissées en fonction du type:");

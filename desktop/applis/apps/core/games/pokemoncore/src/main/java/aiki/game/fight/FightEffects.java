@@ -2582,6 +2582,10 @@ final class FightEffects {
         for(TeamPosition c:FightOrder.closestFigthersSameTeam(_fight,_cible,_diff)){
             Fighter partenaire_= _equipeCible.refPartMembres(c.getPosition());
             Rate varPvMembresAdj_=Rate.multiply(_varPvAdj,partenaire_.pvMax());
+            AbilityData ab_ = partenaire_.ficheCapaciteActuelle(_import);
+            if (ab_ != null && ab_.isImmuDamageSec()) {
+                varPvMembresAdj_.affectZero();
+            }
             if (varPvMembresAdj_.isZero()) {
                 continue;
             }

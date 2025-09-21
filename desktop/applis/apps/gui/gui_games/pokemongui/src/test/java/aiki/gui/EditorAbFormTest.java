@@ -208,6 +208,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         g_.getImmuDamageTrappingMoves().setSelected(true);
         g_.getImmuDamageAllyMoves().setSelected(true);
         g_.getImmuDamageRecoil().setSelected(true);
+        g_.getImmuDamageSec().setSelected(true);
         g_.getImmuRechargeRound().setSelected(true);
         g_.getSlowing().setSelected(true);
         g_.getImmuSufferedDamageLowEff().setSelected(true);
@@ -250,6 +251,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         assertTrue(facade_.getData().getAbilities().getVal(A_1).isReverseEffectsPowerMovesTypesGlobal());
         assertTrue(facade_.getData().getAbilities().getVal(A_1).isTakeItemByDamagingMove());
         assertTrue(facade_.getData().getAbilities().getVal(A_1).isGiveItemToAllyHavingUsed());
+        assertTrue(facade_.getData().getAbilities().getVal(A_1).isImmuDamageSec());
     }
     @Test
     public void abForm12() {
@@ -267,6 +269,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         g_.getImmuDamageTrappingMoves().setSelected(false);
         g_.getImmuDamageAllyMoves().setSelected(false);
         g_.getImmuDamageRecoil().setSelected(false);
+        g_.getImmuDamageSec().setSelected(false);
         g_.getImmuRechargeRound().setSelected(false);
         g_.getSlowing().setSelected(false);
         g_.getImmuSufferedDamageLowEff().setSelected(false);
@@ -309,6 +312,7 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         assertFalse(facade_.getData().getAbilities().getVal(A_1).isReverseEffectsPowerMovesTypesGlobal());
         assertFalse(facade_.getData().getAbilities().getVal(A_1).isTakeItemByDamagingMove());
         assertFalse(facade_.getData().getAbilities().getVal(A_1).isGiveItemToAllyHavingUsed());
+        assertFalse(facade_.getData().getAbilities().getVal(A_1).isImmuDamageSec());
     }
     @Test
     public void abForm13() {

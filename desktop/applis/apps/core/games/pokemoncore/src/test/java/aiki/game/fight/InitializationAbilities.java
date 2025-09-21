@@ -427,6 +427,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getImmuWeather().add(TEMPETESABLE);
         ficheCapacite_.setImmuDamageTrappingMoves(true);
         ficheCapacite_.setImmuDamageRecoil(true);
+        ficheCapacite_.setImmuDamageSec(true);
         ficheCapacite_.getImmuAbility().add(MAUVAIS_REVE);
         ficheCapacite_.getImmuAbility().add(TERA_VOLT);
         ficheCapacite_.getImmuStatusBeginRound().add(PARALYSIE);

@@ -621,6 +621,7 @@ public final class DocumentWriterAikiCoreUtil {
     public static final String FIELD_CATCH_CAUGHT = "564";
     public static final String FIELD_CATCH_TEAM = "565";
     public static final String FIELD_GYM_TRAINER = "566";
+    public static final String FIELD_IMMU_DAMAGE_SEC = "567";
     public static final String TYPE_BALL = "0";
     public static final String TYPE_BERRY = "1";
     public static final String TYPE_BOOST = "2";
@@ -1317,6 +1318,7 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isReverseEffectsPowerMovesTypesGlobal(),FIELD_REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getHealHpWhileUsingBerry(),FIELD_HEAL_HP_WHILE_USING_BERRY,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isTakeItemByDamagingMove(),FIELD_TAKE_ITEM_BY_DAMAGING_MOVE,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isImmuDamageSec(),FIELD_IMMU_DAMAGE_SEC,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isGiveItemToAllyHavingUsed(),FIELD_GIVE_ITEM_TO_ALLY_HAVING_USED,_document));
     }
 

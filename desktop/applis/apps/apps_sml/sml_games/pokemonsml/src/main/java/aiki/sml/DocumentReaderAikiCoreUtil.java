@@ -2055,6 +2055,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setTakeItemByDamagingMove(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IMMU_DAMAGE_SEC)) {
+            _object.setImmuDamageSec(DocumentReaderCoreUtil.getBoolean(_element));
+            return;
+        }
         _object.setGiveItemToAllyHavingUsed(DocumentReaderCoreUtil.getBoolean(_element));
     }
 

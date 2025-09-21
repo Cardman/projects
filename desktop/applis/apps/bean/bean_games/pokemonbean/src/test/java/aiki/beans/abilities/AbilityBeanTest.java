@@ -74,203 +74,211 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getAchievedDisappearedPk1() {
-        assertFalse(callAbilityBeanAchievedDisappearedPkGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanAchievedDisappearedPkGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getAchievedDisappearedPk2() {
-        assertTrue(callAbilityBeanAchievedDisappearedPkGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanAchievedDisappearedPkGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getBreakProtection1() {
-        assertFalse(callAbilityBeanBreakProtectionGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanBreakProtectionGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getBreakProtection2() {
-        assertTrue(callAbilityBeanBreakProtectionGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanBreakProtectionGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getCancelSecEffectOther1() {
-        assertFalse(callAbilityBeanCancelSecEffectOtherGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanCancelSecEffectOtherGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getCancelSecEffectOther2() {
-        assertTrue(callAbilityBeanCancelSecEffectOtherGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanCancelSecEffectOtherGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getCancelSecEffectOwner1() {
-        assertFalse(callAbilityBeanCancelSecEffectOwnerGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanCancelSecEffectOwnerGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getCancelSecEffectOwner2() {
-        assertTrue(callAbilityBeanCancelSecEffectOwnerGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanCancelSecEffectOwnerGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getChgtTypeByDamage1() {
-        assertFalse(callAbilityBeanChgtTypeByDamageGet(directCase(true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanChgtTypeByDamageGet(directCase(true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getChgtTypeByDamage2() {
-        assertTrue(callAbilityBeanChgtTypeByDamageGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanChgtTypeByDamageGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getCopyMovesTypes1() {
-        assertFalse(callAbilityBeanCopyMovesTypesGet(directCase(true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanCopyMovesTypesGet(directCase(true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getCopyMovesTypes2() {
-        assertTrue(callAbilityBeanCopyMovesTypesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanCopyMovesTypesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getForbidUseBerryAgainstFoes1() {
-        assertFalse(callAbilityBeanForbidUseBerryAgainstFoesGet(directCase(false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanForbidUseBerryAgainstFoesGet(directCase(false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getForbidUseBerryAgainstFoes2() {
-        assertTrue(callAbilityBeanForbidUseBerryAgainstFoesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanForbidUseBerryAgainstFoesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getGiveItemToAllyHavingUsed1() {
-        assertFalse(callAbilityBeanGiveItemToAllyHavingUsedGet(directCase(true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanGiveItemToAllyHavingUsedGet(directCase(true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getGiveItemToAllyHavingUsed2() {
-        assertTrue(callAbilityBeanGiveItemToAllyHavingUsedGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanGiveItemToAllyHavingUsedGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getHealedStatusBySwitch1() {
-        assertFalse(callAbilityBeanHealedStatusBySwitchGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanHealedStatusBySwitchGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getHealedStatusBySwitch2() {
-        assertTrue(callAbilityBeanHealedStatusBySwitchGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanHealedStatusBySwitchGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getIgnFoeStatisBoost1() {
-        assertFalse(callAbilityBeanIgnFoeStatisBoostGet(directCase(true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanIgnFoeStatisBoostGet(directCase(true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getIgnFoeStatisBoost2() {
-        assertTrue(callAbilityBeanIgnFoeStatisBoostGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanIgnFoeStatisBoostGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuCh1() {
-        assertFalse(callAbilityBeanImmuChGet(directCase(true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanImmuChGet(directCase(true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuCh2() {
-        assertTrue(callAbilityBeanImmuChGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanImmuChGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuDamageAllyMoves1() {
-        assertFalse(callAbilityBeanImmuDamageAllyMovesGet(directCase(true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanImmuDamageAllyMovesGet(directCase(true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuDamageAllyMoves2() {
-        assertTrue(callAbilityBeanImmuDamageAllyMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanImmuDamageAllyMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuDamageRecoil1() {
-        assertFalse(callAbilityBeanImmuDamageRecoilGet(directCase(true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanImmuDamageRecoilGet(directCase(true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuDamageRecoil2() {
-        assertTrue(callAbilityBeanImmuDamageRecoilGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanImmuDamageRecoilGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuDamageTrappingMoves1() {
-        assertFalse(callAbilityBeanImmuDamageTrappingMovesGet(directCase(true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanImmuDamageTrappingMovesGet(directCase(true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuDamageTrappingMoves2() {
-        assertTrue(callAbilityBeanImmuDamageTrappingMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanImmuDamageTrappingMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuRechargeRound1() {
-        assertFalse(callAbilityBeanImmuRechargeRoundGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanImmuRechargeRoundGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuRechargeRound2() {
-        assertTrue(callAbilityBeanImmuRechargeRoundGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanImmuRechargeRoundGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuSufferedDamageLowEff1() {
-        assertFalse(callAbilityBeanImmuSufferedDamageLowEffGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanImmuSufferedDamageLowEffGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getImmuSufferedDamageLowEff2() {
-        assertTrue(callAbilityBeanImmuSufferedDamageLowEffGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanImmuSufferedDamageLowEffGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getInflictingDamageInsteadOfSuffering1() {
-        assertFalse(callAbilityBeanInflictingDamageInsteadOfSufferingGet(directCase(true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanInflictingDamageInsteadOfSufferingGet(directCase(true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getInflictingDamageInsteadOfSuffering2() {
-        assertTrue(callAbilityBeanInflictingDamageInsteadOfSufferingGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanInflictingDamageInsteadOfSufferingGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getMumy1() {
-        assertFalse(callAbilityBeanMumyGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanMumyGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getMumy2() {
-        assertTrue(callAbilityBeanMumyGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanMumyGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getNbHits1() {
-        assertFalse(callAbilityBeanNbHitsGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanNbHitsGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getNbHits2() {
-        assertTrue(callAbilityBeanNbHitsGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanNbHitsGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getPlate1() {
-        assertFalse(callAbilityBeanPlateGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanPlateGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getPlate2() {
-        assertTrue(callAbilityBeanPlateGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanPlateGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getReverseEffectsPowerMovesTypesGlobal1() {
-        assertFalse(callAbilityBeanReverseEffectsPowerMovesTypesGlobalGet(directCase(true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanReverseEffectsPowerMovesTypesGlobalGet(directCase(true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getReverseEffectsPowerMovesTypesGlobal2() {
-        assertTrue(callAbilityBeanReverseEffectsPowerMovesTypesGlobalGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanReverseEffectsPowerMovesTypesGlobalGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getSlowing1() {
-        assertFalse(callAbilityBeanSlowingGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanSlowingGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getSlowing2() {
-        assertTrue(callAbilityBeanSlowingGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanSlowingGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getTakeItemByDamagingMove1() {
-        assertFalse(callAbilityBeanTakeItemByDamagingMoveGet(directCase(true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertFalse(callAbilityBeanTakeItemByDamagingMoveGet(directCase(true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getTakeItemByDamagingMove2() {
-        assertTrue(callAbilityBeanTakeItemByDamagingMoveGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanTakeItemByDamagingMoveGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void decreaseNecStepsHatchInt1() {
-        assertFalse(callAbilityBeanDecreaseNecStepsHatchInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,0,T_TYPE1)));
+        assertFalse(callAbilityBeanDecreaseNecStepsHatchInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,0,T_TYPE1)));
     }
     @Test
     public void decreaseNecStepsHatchInt2() {
-        assertTrue(callAbilityBeanDecreaseNecStepsHatchInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanDecreaseNecStepsHatchInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void nbUsedPpInt1() {
-        assertFalse(callAbilityBeanNbUsedPpInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,0,1,T_TYPE1)));
+        assertFalse(callAbilityBeanNbUsedPpInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 0,1,T_TYPE1)));
     }
     @Test
     public void nbUsedPpInt2() {
-        assertTrue(callAbilityBeanNbUsedPpInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertTrue(callAbilityBeanNbUsedPpInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
+    }
+    @Test
+    public void getImmuDamageSec1() {
+        assertFalse(callImmuDamageSecGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, false, 1,1,T_TYPE1)));
+    }
+    @Test
+    public void getImmuDamageSec2() {
+        assertTrue(callImmuDamageSecGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getDecreaseNecStepsHatch() {
@@ -282,11 +290,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getTypeForMoves1() {
-        assertEq(NULL_REF,callAbilityBeanTypeForMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,NULL_REF)));
+        assertEq(NULL_REF,callAbilityBeanTypeForMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,NULL_REF)));
     }
     @Test
     public void getTypeForMoves2() {
-        assertEq(T_TYPE1_TR,callAbilityBeanTypeForMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+        assertEq(T_TYPE1_TR,callAbilityBeanTypeForMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true, true, 1,1,T_TYPE1)));
     }
     @Test
     public void getMultPower() {

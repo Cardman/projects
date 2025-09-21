@@ -378,7 +378,7 @@ m856effectDamage_.setStatisAtt(Statistic.SPECIAL_ATTACK);
 m856effectDamage_.setTargetDefense(true);
 m856effectDamage_.setStatisDef(Statistic.SPECIAL_DEFENSE);
 m856effectDamage_.setTargetChoice(TargetChoice.ADJ_UNIQ);
-m856effectDamage_.setClosestFoeDamageRateHp(Rate.newRate(R_1_8));
+m856effectDamage_.setClosestFoeDamageRateHp(Rate.newRate(R_1_16));
 m856custListEffect_.add(m856effectDamage_);
 m856damagingMoveData_.setEffects(m856custListEffect_);
 m856damagingMoveData_.setStoppableMoveSolo(true);

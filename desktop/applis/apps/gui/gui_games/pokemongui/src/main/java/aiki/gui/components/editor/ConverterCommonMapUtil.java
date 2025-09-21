@@ -2191,6 +2191,7 @@ public final class ConverterCommonMapUtil {
         cp_.setImmuDamageTrappingMoves(_e.isImmuDamageTrappingMoves());
         cp_.setImmuDamageAllyMoves(_e.isImmuDamageAllyMoves());
         cp_.setImmuDamageRecoil(_e.isImmuDamageRecoil());
+        cp_.setImmuDamageSec(_e.isImmuDamageSec());
         cp_.setImmuAbility(new StringList(_e.getImmuAbility()));
         cp_.setImmuStatusBeginRound(new StringList(_e.getImmuStatusBeginRound()));
         cp_.setImmuRechargeRound(_e.isImmuRechargeRound());

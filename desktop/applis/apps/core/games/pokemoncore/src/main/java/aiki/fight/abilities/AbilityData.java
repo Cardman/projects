@@ -39,6 +39,7 @@ public final class AbilityData {
     private boolean immuDamageTrappingMoves;
     private boolean immuDamageAllyMoves;
     private boolean immuDamageRecoil;
+    private boolean immuDamageSec;
     private StringList immuAbility;
     private StringList immuStatusBeginRound;
     private boolean immuRechargeRound;
@@ -397,6 +398,14 @@ public final class AbilityData {
 
     public void setImmuDamageRecoil(boolean _immuDamageRecoil) {
         immuDamageRecoil = _immuDamageRecoil;
+    }
+
+    public boolean isImmuDamageSec() {
+        return immuDamageSec;
+    }
+
+    public void setImmuDamageSec(boolean _p) {
+        this.immuDamageSec = _p;
     }
 
     public StringList getImmuAbility() {

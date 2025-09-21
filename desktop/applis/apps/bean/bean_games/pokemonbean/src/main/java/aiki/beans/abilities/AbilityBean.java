@@ -39,6 +39,7 @@ public final class AbilityBean extends CommonBean implements BeanRenderWithAppNa
     private boolean immuCh;
     private boolean immuDamageAllyMoves;
     private boolean immuDamageRecoil;
+    private boolean immuDamageSec;
     private boolean immuDamageTrappingMoves;
     private boolean immuRechargeRound;
     private CustList<TranslatedKey> immuRechargeRoundMoves;
@@ -148,6 +149,7 @@ public final class AbilityBean extends CommonBean implements BeanRenderWithAppNa
         displayBoolTrue(toInt(immuCh),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_CH);
         displayBoolTrue(toInt(immuDamageAllyMoves),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_DAMAGE_ALLY_MOVES);
         displayBoolTrue(toInt(immuDamageRecoil),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_DAMAGE_RECOIL);
+        displayBoolTrue(toInt(immuDamageSec),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_DAMAGE_SEC);
         displayBoolTrue(toInt(immuDamageTrappingMoves),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_DAMAGE_TRAPPING_MOVES);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuRechargeRoundMoves,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_RECHARGE_ROUND);
         displayBoolTrue(toInt(immuSufferedDamageLowEff),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_SUFFERED_DAMAGE_LOW_EFF);
@@ -253,6 +255,7 @@ public final class AbilityBean extends CommonBean implements BeanRenderWithAppNa
         immuCh = ability_.isImmuCh();
         immuDamageAllyMoves = ability_.isImmuDamageAllyMoves();
         immuDamageRecoil = ability_.isImmuDamageRecoil();
+        immuDamageSec = ability_.isImmuDamageSec();
         immuDamageTrappingMoves = ability_.isImmuDamageTrappingMoves();
         immuRechargeRound = ability_.isImmuRechargeRound();
         immuRechargeRoundMoves = listTrStringsMv(immuRechargeRoundMoves(data_),getFacade());
@@ -1436,6 +1439,10 @@ public final class AbilityBean extends CommonBean implements BeanRenderWithAppNa
 
     public boolean getImmuDamageRecoil() {
         return immuDamageRecoil;
+    }
+
+    public boolean getImmuDamageSec() {
+        return immuDamageSec;
     }
 
     public boolean getImmuDamageTrappingMoves() {

@@ -936,6 +936,7 @@ m71stringList_.add(I_TEMPETESABLE);
 m71abilityData_.setImmuWeather(m71stringList_);
 m71abilityData_.setImmuDamageTrappingMoves(true);
 m71abilityData_.setImmuDamageRecoil(true);
+m71abilityData_.setImmuDamageSec(true);
 m71stringList_=new StringList(new CollCapacity(1));
 m71stringList_.add(I_MAUVAIS_REVE);
 m71abilityData_.setImmuAbility(m71stringList_);
