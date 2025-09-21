@@ -20,6 +20,7 @@ public final class ContentComponentModelEffectDamage {
     private CrudGeneFormMonteCarlo<Rate> hitsLaw;
     private CrudGeneFormMonteCarloStrSub damageLaw;
     private GeneComponentModelSubscribeString power;
+    private GeneComponentModelRate closestFoeDamageRateHp;
     private CrudGeneFormSimpleFormSub<String,Rate> multDamageAgainst;
     private CrudGeneFormSimpleFormSub<Statistic,Long> boostStatisOnceKoFoe;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> ignVarStatTargetPos;
@@ -33,6 +34,8 @@ public final class ContentComponentModelEffectDamage {
         power = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
         selected_.add(line(_core,MessagesDataEffdamage.M_P_45_POWER,power.geneEnum()));
         power.addComplete();
+        closestFoeDamageRateHp = new GeneComponentModelRate(_core.getProgramInfos());
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_CLOSEST_FOE_DAMAGE_RATE_HP_INTRO,closestFoeDamageRateHp.geneRate()));
         chRate = new GeneComponentModelLong(_core.getProgramInfos());
         selected_.add(line(_core,MessagesDataEffdamage.M_P_45_CH_RATE_INTRO,chRate.geneLong()));
         statisAtt = ConverterCommonMapUtil.buildStatisticsElt(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
@@ -82,6 +85,7 @@ public final class ContentComponentModelEffectDamage {
     }
     void buildEntity(EffectDamage _edited) {
         _edited.setPower(power.tryRet());
+        _edited.setClosestFoeDamageRateHp(closestFoeDamageRateHp.valueRate());
         _edited.setChRate(chRate.valueLong());
         _edited.setConstDamage(constDamage.isSelected());
         _edited.setRandMax(randMax.isSelected());
@@ -100,6 +104,7 @@ public final class ContentComponentModelEffectDamage {
     }
     void feedForm(EffectDamage _edited) {
         power.setupValue(_edited.getPower());
+        closestFoeDamageRateHp.valueRate(_edited.getClosestFoeDamageRateHp());
         chRate.valueLong(_edited.getChRate());
         constDamage.setSelected(_edited.getConstDamage());
         randMax.setSelected(_edited.getRandMax());

@@ -5668,9 +5668,9 @@ public class FightEffectsTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = processEffectTarget(diff_, data_);
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
-        EffectFullHpRate eff_;
-        eff_ = (EffectFullHpRate) data_.getMove(REBONDIFEU).getEffects().last();
-        FightEffects.effectFullHpRate(fight_, target_, eff_, diff_, data_);
+        EffectDamage eff_;
+        eff_ = (EffectDamage) data_.getMove(REBONDIFEU).getEffects().first();
+        FightEffects.effectFullHpRateClosest(fight_, target_, eff_.getClosestFoeDamageRateHp(), diff_, data_, fight_.getTeams().getVal(target_.getTeam()));
         Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         assertEq(new Rate("371/20"), fighter_.getRemainingHp());
         //106/5 * 1/8 = 53/20 106/5 * 7/8 = 53/5 * 7/4 = 371/20
@@ -5692,9 +5692,9 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.setRemainedHp(Rate.one());
-        EffectFullHpRate eff_;
-        eff_ = (EffectFullHpRate) data_.getMove(REBONDIFEU).getEffects().last();
-        FightEffects.effectFullHpRate(fight_, target_, eff_, diff_, data_);
+        EffectDamage eff_;
+        eff_ = (EffectDamage) data_.getMove(REBONDIFEU).getEffects().first();
+        FightEffects.effectFullHpRateClosest(fight_, target_, eff_.getClosestFoeDamageRateHp(), diff_, data_, fight_.getTeams().getVal(target_.getTeam()));
         assertTrue(fighter_.estKo());
         assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
@@ -5714,9 +5714,9 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         fighter_.setRemainedHp(new Rate("1/2"));
-        EffectFullHpRate eff_;
-        eff_ = (EffectFullHpRate) data_.getMove(REBONDIFEU).getEffects().last();
-        FightEffects.effectFullHpRate(fight_, target_, eff_, diff_, data_);
+        EffectDamage eff_;
+        eff_ = (EffectDamage) data_.getMove(REBONDIFEU).getEffects().first();
+        FightEffects.effectFullHpRateClosest(fight_, target_, eff_.getClosestFoeDamageRateHp(), diff_, data_, fight_.getTeams().getVal(target_.getTeam()));
         fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         assertTrue(fighter_.getRemainingHp().toNumberString(),fighter_.estKo());
         //106/5 * 1/8 = 53/20 106/5 * 7/8 = 53/5 * 7/4 = 371/20
@@ -5757,9 +5757,9 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition target_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         fighter_.setRemainedHp(new Rate("1/2"));
-        EffectFullHpRate eff_;
-        eff_ = (EffectFullHpRate) data_.getMove(REBONDIFEU).getEffects().last();
-        FightEffects.effectFullHpRate(fight_, target_, eff_, diff_, data_);
+        EffectDamage eff_;
+        eff_ = (EffectDamage) data_.getMove(REBONDIFEU).getEffects().first();
+        FightEffects.effectFullHpRateClosest(fight_, target_, eff_.getClosestFoeDamageRateHp(), diff_, data_, fight_.getTeams().getVal(target_.getTeam()));
         fighter_ = fight_.getFighter(KEY_PLAYER, POKEMON_FIGHTER_THREE);
         assertTrue(fighter_.getRemainingHp().toNumberString(),fighter_.estKo());
         //106/5 * 1/8 = 53/20 106/5 * 7/8 = 53/5 * 7/4 = 371/20
@@ -5777,9 +5777,9 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition target_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE);
         fighter_.setRemainedHp(Rate.one());
-        EffectFullHpRate eff_;
-        eff_ = (EffectFullHpRate) data_.getMove(REBONDIFEU).getEffects().last();
-        FightEffects.effectFullHpRate(fight_, target_, eff_, diff_, data_);
+        EffectDamage eff_;
+        eff_ = (EffectDamage) data_.getMove(REBONDIFEU).getEffects().first();
+        FightEffects.effectFullHpRateClosest(fight_, target_, eff_.getClosestFoeDamageRateHp(), diff_, data_, fight_.getTeams().getVal(target_.getTeam()));
         assertTrue(fighter_.estKo());
         assertTrue(fight_.getTemp().getAcceptableChoices());
     }

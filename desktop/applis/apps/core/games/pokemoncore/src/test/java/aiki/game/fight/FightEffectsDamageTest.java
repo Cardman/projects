@@ -5419,6 +5419,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Effect effect_ = data_.getMove(move_).getEffet(0);
         fight_.addEffect(thrower_, target_, effect_);
         ThrowerDamageLaws t_ = new ThrowerDamageLaws();
+        t_.setClosestFoeDamageRateHp(Rate.zero());
         MonteCarloNumber rate_ = new MonteCarloNumber();
         rate_.addQuickEvent(Rate.one(),LgInt.one());
         t_.setRandomRate(rate_);

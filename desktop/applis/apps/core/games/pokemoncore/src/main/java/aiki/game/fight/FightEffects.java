@@ -123,7 +123,7 @@ final class FightEffects {
             return;
         }
         if(effet_ instanceof EffectDamage){
-            effectDamage(_fight,finalThrower_,finalTarget_,_move,_diff,_import);
+            effectDamage(_fight,finalThrower_,finalTarget_,_move,((EffectDamage)effet_).getClosestFoeDamageRateHp(),_diff,_import);
             return;
         }
         if(effet_ instanceof EffectSwitchPosition){
@@ -642,7 +642,12 @@ final class FightEffects {
     }
 
     static void effectDamage(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,
-            String _attaqueLanceur,
+                             String _attaqueLanceur,
+                             Difficulty _diff,DataBase _import){
+        effectDamage(_fight, _lanceur, _cible, _attaqueLanceur, Rate.zero(), _diff,_import);
+    }
+    static void effectDamage(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,
+            String _attaqueLanceur, Rate _closest,
             Difficulty _diff,DataBase _import){
         _fight.getTemp().getTargetDam().add(_cible);
         Fighter creatureCible_=_fight.getFighter(_cible);
@@ -653,6 +658,7 @@ final class FightEffects {
             _fight.addEnabledMoveMessage(_lanceur, _attaqueLanceur, _import);
         }
         ThrowerDamageLaws throwerDamageLaws_ = calculateLawsForDamageByTeam(_fight, _lanceur, _cible, _attaqueLanceur, _diff, _import);
+        throwerDamageLaws_.setClosestFoeDamageRateHp(_closest);
         if(StringUtil.contains(_import.getMovesAnticipation(), _attaqueLanceur)){
             Rate sommeCoups_=Rate.zero();
             for (TeamPosition t: throwerDamageLaws_.getNumberHits().getKeys()) {
@@ -711,6 +717,7 @@ final class FightEffects {
         _fight.getTemp().getDamageByCurrentUser().put(_cible,degats_);
         creatureCible_.getDamageSufferedCategRound().getVal(_import.getCategory(fAttaqueLanceur_)).addNb(degats_);
         creatureCible_.getDamageSufferedCateg().getVal(_import.getCategory(fAttaqueLanceur_)).addNb(degats_);
+        effectFullHpRateClosest(_fight, _cible, _throwerDamageLaws.getClosestFoeDamageRateHp(), _diff, _import, _fight.getTeams().getVal(_cible.getTeam()));
         //degats recul et soin
         if (pvSoignes_.isZeroOrGt() || !Rate.greaterEq(pvSoignes_.opposNb(), creatureLanceur_.getRemainingHp())) {
             Rate r_ = creatureLanceur_.variationLeftHp(pvSoignes_);
@@ -2537,7 +2544,6 @@ final class FightEffects {
     static void effectFullHpRate(Fight _fight,TeamPosition _cible,EffectFullHpRate _effet,Difficulty _diff,DataBase _import){
         Rate coeff_=Rate.zero();
         Rate varPv_=Rate.zero();
-        Team equipeCible_=_fight.getTeams().getVal(_cible.getTeam());
         Fighter creatureCible_=_fight.getFighter(_cible);
         if(!_effet.getRestoredHp().isEmpty()){
             StringMap<String> values_;
@@ -2552,23 +2558,17 @@ final class FightEffects {
             Rate r_ = creatureCible_.variationLeftHp(varPv_);
             _fight.addHpMessage(_cible, _import,r_);
             _fight.getEffects().removeLast();
-            if (!varPv_.isZero()) {
-                AnimationHealing animationHeal_;
-                animationHeal_ = new AnimationHealing();
-                animationHeal_.setIndex(_fight.getEffects().size());
-                animationHeal_.setHealed(new TargetCoords(_cible.getTeam(), creatureCible_.getGroundPlaceSubst()));
-                _fight.getEffects().add(animationHeal_);
-            }
+            AnimationHealing animationHeal_;
+            animationHeal_ = new AnimationHealing();
+            animationHeal_.setIndex(_fight.getEffects().size());
+            animationHeal_.setHealed(new TargetCoords(_cible.getTeam(), creatureCible_.getGroundPlaceSubst()));
+            _fight.getEffects().add(animationHeal_);
         }else if(Rate.greaterEq(varPv_.absNb(),creatureCible_.getRemainingHp())){
             FightKo.setKoMoveTeams(_fight,_cible,_diff,_import);
             _fight.addAnimationKoFighter(_cible);
             if(NumberUtil.eq(_cible.getTeam(),Fight.CST_PLAYER)&& _fight.getTemp().getSimulation()){
                 _fight.getTemp().setAcceptableChoices(false);
                 _fight.getTemp().setIssue(IssueSimulation.KO_PLAYER);
-                return;
-            }
-            if(FightKo.endedFight(_fight,_diff)){
-                return;
             }
         }else{
             Rate r_ = creatureCible_.variationLeftHp(varPv_);
@@ -2576,15 +2576,12 @@ final class FightEffects {
             _fight.getEffects().removeLast();
             _fight.addEffectRecoil(_cible);
         }
-        //ex: REBONDIFEU
-        effectFullHpRateClosest(_fight, _cible, _effet, _diff, _import, equipeCible_);
     }
 
-    private static void effectFullHpRateClosest(Fight _fight, TeamPosition _cible, EffectFullHpRate _effet, Difficulty _diff, DataBase _import, Team _equipeCible) {
-        Rate varPvAdj_=_effet.getClosestFoeDamageRateHp();
+    static void effectFullHpRateClosest(Fight _fight, TeamPosition _cible, Rate _varPvAdj, Difficulty _diff, DataBase _import, Team _equipeCible) {
         for(TeamPosition c:FightOrder.closestFigthersSameTeam(_fight,_cible,_diff)){
             Fighter partenaire_= _equipeCible.refPartMembres(c.getPosition());
-            Rate varPvMembresAdj_=Rate.multiply(varPvAdj_,partenaire_.pvMax());
+            Rate varPvMembresAdj_=Rate.multiply(_varPvAdj,partenaire_.pvMax());
             if (varPvMembresAdj_.isZero()) {
                 continue;
             }

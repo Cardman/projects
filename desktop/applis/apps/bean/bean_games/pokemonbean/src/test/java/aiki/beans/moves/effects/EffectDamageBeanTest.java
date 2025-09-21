@@ -228,6 +228,10 @@ public final class EffectDamageBeanTest extends InitDbMoveEffectDamage {
         assertEq(1,callEffectDamageBeanChRateGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("",true,true,1,true,true,true)),0)));
     }
     @Test
+    public void getClosestFoeDamageRateHp() {
+        assertEq(Rate.newRate("1/2"),callEffectDamageBeanClosestFoeDamageRateHpGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("",true,true,1,true,true,true)),0)));
+    }
+    @Test
     public void getStatisAtt() {
         assertEq(ST_ATT_TR,callEffectDamageBeanStatisAttGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("",true,true,1,true,true,true)),0)));
     }

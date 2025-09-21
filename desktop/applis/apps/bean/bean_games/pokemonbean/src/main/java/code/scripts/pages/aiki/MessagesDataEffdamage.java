@@ -39,10 +39,14 @@ public final class MessagesDataEffdamage {
     public static final String M_P_45_STATISTIC="statistic";
     public static final String M_P_45_SUMMING_TEAM="summing_team";
     public static final String M_P_45_VAR_POWER="var_power";
+    public static final String M_P_45_CLOSEST_FOE_DAMAGE_RATE_HP="closest_foe_damage_rate_hp";
+    public static final String M_P_45_CLOSEST_FOE_DAMAGE_RATE_HP_INTRO="closest_foe_damage_rate_hp_intro";
     private MessagesDataEffdamage(){
     }
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
+        e_.add(M_P_45_CLOSEST_FOE_DAMAGE_RATE_HP,"Each foe fighter close to the target looses {0} of its full hp.");
+        e_.add(M_P_45_CLOSEST_FOE_DAMAGE_RATE_HP_INTRO,"Rate of loss of full hp of each foe fighter close to the target:");
         e_.add(M_P_45_POWER,"Power formula");
         e_.add(M_P_45_TARGET,"Target for defense");
         e_.add(M_P_45_USER,"User for attack");
@@ -83,6 +87,8 @@ public final class MessagesDataEffdamage {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
+        f_.add(M_P_45_CLOSEST_FOE_DAMAGE_RATE_HP,"Chaque combattant adverse adjacent à la cible perd {0} de ses pv max.");
+        f_.add(M_P_45_CLOSEST_FOE_DAMAGE_RATE_HP_INTRO,"Taux de perte des pv max de chaque combattant adverse adjacent à la cible:");
         f_.add(M_P_45_POWER,"Formule de la puissance");
         f_.add(M_P_45_TARGET,"Cible pour la défense");
         f_.add(M_P_45_USER,"Lanceur pour l'attaque");

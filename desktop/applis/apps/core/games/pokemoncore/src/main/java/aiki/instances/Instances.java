@@ -468,6 +468,7 @@ public final class Instances {
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
         object_.setRequiredSuccessfulEffects(new Ints(cap_));
+        object_.setClosestFoeDamageRateHp(Rate.zero());
         return object_;
     }
 
@@ -602,7 +603,6 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setLeftUserHp(Rate.zero());
         object_.setRestoredHp(DataBase.EMPTY_STRING);
-        object_.setClosestFoeDamageRateHp(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
         object_.setRequiredSuccessfulEffects(new Ints(cap_));

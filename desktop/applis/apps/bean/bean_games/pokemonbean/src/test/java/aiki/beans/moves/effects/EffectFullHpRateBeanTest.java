@@ -10,10 +10,6 @@ public final class EffectFullHpRateBeanTest extends InitDbMoveEffectOther {
         assertEq(Rate.one(),callEffectFullHpRateBeanLeftUserHpGet(dispMoveEffFullHpRate()));
     }
     @Test
-    public void getClosestFoeDamageRateHp() {
-        assertEq(Rate.one(),callEffectFullHpRateBeanClosestFoeDamageRateHpGet(dispMoveEffFullHpRate()));
-    }
-    @Test
     public void getRestoredHp() {
         assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,callEffectFullHpRateBeanRestoredHpGet(dispMoveEffFullHpRate()));
     }

@@ -8,8 +8,7 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectDamage;
 import code.maths.Rate;
-import code.scripts.pages.aiki.MessagesDataEffdamage;
-import code.scripts.pages.aiki.MessagesPkBean;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public class EffectDamageBean extends EffectBean {
@@ -31,6 +30,7 @@ public class EffectDamageBean extends EffectBean {
     private String statisDef;
     private DictionaryComparator<TranslatedKey, Long> boostStatisOnceKoFoe;
     private NatStringTreeMap<String> mapVarsDamage;
+    private Rate closestFoeDamageRateHp;
 
     @Override
     public void beforeDisplaying() {
@@ -126,6 +126,7 @@ public class EffectDamageBean extends EffectBean {
         summingUserTeamOkFighter = effect_.getSummingUserTeamOkFighter();
         randMax = effect_.getRandMax();
         mapVarsDamage = mapVarsAccuracy_;
+        closestFoeDamageRateHp = effect_.getClosestFoeDamageRateHp();
     }
 
     @Override
@@ -182,6 +183,7 @@ public class EffectDamageBean extends EffectBean {
         }
         new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this, getBoostStatisOnceKoFoe(), MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_BOOST_STATIS_ONCE_KO_FOE, MessagesDataEffdamage.M_P_45_STATISTIC, MessagesDataEffdamage.M_P_45_BOOST);
         displayBoolTrue(toInt(getSummingUserTeamOkFighter()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_SUMMING_TEAM);
+        displayIntDef(getClosestFoeDamageRateHp(), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_CLOSEST_FOE_DAMAGE_RATE_HP);
     }
     public boolean hasLawForDamage() {
         EffectDamage effect_ = (EffectDamage) getEffect();
@@ -247,6 +249,10 @@ public class EffectDamageBean extends EffectBean {
 
     public String getPower() {
         return power;
+    }
+
+    public Rate getClosestFoeDamageRateHp() {
+        return closestFoeDamageRateHp;
     }
 
     public NatStringTreeMap<Rate> getDamageLaw() {

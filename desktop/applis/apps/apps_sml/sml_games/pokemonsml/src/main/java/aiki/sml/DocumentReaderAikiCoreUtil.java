@@ -3154,6 +3154,10 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setBoostStatisOnceKoFoe(getMapStatisticShort(_element));
             return;
         }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CLOSEST_FOE_DAMAGE_RATE_HP)) {
+            _object.setClosestFoeDamageRateHp(DocumentReaderMathUtil.getRate(_element));
+            return;
+        }
         getEffect(_object, _fieldName, _element);
     }
 
@@ -3387,10 +3391,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_RESTORED_HP)) {
             _object.setRestoredHp(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CLOSEST_FOE_DAMAGE_RATE_HP)) {
-            _object.setClosestFoeDamageRateHp(DocumentReaderMathUtil.getRate(_element));
             return;
         }
         getEffect(_object, _fieldName, _element);

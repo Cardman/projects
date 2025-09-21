@@ -10,7 +10,6 @@ import code.util.StringList;
 public class EffectFullHpRateBean extends EffectBean {
     private Rate leftUserHp;
     private String restoredHp;
-    private Rate closestFoeDamageRateHp;
     private NatStringTreeMap<String> mapVarsRestored;
 
     @Override
@@ -34,7 +33,6 @@ public class EffectFullHpRateBean extends EffectBean {
             mapVarsAccuracy_.put(k, mapVars_.getVal(k));
         }
         mapVarsRestored = mapVarsAccuracy_;
-        closestFoeDamageRateHp = effect_.getClosestFoeDamageRateHp();
     }
 
     @Override
@@ -47,7 +45,6 @@ public class EffectFullHpRateBean extends EffectBean {
         displayIntDef(getLeftUserHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_LEFT_USER_HP);
         displayNotEmpty(getRestoredHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_RESTORED);
         mapVarsInit(getMapVarsRestored());
-        displayIntDef(getClosestFoeDamageRateHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_CLOSEST_FOE_DAMAGE_RATE_HP);
     }
 
     public Rate getLeftUserHp() {
@@ -62,7 +59,4 @@ public class EffectFullHpRateBean extends EffectBean {
         return mapVarsRestored;
     }
 
-    public Rate getClosestFoeDamageRateHp() {
-        return closestFoeDamageRateHp;
-    }
 }

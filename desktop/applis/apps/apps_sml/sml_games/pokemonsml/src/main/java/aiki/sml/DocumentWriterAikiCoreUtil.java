@@ -1920,6 +1920,7 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isTargetDefense(),FIELD_TARGET_DEFENSE,_document));
         _element.appendChild(setStatistic(_object.getStatisDef(),FIELD_STATIS_DEF,_document));
         _element.appendChild(setMapStatisticShort(_object.getBoostStatisOnceKoFoe(),FIELD_BOOST_STATIS_ONCE_KO_FOE,_document));
+        _element.appendChild(DocumentWriterMathUtil.setRate(_object.getClosestFoeDamageRateHp(),FIELD_CLOSEST_FOE_DAMAGE_RATE_HP,_document));
         setEffect(_object, _element, _document);
     }
 
@@ -2082,7 +2083,6 @@ public final class DocumentWriterAikiCoreUtil {
     private static void setEffectFullHpRate(EffectFullHpRate _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getLeftUserHp(),FIELD_LEFT_USER_HP,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getRestoredHp(),FIELD_RESTORED_HP,_document));
-        _element.appendChild(DocumentWriterMathUtil.setRate(_object.getClosestFoeDamageRateHp(),FIELD_CLOSEST_FOE_DAMAGE_RATE_HP,_document));
         setEffect(_object, _element, _document);
     }
 

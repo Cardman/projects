@@ -7,15 +7,12 @@ import code.scripts.pages.aiki.*;
 public final class ContentComponentModelEffectFullHpRate {
 
     private GeneComponentModelRate leftUserHp;
-    private GeneComponentModelRate closestFoeDamageRateHp;
     private GeneComponentModelSubscribeString restoredHp;
     private AbsPanel form;
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         leftUserHp = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(line(_core,MessagesDataEfffullhprate.M_P_48_LEFT_USER_HP_INTRO,leftUserHp.geneRate()));
-        closestFoeDamageRateHp = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(line(_core,MessagesDataEfffullhprate.M_P_48_CLOSEST_FOE_DAMAGE_RATE_HP_INTRO,closestFoeDamageRateHp.geneRate()));
         restoredHp = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
         selected_.add(line(_core,MessagesDataEfffullhprate.M_P_48_RESTORED_INTRO,restoredHp.geneEnum()));
         restoredHp.addComplete();
@@ -31,12 +28,10 @@ public final class ContentComponentModelEffectFullHpRate {
     }
     void buildEntity(EffectFullHpRate _edited) {
         _edited.setLeftUserHp(leftUserHp.valueRate());
-        _edited.setClosestFoeDamageRateHp(closestFoeDamageRateHp.valueRate());
         _edited.setRestoredHp(restoredHp.tryRet());
     }
     void feedForm(EffectFullHpRate _edited) {
         leftUserHp.valueRate(_edited.getLeftUserHp());
-        closestFoeDamageRateHp.valueRate(_edited.getClosestFoeDamageRateHp());
         restoredHp.setupValue(_edited.getRestoredHp());
     }
 

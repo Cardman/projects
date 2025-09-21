@@ -48,10 +48,12 @@ public final class EffectDamage extends Effect {
     private Statistic statisDef;
 
     private IdMap<Statistic,Long> boostStatisOnceKoFoe;
+    private Rate closestFoeDamageRateHp;
 
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        DataInfoChecker.checkPositiveOrZero(closestFoeDamageRateHp,_data);
         DataInfoChecker.checkEvents(chLaw,_data);
         DataInfoChecker.checkEvents(hitsLaw,_data);
         DataInfoChecker.checkEvents(damageLaw,_data);
@@ -240,5 +242,13 @@ public final class EffectDamage extends Effect {
     public void setBoostStatisOnceKoFoe(
             IdMap<Statistic,Long> _boostStatisOnceKoFoe) {
         boostStatisOnceKoFoe = _boostStatisOnceKoFoe;
+    }
+
+    public Rate getClosestFoeDamageRateHp() {
+        return closestFoeDamageRateHp;
+    }
+
+    public void setClosestFoeDamageRateHp(Rate _closestFoeDamageRateHp) {
+        closestFoeDamageRateHp = _closestFoeDamageRateHp;
     }
 }

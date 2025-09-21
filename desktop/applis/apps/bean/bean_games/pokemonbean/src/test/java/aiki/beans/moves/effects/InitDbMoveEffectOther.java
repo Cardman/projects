@@ -136,10 +136,6 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return ((EffectCounterAttackBean) _str).getSufferingDamageTypes();
     }
 
-    public static Rate callEffectFullHpRateBeanClosestFoeDamageRateHpGet(EffectBean _str, int... _args) {
-        return ((EffectFullHpRateBean) _str).getClosestFoeDamageRateHp();
-    }
-
     public static Rate callEffectFullHpRateBeanLeftUserHpGet(EffectBean _str, int... _args) {
         return ((EffectFullHpRateBean) _str).getLeftUserHp();
     }
@@ -245,7 +241,6 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     protected static EffectFullHpRate effFullHpRate() {
         EffectFullHpRate e_ = Instances.newEffectFullHpRate();
         e_.setRestoredHp(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
-        e_.setClosestFoeDamageRateHp(Rate.one());
         e_.setLeftUserHp(Rate.one());
         return e_;
     }

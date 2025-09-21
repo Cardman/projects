@@ -2725,6 +2725,7 @@ public final class ConverterCommonMapUtil {
         cp_.setTargetDefense(_e.isTargetDefense());
         cp_.setStatisDef(_e.getStatisDef());
         cp_.setBoostStatisOnceKoFoe(new IdMap<Statistic,Long>(_e.getBoostStatisOnceKoFoe()));
+        cp_.setClosestFoeDamageRateHp(new Rate(_e.getClosestFoeDamageRateHp()));
         copyEffect(cp_,_e);
         return cp_;
     }
@@ -2859,7 +2860,6 @@ public final class ConverterCommonMapUtil {
         EffectFullHpRate cp_ = new EffectFullHpRate();
         cp_.setLeftUserHp(new Rate(_e.getLeftUserHp()));
         cp_.setRestoredHp(_e.getRestoredHp());
-        cp_.setClosestFoeDamageRateHp(new Rate(_e.getClosestFoeDamageRateHp()));
         copyEffect(cp_,_e);
         return cp_;
     }

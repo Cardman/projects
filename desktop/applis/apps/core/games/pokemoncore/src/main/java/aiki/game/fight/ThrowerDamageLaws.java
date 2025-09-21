@@ -14,6 +14,8 @@ public class ThrowerDamageLaws {
 
     private TeamPositionsMonteCarloNumber numberHits;
 
+    private Rate closestFoeDamageRateHp;
+
     public Rate min(TeamPosition _fighter) {
         Rate min_ = Rate.multiply(randomBase.getVal(_fighter).minimum(), criticalHit.getVal(_fighter).minimum());
         min_.multiplyBy(randomRate.minimum());
@@ -89,5 +91,13 @@ public class ThrowerDamageLaws {
 
     public void setNumberHits(TeamPositionsMonteCarloNumber _numberHits) {
         numberHits = _numberHits;
+    }
+
+    public Rate getClosestFoeDamageRateHp() {
+        return closestFoeDamageRateHp;
+    }
+
+    public void setClosestFoeDamageRateHp(Rate _c) {
+        this.closestFoeDamageRateHp = _c;
     }
 }

@@ -5356,12 +5356,8 @@ final class InitializationMoves extends EquallablePkUtil {
         effetDegats_.setStatisDef(Statistic.SPECIAL_DEFENSE);
         effetDegats_.setTargetDefense(true);
         effetDegats_.setTargetChoice(TargetChoice.ADJ_UNIQ);
+        effetDegats_.setClosestFoeDamageRateHp(new Rate("1/8"));
         ficheAttaqueOff_.getEffects().add(effetDegats_);
-        effetTauxPVMax_ = defaultEffectFullHpRate();
-        effetTauxPVMax_.setClosestFoeDamageRateHp(new Rate("1/8"));
-        effetTauxPVMax_.setTargetChoice(TargetChoice.LANCEUR);
-        effetTauxPVMax_.getRequiredSuccessfulEffects().add(0);
-        ficheAttaqueOff_.getEffects().add(effetTauxPVMax_);
         _data.completeQuickMembers(REBONDIFEU,ficheAttaqueOff_);
         ficheAttaqueNonOff_ = defaultFicheAttaqueNonOff();
         ficheAttaqueNonOff_.setThievableMove(true);
@@ -7527,6 +7523,7 @@ final class InitializationMoves extends EquallablePkUtil {
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
         object_.setRequiredSuccessfulEffects(new Ints());
+        object_.setClosestFoeDamageRateHp(Rate.zero());
         return object_;
     }
 
@@ -7622,7 +7619,6 @@ final class InitializationMoves extends EquallablePkUtil {
         EffectFullHpRate object_ = new EffectFullHpRate();
         object_.setLeftUserHp(Rate.zero());
         object_.setRestoredHp(NULL_REF);
-        object_.setClosestFoeDamageRateHp(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
         object_.setRequiredSuccessfulEffects(new Ints());

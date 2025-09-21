@@ -29,6 +29,10 @@ public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
         return _str.getChRate();
     }
 
+    public static Rate callEffectDamageBeanClosestFoeDamageRateHpGet(EffectDamageBean _str, int... _args) {
+        return _str.getClosestFoeDamageRateHp();
+    }
+
     public static boolean callEffectDamageBeanConstDamageGet(EffectDamageBean _str, int... _args) {
         return _str.getConstDamage();
     }
@@ -161,6 +165,7 @@ public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
         ef_.setConstDamage(_constDamage);
         ef_.setChLaw(new MonteCarloNumber());
         ef_.setHitsLaw(new MonteCarloNumber());
+        ef_.setClosestFoeDamageRateHp(new Rate("1/2"));
         IdMap<Statistic,Long> b_ = new IdMap<Statistic,Long>();
         b_.addEntry(Statistic.SPEED,1L);
         ef_.setBoostStatisOnceKoFoe(b_);

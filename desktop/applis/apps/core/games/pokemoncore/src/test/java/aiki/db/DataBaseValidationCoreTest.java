@@ -319,6 +319,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         effectDamage_.setStatisAtt(Statistic.SPEED);
         effectDamage_.setStatisDef(Statistic.SPEED);
         effectDamage_.setConstDamage(true);
+        effectDamage_.setClosestFoeDamageRateHp(Rate.newRate("-1"));
         mvDam_.getEffects().add(effectDamage_);
         mvDam_.setTargetChoice(TargetChoice.ANY_FOE);
         data_.completeMembers(CHARGE3,mvDam_);
@@ -592,7 +593,6 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         mvDam_.getEffects().add(effectCommonStatistics_);
         EffectFullHpRate effectFullHpRate_ = Instances.newEffectFullHpRate();
         effectFullHpRate_.setLeftUserHp(Rate.newRate("-1"));
-        effectFullHpRate_.setClosestFoeDamageRateHp(Rate.newRate("-1"));
         effectFullHpRate_.setRestoredHp(CHARGE);
         mvDam_.getEffects().add(effectFullHpRate_);
         EffectClone effectClone_ = Instances.newEffectClone();
