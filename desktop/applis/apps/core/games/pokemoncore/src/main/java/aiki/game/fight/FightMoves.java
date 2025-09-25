@@ -63,34 +63,29 @@ final class FightMoves {
     static StringList moveTypes(Fight _fight, TeamPosition _lanceur,String _attaque,DataBase _import){
         MoveData fAtt_=_import.getMove(_attaque);
         Fighter creatureCbtLanceur_=_fight.getFighter(_lanceur);
+        StringList types_ = new StringList();
         if(FightItems.canUseItsObject(_fight,_lanceur,_import)){
             String objet_=creatureCbtLanceur_.getItem();
             if(fAtt_.getTypesByOwnedItem().contains(objet_)){
-                return new StringList(fAtt_.getTypesByOwnedItem().getVal(objet_));
-            }
-            if(fAtt_.getTypesByOwnedItem().contains(DataBase.EMPTY_STRING)){
-                return new StringList(fAtt_.getTypesByOwnedItem().getVal(DataBase.EMPTY_STRING));
+                types_.add(fAtt_.getTypesByOwnedItem().getVal(objet_));
+            } else if(fAtt_.getTypesByOwnedItem().contains(DataBase.EMPTY_STRING)){
+                types_.add(fAtt_.getTypesByOwnedItem().getVal(DataBase.EMPTY_STRING));
             }
         }
         StringMap<String> typeAttaqueClimat_=fAtt_.getTypesByWeather();
-        StringList types_ = new StringList();
+        int s_ = types_.size();
         for (String w: climatsActifs(_fight,_import)) {
             if(!typeAttaqueClimat_.contains(w)){
                 continue;
             }
             types_.add(typeAttaqueClimat_.getVal(w));
         }
-        if (!types_.isEmpty()) {
-            types_.removeDuplicates();
-            return types_;
-        }
-        if (typeAttaqueClimat_.contains(DataBase.EMPTY_STRING)) {
+        if (s_ == types_.size() && typeAttaqueClimat_.contains(DataBase.EMPTY_STRING)) {
             types_.add(typeAttaqueClimat_.getVal(DataBase.EMPTY_STRING));
         }
-        if (!types_.isEmpty()) {
-            return types_;
+        if (types_.isEmpty()) {
+            changingBoostTypes(_import, fAtt_, creatureCbtLanceur_, types_);
         }
-        changingBoostTypes(_import, fAtt_, creatureCbtLanceur_, types_);
         replacingTypes(_import, creatureCbtLanceur_, types_);
         changeTypes(_import, creatureCbtLanceur_, types_);
         types_.removeDuplicates();

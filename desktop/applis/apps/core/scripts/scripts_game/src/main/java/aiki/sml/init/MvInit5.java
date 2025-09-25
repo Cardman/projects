@@ -106,6 +106,7 @@ EffectSwitchTypes m1091effectSwitchTypes_=Instances.newEffectSwitchTypes();
 m1091effectSwitchTypes_.setConstValuesType(ConstValuesType.NOTHING);
 m1091effectSwitchTypes_.setExchangeTypes(ExchangeType.GIVE_TO_THROWER);
 m1091effectSwitchTypes_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+m1091effectSwitchTypes_.setFail(A_CARDINAL+LP+LB+V_CIBLE_TYPES+RB+RP+OE+R_0);
 m1091custListEffect_.add(m1091effectSwitchTypes_);
 m1091statusMoveData_.setEffects(m1091custListEffect_);
 m1091statusMoveData_.setStoppableMoveSolo(true);

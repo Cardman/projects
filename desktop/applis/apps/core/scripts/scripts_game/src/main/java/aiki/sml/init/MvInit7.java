@@ -114,6 +114,7 @@ CustList<Effect> m1145custListEffect_ = new CustList<Effect>(new CollCapacity(1)
 EffectSwitchTypes m1145effectSwitchTypes_=Instances.newEffectSwitchTypes();
 m1145effectSwitchTypes_.setConstValuesType(ConstValuesType.NOTHING);
 m1145effectSwitchTypes_.setExchangeTypes(ExchangeType.GIVE_CONST);
+m1145effectSwitchTypes_.setFail(V_CIBLE_CLONE+GT+R_0+OO+A_CARDINAL+LP+A_INTER+LP+LB+V_CIBLE_CAPACITE+RB+OC+LB+I_MULTITYPE+RB+RP+RP+GT+R_0);
 m1145stringList_=new StringList(new CollCapacity(1));
 m1145stringList_.add(I_EAU);
 m1145effectSwitchTypes_.setConstTypes(m1145stringList_);
