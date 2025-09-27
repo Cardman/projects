@@ -58,11 +58,12 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         reasonsSending = CommonBean.getFormattedReasons(data_, effect_.getFailSending(), getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailSending(),getLanguage());
         NatStringTreeMap<String> mapVarsFailSending_ = new NatStringTreeMap<String>();
-        StringList desc_ = new StringList(mapVars_.getKeys());
-        desc_.sort();
-        for (String k: desc_) {
-            mapVarsFailSending_.put(k, mapVars_.getVal(k));
-        }
+        feed(mapVars_,mapVarsFailSending_);
+//        StringList desc_ = new StringList(mapVars_.getKeys());
+//        desc_.sort();
+//        for (String k: desc_) {
+//            mapVarsFailSending_.put(k, mapVars_.getVal(k));
+//        }
         mapVarsFailSending = mapVarsFailSending_;
 //        Map<String,String> loc_ = new Map<>();
 //        loc_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
@@ -73,11 +74,12 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
 //        damageRateAgainstFoe = damageRateAgainstFoe.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
         mapVars_ = data_.getDescriptions(effect_.getDamageRateAgainstFoe(),getLanguage());
         NatStringTreeMap<String> mapVarsDamageSentFoe_ = new NatStringTreeMap<String>();
-        desc_ = new StringList(mapVars_.getKeys());
-        desc_.sort();
-        for (String k: desc_) {
-            mapVarsDamageSentFoe_.put(k, mapVars_.getVal(k));
-        }
+        feed(mapVars_,mapVarsDamageSentFoe_);
+//        desc_ = new StringList(mapVars_.getKeys());
+//        desc_.sort();
+//        for (String k: desc_) {
+//            mapVarsDamageSentFoe_.put(k, mapVars_.getVal(k));
+//        }
         mapVarsDamageSentFoe = mapVarsDamageSentFoe_;
     }
 

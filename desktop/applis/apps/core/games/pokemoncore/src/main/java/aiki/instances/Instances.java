@@ -615,6 +615,7 @@ public final class Instances {
         object_.setMultAccuracy(Rate.zero());
         object_.setPreventStatus(new StringList(cap_));
         object_.setImmuneTypes(new StringList(cap_));
+        object_.setGroundedTypes(new StringList(cap_));
         object_.setDamageEndRound(Rate.zero());
         object_.setHealingEndRound(Rate.zero());
         object_.setHealingEndRoundGround(Rate.zero());
@@ -626,11 +627,17 @@ public final class Instances {
         object_.setMovesUsedByTargetedFighters(new StringList(cap_));
         object_.setMultEffectLovingAlly(Rate.zero());
         object_.setMultPowerMoves(new StringMap<Rate>(cap_));
+        object_.setMultPowerUsedMoves(new StringMap<Rate>(cap_));
+        object_.setMultPowerSufferedMoves(new StringMap<Rate>(cap_));
         object_.setMultStatIfContainsType(new StatisticTypeRate(cap_));
         object_.setCancelEffects(new StringList(cap_));
+        object_.setImmuDamageByDisappearingMoves(new StringList(cap_));
         object_.setMultDamageTypesMoves(new StringMap<Rate>(cap_));
+        object_.setMultPowerUsedTypesMoves(new StringMap<Rate>(cap_));
+        object_.setMultPowerSufferedTypesMoves(new StringMap<Rate>(cap_));
         object_.setCancelChgtStat(new IdList<Statistic>(cap_));
         object_.setInvokedMoveTerrain(DataBase.EMPTY_STRING);
+        object_.setPreventStatusFail(DataBase.EMPTY_STRING);
         object_.setChangedTypesTerrain(new StringList(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);

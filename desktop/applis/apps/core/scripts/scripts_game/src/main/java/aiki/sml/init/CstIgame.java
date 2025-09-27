@@ -2482,10 +2482,12 @@ protected static final String V_FIGHTER_CLONE = VD+SE+ MessagesDataBaseConstants
 protected static final String V_FIGHTER_DER_JOUE = VD+SE+ MessagesDataBaseConstants.DEF_FIGHTER_DER_JOUE;
 protected static final String V_FIGHTER_NOM = VD+SE+ MessagesDataBaseConstants.DEF_FIGHTER_NOM;
 protected static final String V_FIGHTER_OBJET = VD+SE+ MessagesDataBaseConstants.DEF_FIGHTER_OBJET;
+protected static final String V_FIGHTER_DISPARAIT = VD+SE+ MessagesDataBaseConstants.DEF_FIGHTER_DISPARAIT;
 protected static final String V_FIGHTER_STATUTS = VD+SE+ MessagesDataBaseConstants.DEF_FIGHTER_STATUTS;
 protected static final String V_FIGHTER_TYPES = VD+SE+ MessagesDataBaseConstants.DEF_FIGHTER_TYPES;
 protected static final String V_GENRES_EGAUX = VD+SE+ MessagesDataBaseConstants.DEF_GENRES_EGAUX;
 protected static final String V_IMMU_TYPE_ATT_CIBLE = VD+SE+ MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_CIBLE;
+protected static final String V_IMMU_TYPE_ATT_FIGHTER = VD+SE+ MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_FIGHTER;
 protected static final String V_IMMU_TYPE_ATT_COMBATTANT_ENTRANT = VD+SE+ MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT;
 protected static final String V_LANCEUR_ATTAQUES = VD+SE+ MessagesDataBaseConstants.DEF_LANCEUR_ATTAQUES;
 protected static final String V_LANCEUR_ATTAQUES_TYPES = VD+SE+ MessagesDataBaseConstants.DEF_LANCEUR_ATTAQUES_TYPES;
@@ -2553,6 +2555,7 @@ protected static final char OQ = ':';
 protected static final char OS = ';';
 protected static final char RB = '}';
 protected static final char RP = ')';
+protected static final char ON = '!';
 protected CstIgame(){}
 protected static LawNumber ln(MonteCarloNumber _l,int _n){
 return new LawNumber(_l,_n);

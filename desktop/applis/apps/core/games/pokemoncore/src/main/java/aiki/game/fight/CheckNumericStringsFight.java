@@ -312,6 +312,7 @@ public final class CheckNumericStringsFight {
             checkMovesStrEffectTeamWhileSendingFoe(m_);
             checkMovesStrEffectFullHpRate(m_);
             checkMovesStrEffectStatisticStatus(_diff, m_);
+            checkMovesStrEffectGlobal(m_);
             checkMovesStrEffectEndRound(m_);
             checkMovesStrEffectCounterAttack(m_);
         }
@@ -337,6 +338,17 @@ public final class CheckNumericStringsFight {
                 fails_.add(e_.getFailEndRound());
             }
             checkFails(data, variablesDiff, boolVarsDiffNotSending, fails_);
+        }
+    }
+
+    private void checkMovesStrEffectGlobal(MoveData _m) {
+        for (Effect e : _m.getEffects()) {
+            StringList fails_ = new StringList();
+            if (e instanceof EffectGlobal) {
+                EffectGlobal e_ = (EffectGlobal) e;
+                fails_.add(e_.getPreventStatusFail());
+            }
+            checkFails(data, variablesFighter, new StringMap<String>(), fails_);
         }
     }
 

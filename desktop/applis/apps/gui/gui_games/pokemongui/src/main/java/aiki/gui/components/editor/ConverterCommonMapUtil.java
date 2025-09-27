@@ -1116,6 +1116,7 @@ public final class ConverterCommonMapUtil {
         if (_e instanceof EffectGlobal) {
             addTrs(_db.getTranslatedStatus(),((EffectGlobal) _e).getPreventStatus());
             addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getImmuneTypes());
+            addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getGroundedTypes());
             addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getEfficiencyMoves());
             addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getDisableImmuAgainstTypes());
             addTrs(_db.getTranslatedAbilities(),((EffectGlobal) _e).getCancelProtectingAbilities());
@@ -1123,9 +1124,14 @@ public final class ConverterCommonMapUtil {
             new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultDamagePrepaRound());
             addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getMovesUsedByTargetedFighters());
             new IntListConvertId<Rate>().addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getMultPowerMoves());
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getMultPowerUsedMoves());
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getMultPowerSufferedMoves());
             addTrsRate(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultStatIfContainsType());
             addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getCancelEffects());
+            addTrs(_db.getTranslatedMoves(),((EffectGlobal) _e).getImmuDamageByDisappearingMoves());
             new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultDamageTypesMoves());
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultPowerUsedTypesMoves());
+            new IntListConvertId<Rate>().addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getMultPowerSufferedTypesMoves());
             ((EffectGlobal) _e).setInvokedMoveTerrain(addTr(_db.getTranslatedMoves(),((EffectGlobal) _e).getInvokedMoveTerrain()));
             addTrs(_db.getTranslatedTypes(),((EffectGlobal) _e).getChangedTypesTerrain());
         }
@@ -2875,6 +2881,7 @@ public final class ConverterCommonMapUtil {
         cp_.setUnusableItem(_e.getUnusableItem());
         cp_.setPreventStatus(new StringList(_e.getPreventStatus()));
         cp_.setImmuneTypes(new StringList(_e.getImmuneTypes()));
+        cp_.setGroundedTypes(new StringList(_e.getGroundedTypes()));
         cp_.setDamageEndRound(new Rate(_e.getDamageEndRound()));
         cp_.setHealingEndRound(new Rate(_e.getHealingEndRound()));
         cp_.setHealingEndRoundGround(new Rate(_e.getHealingEndRoundGround()));
@@ -2886,11 +2893,17 @@ public final class ConverterCommonMapUtil {
         cp_.setMovesUsedByTargetedFighters(new StringList(_e.getMovesUsedByTargetedFighters()));
         cp_.setMultEffectLovingAlly(new Rate(_e.getMultEffectLovingAlly()));
         cp_.setMultPowerMoves(copyStringMapRate(_e.getMultPowerMoves()));
+        cp_.setMultPowerUsedMoves(copyStringMapRate(_e.getMultPowerUsedMoves()));
+        cp_.setMultPowerSufferedMoves(copyStringMapRate(_e.getMultPowerSufferedMoves()));
         cp_.setMultStatIfContainsType(copyStatisticTypeRate(_e.getMultStatIfContainsType()));
         cp_.setCancelEffects(new StringList(_e.getCancelEffects()));
+        cp_.setImmuDamageByDisappearingMoves(new StringList(_e.getImmuDamageByDisappearingMoves()));
         cp_.setMultDamageTypesMoves(copyStringMapRate(_e.getMultDamageTypesMoves()));
+        cp_.setMultPowerUsedTypesMoves(copyStringMapRate(_e.getMultPowerUsedTypesMoves()));
+        cp_.setMultPowerSufferedTypesMoves(copyStringMapRate(_e.getMultPowerSufferedTypesMoves()));
         cp_.setCancelChgtStat(new IdList<Statistic>(_e.getCancelChgtStat()));
         cp_.setInvokedMoveTerrain(_e.getInvokedMoveTerrain());
+        cp_.setPreventStatusFail(_e.getPreventStatusFail());
         cp_.setChangedTypesTerrain(new StringList(_e.getChangedTypesTerrain()));
         copyEffect(cp_,_e);
         return cp_;

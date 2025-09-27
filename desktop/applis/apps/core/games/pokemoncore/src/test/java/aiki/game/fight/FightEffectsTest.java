@@ -1579,7 +1579,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(StringUtil.contains(types_, FEE));
+        assertTrue(StringUtil.contains(types_, SOL));
         assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
@@ -1618,6 +1618,25 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(2, types_.size());
         assertTrue(StringUtil.contains(types_, COMBAT));
         assertTrue(StringUtil.contains(types_, ACIER));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+    }
+
+    @Test
+    public void effectSwitchTypes13Test() {
+        DataBase data_ = initDb();
+        Fight fight_ = effectCommonStatistics(data_);
+        fight_.enableGlobalMove(CHAMP_BRUMEUX);
+        TeamPosition thrower_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        FightRound.initRound(fight_);
+        Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
+        fighter_.affecterTypes(SOL);
+        MoveData fMove_ = data_.getMove(CAMOUFLAGE);
+        EffectSwitchTypes effect_ = (EffectSwitchTypes) fMove_.getEffet(IndexConstants.FIRST_INDEX);
+        FightEffects.effectSwitchTypes(fight_, thrower_, thrower_, effect_, data_);
+        fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
+        StringList types_ = fighter_.getTypes();
+        assertEq(1, types_.size());
+        assertTrue(StringUtil.contains(types_, FEE));
         assertTrue(fight_.getTemp().getAcceptableChoices());
     }
     @Test

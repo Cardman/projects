@@ -11,8 +11,7 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
-import code.scripts.pages.aiki.MessagesDataEffglobal;
-import code.scripts.pages.aiki.MessagesPkBean;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.NumberUtil;
 
@@ -20,6 +19,7 @@ public class EffectGlobalBean extends EffectBean {
     private EffectGlobalCore effectGlobalCore;
     private CustList<TranslatedKey> preventStatus;
     private CustList<TranslatedKey> immuneTypes;
+    private CustList<TranslatedKey> groundedTypes;
     private DictionaryComparator<TranslatedKeyPair, Rate> efficiencyMoves;
     private CustList<TranslatedKey> disableImmuAgainstTypes;
     private CustList<TranslatedKey> cancelProtectingAbilities;
@@ -28,14 +28,20 @@ public class EffectGlobalBean extends EffectBean {
     private CustList<TranslatedKey> movesUsedByTargetedFighters;
     private Rate multEffectLovingAlly;
     private DictionaryComparator<TranslatedKey, Rate> multPowerMoves;
+    private DictionaryComparator<TranslatedKey, Rate> multPowerUsedMoves;
+    private DictionaryComparator<TranslatedKey, Rate> multPowerSufferedMoves;
     private DictionaryComparator<TranslatedKeyPair, Rate> multStatIfContainsType;
     private CustList<TranslatedKey> cancelEffects;
     private DictionaryComparator<TranslatedKey, Rate> multDamageTypesMoves;
+    private DictionaryComparator<TranslatedKey, Rate> multPowerUsedTypesMoves;
+    private DictionaryComparator<TranslatedKey, Rate> multPowerSufferedTypesMoves;
     private CustList<TranslatedKey> cancelChgtStat;
     private TranslatedKey invokedMoveTerrain;
     private CustList<TranslatedKey> invokingMoves;
     private CustList<TranslatedKey> changedTypesTerrain;
     private CustList<TranslatedKey> invokingMovesChangingTypes;
+    private StringList reasonsPreventStatus;
+    private NatStringTreeMap<String> mapVarsFailPreventStatus;
 
     @Override
     public void beforeDisplaying() {
@@ -45,7 +51,13 @@ public class EffectGlobalBean extends EffectBean {
         DataBase data_ = getDataBase();
         multEffectLovingAlly = effect_.getMultEffectLovingAlly();
         preventStatus = listTrStringsSt(effect_.getPreventStatus(), getFacade());
+        reasonsPreventStatus = CommonBean.getFormattedReasons(data_, effect_.getPreventStatusFail(), getLanguage());
+        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getPreventStatusFail(),getLanguage());
+        NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap< String>();
+        feed(mapVars_, mapVarsFail_);
+        mapVarsFailPreventStatus = mapVarsFail_;
         immuneTypes = listTrStringsTy(effect_.getImmuneTypes(), getFacade());
+        groundedTypes = listTrStringsTy(effect_.getGroundedTypes(), getFacade());
 //        TreeMap<TypesDuo, Rate> efficiencyMoves_;
 //        efficiencyMoves_ = new TreeMap<new>(new NaturalComparator<TypesDuo>() {
 //            @Override
@@ -67,8 +79,12 @@ public class EffectGlobalBean extends EffectBean {
         cancelProtectingAbilities = listTrStringsAb(effect_.getCancelProtectingAbilities(), getFacade());
         unusableMoves = listTrStringsMv(effect_.getUnusableMoves(), getFacade());
         cancelEffects = listTrStringsMv(effect_.getCancelEffects(), getFacade());
-        multPowerMoves = multPowerMoves(effect_);
+        multPowerMoves = multPowerMoves(effect_.getMultPowerMoves());
+        multPowerUsedMoves = multPowerMoves(effect_.getMultPowerUsedMoves());
+        multPowerSufferedMoves = multPowerMoves(effect_.getMultPowerSufferedMoves());
         multDamageTypesMoves = map(effect_.getMultDamageTypesMoves());
+        multPowerUsedTypesMoves = map(effect_.getMultPowerUsedTypesMoves());
+        multPowerSufferedTypesMoves = map(effect_.getMultPowerSufferedTypesMoves());
         CustList<TranslatedKey> cancelChgtStat_;
         cancelChgtStat_ = new CustList<TranslatedKey>();
         for (Statistic s: effect_.getCancelChgtStat()) {
@@ -127,14 +143,21 @@ public class EffectGlobalBean extends EffectBean {
         displayIntDef(getEffectGlobalCore().getHealingEndRound(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_HEALING_END_ROUND);
         displayIntDef(getMultEffectLovingAlly(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_MULT_LOVE);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getPreventStatus(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_FORBID_STATUS);
+        displayStringList(getReasonsPreventStatus(), MessagesPkBean.EFF_COUNTERATTACK, MessagesDataEffglobal.M_P_49_FORBID_STATUS_FAIL_REASONS, getMove());
+        mapVarsInit(getMapVarsFailPreventStatus());
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getImmuneTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_IMMUNE_TYPES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getGroundedTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_GROUNDED_TYPES);
         new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,getEfficiencyMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_EFFICIENCY_TABLE,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_POKEMON_TYPE,MessagesDataEffglobal.M_P_49_EFFICIENCY);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getDisableImmuAgainstTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_TYPES);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getCancelProtectingAbilities(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_ABILITIES);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getUnusableMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_UNUSABLE_MOVES);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getCancelEffects(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CANCEL_EFFECTS);
         new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,getMultPowerMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,getMultPowerUsedMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE_US,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,getMultPowerSufferedMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE_SUF,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
         new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,getMultDamageTypesMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this, getMultPowerUsedTypesMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE_US,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this, getMultPowerSufferedTypesMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE_SUF,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getCancelChgtStat(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CANCEL_CHGT_STATIS);
 //            displayNotEmpty(MessagesPkBean.EFF_GLOBAL,getInvokedMoveTerrain().getTranslation(),MessagesDataEffglobal.M_P_49_INVOKED_MOVE);
 //            formatMessageDir(getInvokedMoveTerrain());
@@ -147,11 +170,11 @@ public class EffectGlobalBean extends EffectBean {
         new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(), new BeanDisplayRate()).displayGrid(this,getMultDamagePrepaRound(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_RATE);
     }
 
-    private DictionaryComparator<TranslatedKey, Rate> multPowerMoves(EffectGlobal _eff) {
+    private DictionaryComparator<TranslatedKey, Rate> multPowerMoves(StringMap<Rate> _m) {
         DictionaryComparator<TranslatedKey, Rate> multPowerMoves_;
         multPowerMoves_ = DictionaryComparatorUtil.buildMovesRate();
-        for (String m: _eff.getMultPowerMoves().getKeys()) {
-            multPowerMoves_.put(buildMv(getFacade(),m), _eff.getMultPowerMoves().getVal(m));
+        for (String m: _m.getKeys()) {
+            multPowerMoves_.put(buildMv(getFacade(),m), _m.getVal(m));
         }
         return multPowerMoves_;
     }
@@ -310,8 +333,20 @@ public class EffectGlobalBean extends EffectBean {
         return preventStatus;
     }
 
+    public StringList getReasonsPreventStatus() {
+        return reasonsPreventStatus;
+    }
+
+    public NatStringTreeMap<String> getMapVarsFailPreventStatus() {
+        return mapVarsFailPreventStatus;
+    }
+
     public CustList<TranslatedKey> getImmuneTypes() {
         return immuneTypes;
+    }
+
+    public CustList<TranslatedKey> getGroundedTypes() {
+        return groundedTypes;
     }
 
     public DictionaryComparator<TranslatedKeyPair,Rate> getEfficiencyMoves() {
@@ -338,8 +373,24 @@ public class EffectGlobalBean extends EffectBean {
         return multPowerMoves;
     }
 
+    public DictionaryComparator<TranslatedKey, Rate> getMultPowerUsedMoves() {
+        return multPowerUsedMoves;
+    }
+
+    public DictionaryComparator<TranslatedKey, Rate> getMultPowerSufferedMoves() {
+        return multPowerSufferedMoves;
+    }
+
     public DictionaryComparator<TranslatedKey,Rate> getMultDamageTypesMoves() {
         return multDamageTypesMoves;
+    }
+
+    public DictionaryComparator<TranslatedKey, Rate> getMultPowerUsedTypesMoves() {
+        return multPowerUsedTypesMoves;
+    }
+
+    public DictionaryComparator<TranslatedKey, Rate> getMultPowerSufferedTypesMoves() {
+        return multPowerSufferedTypesMoves;
     }
 
     public CustList<TranslatedKey> getCancelChgtStat() {

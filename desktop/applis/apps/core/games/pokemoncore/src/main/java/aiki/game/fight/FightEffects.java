@@ -524,16 +524,17 @@ final class FightEffects {
     private static void typesEnv(Fight _fight, TeamPosition _cible, EffectSwitchTypes _effet, DataBase _import, Fighter _creatureCible) {
         StringList types_ = new StringList();
         for (String m: FightMoves.enabledGlobalMoves(_fight, _import)) {
-            MoveData moveDta_ = _import.getMove(m);
-            int nbEffects_ = moveDta_.nbEffets();
-            for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
-                Effect eff_ = moveDta_.getEffet(i);
-                if (!(eff_ instanceof EffectGlobal)) {
-                    continue;
-                }
-                EffectGlobal effectLoc_ = (EffectGlobal) eff_;
-                types_.addAllElts(effectLoc_.getChangedTypesTerrain());
-            }
+            types_.addAllElts(FightSuccess.effectGlobalProtectedAgainstMoveTypeGlobal(_fight,_cible,m,_import).getChangedTypesTerrain());
+//            MoveData moveDta_ = _import.getMove(m);
+//            int nbEffects_ = moveDta_.nbEffets();
+//            for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
+//                Effect eff_ = moveDta_.getEffet(i);
+//                if (!(eff_ instanceof EffectGlobal)) {
+//                    continue;
+//                }
+//                EffectGlobal effectLoc_ = (EffectGlobal) eff_;
+//                types_.addAllElts(effectLoc_.getChangedTypesTerrain());
+//            }
         }
         if (!types_.isEmpty()) {
             _creatureCible.affecterTypes(types_);
@@ -1139,6 +1140,10 @@ final class FightEffects {
         finalPower_.multiplyBy(rateObjectPower(_fight, _lanceur, variables_, _import));
         finalPower_.multiplyBy(rateTypesPower(_fight, _lanceur, _cible, typeAtt_));
         finalPower_.multiplyBy(rateAbilityPower(_fight, _lanceur, variables_, _import));
+        finalPower_.multiplyBy(rateDamageGlobalMovesTarget(_fight,typeAtt_,_import,_cible));
+        finalPower_.multiplyBy(rateDamageGlobalMovesUser(_fight,typeAtt_,_import,_lanceur));
+        finalPower_.multiplyBy(multBaseDamageTarget(_fight, _cible, _attaqueLanceur, _import));
+        finalPower_.multiplyBy(multBaseDamageUser(_fight, _lanceur, _attaqueLanceur, _import));
         Rate att_ = attack(_fight, _lanceur, _cible, effect_, variables_, _import);
         Rate def_ = defense(_fight, _lanceur, _cible, effect_, variables_, _import);
         StringMap<String> varLocs_ = FightValues.calculateValuesWithStat(variables_,att_,def_,finalPower_,_import);
@@ -1178,6 +1183,28 @@ final class FightEffects {
                 if(effetGlobal_.getMultPowerMoves().contains(_move)){
                     multBasePower_.multiplyBy(effetGlobal_.getMultPowerMoves().getVal(_move));
                 }
+            }
+        }
+        return multBasePower_;
+    }
+
+    static Rate multBaseDamageUser(Fight _fight, TeamPosition _cbt, String _move, DataBase _import) {
+        Rate multBasePower_ = DataBase.defRateProduct();
+        for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
+            EffectGlobal effetGlobal_ = FightSuccess.effectGlobalProtectedAgainstMoveTypeGlobal(_fight, _cbt, c, _import);
+            if(effetGlobal_.getMultPowerUsedMoves().contains(_move)){
+                multBasePower_.multiplyBy(effetGlobal_.getMultPowerUsedMoves().getVal(_move));
+            }
+        }
+        return multBasePower_;
+    }
+
+    static Rate multBaseDamageTarget(Fight _fight, TeamPosition _cbt, String _move, DataBase _import) {
+        Rate multBasePower_ = DataBase.defRateProduct();
+        for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
+            EffectGlobal effetGlobal_ = FightSuccess.effectGlobalProtectedAgainstMoveTypeGlobal(_fight, _cbt, c, _import);
+            if(effetGlobal_.getMultPowerSufferedMoves().contains(_move)){
+                multBasePower_.multiplyBy(effetGlobal_.getMultPowerSufferedMoves().getVal(_move));
             }
         }
         return multBasePower_;
@@ -1405,7 +1432,30 @@ final class FightEffects {
         }
         return rate_;
     }
-
+    static Rate rateDamageGlobalMovesTarget(Fight _fight, StringList _moveTypes, DataBase _import, TeamPosition _cbt) {
+        Rate rate_ = DataBase.defRateProduct();
+        for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
+            EffectGlobal eff_ = FightSuccess.effectGlobalProtectedAgainstMoveTypeGlobal(_fight, _cbt, c, _import);
+            for (String t: _moveTypes) {
+                if (eff_.getMultPowerSufferedTypesMoves().contains(t)) {
+                    rate_.multiplyBy(eff_.getMultPowerSufferedTypesMoves().getVal(t));
+                }
+            }
+        }
+        return rate_;
+    }
+    static Rate rateDamageGlobalMovesUser(Fight _fight, StringList _moveTypes, DataBase _import, TeamPosition _cbt) {
+        Rate rate_ = DataBase.defRateProduct();
+        for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
+            EffectGlobal eff_ = FightSuccess.effectGlobalProtectedAgainstMoveTypeGlobal(_fight, _cbt, c, _import);
+            for (String t: _moveTypes) {
+                if (eff_.getMultPowerUsedTypesMoves().contains(t)) {
+                    rate_.multiplyBy(eff_.getMultPowerUsedTypesMoves().getVal(t));
+                }
+            }
+        }
+        return rate_;
+    }
     static Rate rateDamageThrowerObject(Fight _fight, TeamPosition _fighter, StringMap<String> _variables, DataBase _import) {
         Rate rate_ = DataBase.defRateProduct();
         Item objet_ = FightItems.useItsObject(_fight, _fighter, _import);
@@ -2201,7 +2251,7 @@ final class FightEffects {
     }
 
     static void disableStatus(Fight _fight, TeamPosition _fighter, DataBase _import) {
-        for(String e: FightSuccess.forbiddenStatus(_fight, _import)){
+        for(String e: FightSuccess.forbiddenStatus(_fight, _fighter, _import)){
             Fighter creature_= _fight.getFighter(_fighter);
             if(creature_.isSingleStatus(e)){
                 creature_.supprimerStatut(e);

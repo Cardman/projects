@@ -64,6 +64,10 @@ m954statusMoveData_.setAccuracy(R_1);
 CustList<Effect> m954custListEffect_ = new CustList<Effect>(new CollCapacity(2));
 EffectGlobal m954effectGlobal_=Instances.newEffectGlobal();
 m954effectGlobal_.setWeather(true);
+m954stringList_=new StringList(new CollCapacity(1));
+m954stringList_.add(I_TUNNEL);
+m954stringList_.add(I_PLONGEE);
+m954effectGlobal_.setImmuDamageByDisappearingMoves(m954stringList_);
 m954stringList_=new StringList(new CollCapacity(3));
 m954stringList_.add(I_ROCHE);
 m954stringList_.add(I_SOL);
@@ -93,6 +97,9 @@ m954statusMoveData_.setStoppableMoveMulti(true);
 m954statusMoveData_.setIgnVarAccurUserNeg(true);
 m954statusMoveData_.setIgnVarEvasTargetPos(true);
 m954statusMoveData_.setTargetChoice(TargetChoice.LANCEUR);
+MonteCarloNumber m954monteCarloNumber_=new MonteCarloNumber(new CollCapacity(1));
+m954monteCarloNumber_.addQuickEvent(Rate.newRate(R_5),LgInt.newLgInt(R_1));
+m954statusMoveData_.setRepeatRoundLaw(m954monteCarloNumber_);
 return m954statusMoveData_;
 }
 static MoveData m552(){

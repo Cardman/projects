@@ -265,6 +265,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         EffectGlobal effectGlobal_ = Instances.newEffectGlobal();
         effectGlobal_.getCancelChgtStat().add(Statistic.HP);
         effectGlobal_.setImmuneTypes(new StringList(NULL_REF));
+        effectGlobal_.setGroundedTypes(new StringList(NULL_REF));
         effectGlobal_.setHealingEndRound(Rate.newRate("-1"));
         effectGlobal_.setHealingEndRoundGround(Rate.newRate("-1"));
         effectGlobal_.setDamageEndRound(Rate.newRate("-1"));

@@ -18,6 +18,7 @@ import aiki.fight.util.TypesDuos;
 import aiki.fight.util.TypesDuo;
 import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.game.fight.util.RandomBoolResults;
+import aiki.instances.*;
 import aiki.util.MoveTeamPositionsBoolVal;
 import aiki.util.NbEffectFighterCoordss;
 import code.maths.LgInt;
@@ -211,6 +212,38 @@ final class FightSuccess {
             }
         }
         return cancelImmu_;
+    }
+
+    static EffectGlobal effectGlobalProtectedAgainstMoveTypeGlobal(Fight _fight,TeamPosition _cbt,String _att,DataBase _import){
+        return effectGlobalProtectedAgainstMoveTypeGlobalApp(_fight, _cbt, _import, effectGlobalProtectedAgainstMoveTypeGlobalDir(_att, _import));
+    }
+    static EffectGlobal effectGlobalProtectedAgainstMoveTypeGlobalDir(String _att, DataBase _import){
+        CustList<EffectGlobal> effs_ = new CustList<EffectGlobal>();
+        for (Effect e:_import.getMove(_att).getEffects()) {
+            if (e instanceof EffectGlobal) {
+                effs_.add((EffectGlobal) e);
+            }
+        }
+        if (effs_.isEmpty()) {
+            return Instances.newEffectGlobal();
+        }
+        return effs_.first();
+    }
+    static EffectGlobal effectGlobalProtectedAgainstMoveTypeGlobalApp(Fight _fight, TeamPosition _cbt, DataBase _import, EffectGlobal _eff) {
+        for (String s: _eff.getGroundedTypes()) {
+            if (againstTypeProtectedOrDis(_fight, _cbt, _import, s)) {
+                return Instances.newEffectGlobal();
+            }
+        }
+        return _eff;
+    }
+
+    static boolean againstTypeProtectedOrDis(Fight _fight, TeamPosition _cbt, DataBase _import, String _s) {
+        return _fight.getFighter(_cbt).isDisappeared() || againstTypeProtected(_fight, _cbt, _cbt, _import, _s);
+    }
+
+    static boolean againstTypeProtected(Fight _fight, TeamPosition _lanceur,TeamPosition _cible, DataBase _import, String _s) {
+        return isProtectedAgainstMoveType(_fight, _lanceur, _cible, _s, _import) || rateEffAgainstTarget(_fight, _lanceur, _cible, _s, _import).isZero();
     }
 
     static boolean isProtectedAgainstMoveType(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _type,DataBase _import){
@@ -1106,7 +1139,7 @@ final class FightSuccess {
     }
 
     static boolean successfulAffectedStatusProtect(Fight _fight,TeamPosition _combattant,String _statut,boolean _ignoreCapacite,StringList _protectionsIgnorees,DataBase _import){
-        if (StringUtil.contains(forbiddenStatus(_fight, _import), _statut)) {
+        if (StringUtil.contains(forbiddenStatus(_fight, _combattant, _import), _statut)) {
             _fight.addImmuStatGlobalMoveMessage(_combattant, _statut, _import);
             return false;
         }
@@ -1204,19 +1237,23 @@ final class FightSuccess {
         return list_;
     }
 
-    static StringList forbiddenStatus(Fight _fight, DataBase _import) {
+    static StringList forbiddenStatus(Fight _fight, TeamPosition _pos, DataBase _import) {
         StringList forbiddenStatus_ = new StringList();
         for(String c: FightMoves.enabledGlobalMoves(_fight,_import)){
-            MoveData fAtt_=_import.getMove(c);
-            int nbEffets_=fAtt_.nbEffets();
-            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
-                Effect effet_=fAtt_.getEffet(i);
-                if(!(effet_ instanceof EffectGlobal)){
-                    continue;
-                }
-                EffectGlobal effetGlobal_=(EffectGlobal)effet_;
-                forbiddenStatus_.addAllElts(effetGlobal_.getPreventStatus());
+            EffectGlobal effectGlobal_ = FightSuccess.effectGlobalProtectedAgainstMoveTypeGlobalDir(c, _import);
+            if (!_import.evaluateBoolean(effectGlobal_.getPreventStatusFail(), FightValues.calculateValuesFighter(_fight, _pos, _import), false)) {
+                forbiddenStatus_.addAllElts(effectGlobal_.getPreventStatus());
             }
+//            MoveData fAtt_=_import.getMove(c);
+//            int nbEffets_=fAtt_.nbEffets();
+//            for (int i = IndexConstants.FIRST_INDEX; i<nbEffets_; i++){
+//                Effect effet_=fAtt_.getEffet(i);
+//                if(!(effet_ instanceof EffectGlobal)){
+//                    continue;
+//                }
+//                EffectGlobal effetGlobal_=(EffectGlobal)effet_;
+//                forbiddenStatus_.addAllElts(effetGlobal_.getPreventStatus());
+//            }
         }
         return forbiddenStatus_;
     }

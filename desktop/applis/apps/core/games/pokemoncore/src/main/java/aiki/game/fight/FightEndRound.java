@@ -781,6 +781,9 @@ final class FightEndRound {
             }
         }
         Rate varPv_=Rate.zero();
+        if (_creature.isDisappeared() && StringUtil.contains(_effetGl.getImmuDamageByDisappearingMoves(),_creature.getFinalChosenMove())) {
+            immu_=true;
+        }
         if(!immu_){
             Rate prod_ = Rate.multiply(_effetGl.getDamageEndRound(), _creature.pvMax());
             varPv_.addNb(prod_.opposNb());
@@ -788,9 +791,7 @@ final class FightEndRound {
         if(soinType_){
             varPv_.addNb(Rate.multiply(_effetGl.getHealingEndRound(), _creature.pvMax()));
         }
-        if (!_creature.isDisappeared()) {
-            varPv_.addNb(Rate.multiply(_effetGl.getHealingEndRoundGround(), _creature.pvMax()));
-        }
+        varPv_.addNb(Rate.multiply(FightSuccess.effectGlobalProtectedAgainstMoveTypeGlobalApp(_fight,_c,_import,_effetGl).getHealingEndRoundGround(), _creature.pvMax()));
         if(fCapac_ != null && fCapac_.getHealHpByWeather().contains(_attaqueClimat)){
             varPv_.addNb(Rate.multiply(fCapac_.getHealHpByWeather().getVal(_attaqueClimat), _creature.pvMax()));
         }

@@ -824,6 +824,17 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("3/4"),FightEffects.rateDamageGlobalMoves(fight_, new StringList(FEU,EAU), data_));
     }
 
+    @Test
+    public void rateDamageGlobalMovesMults1Test() {
+        DataBase data_ = initDb();
+        Fight fight_ = criticalHitCanHappen(data_);
+        fight_.enableGlobalMove(CHAMP_BRUMEUX);
+        assertEq(new Rate("1"),FightEffects.rateDamageGlobalMovesTarget(fight_, new StringList(FEE), data_, tp(KEY_PLAYER,POKEMON_FIGHTER_ZERO)));
+        assertEq(new Rate("1"),FightEffects.rateDamageGlobalMovesUser(fight_, new StringList(FEE), data_, tp(KEY_PLAYER,POKEMON_FIGHTER_ZERO)));
+        assertEq(new Rate("1"),FightEffects.multBaseDamageTarget(fight_, tp(KEY_PLAYER,POKEMON_FIGHTER_ZERO), CHARGE, data_));
+        assertEq(new Rate("1"),FightEffects.multBaseDamageUser(fight_, tp(KEY_PLAYER,POKEMON_FIGHTER_ZERO), CHARGE, data_));
+    }
+
     private static StringMap<String> getValues(Fight _fight, TeamPosition _thrower, TeamPosition _target, String _move, Rate _power, Rate _efficiency, DataBase _data) {
         Fighter fighter_ = _fight.getFighter(_thrower);
         StringMap<String> variables_;

@@ -28,11 +28,16 @@ public final class EffectGlobal extends Effect {
 
     private Rate multEffectLovingAlly;
     private StringMap<Rate> multPowerMoves;
+    private StringMap<Rate> multPowerUsedMoves;
+    private StringMap<Rate> multPowerSufferedMoves;
 
     private StatisticTypeList<Rate> multStatIfContainsType;
 
     private StringList cancelEffects;
+    private StringList immuDamageByDisappearingMoves;
     private StringMap<Rate> multDamageTypesMoves;
+    private StringMap<Rate> multPowerUsedTypesMoves;
+    private StringMap<Rate> multPowerSufferedTypesMoves;
     private IdList<Statistic> cancelChgtStat;
 
     private String invokedMoveTerrain;
@@ -49,8 +54,16 @@ public final class EffectGlobal extends Effect {
         DataInfoChecker.checkPositiveOrZeroRates(multDamagePrepaRound.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getTypes(),multDamageTypesMoves.getKeys(),_data);
         DataInfoChecker.checkPositiveOrZeroRates(multDamageTypesMoves.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(), multPowerSufferedTypesMoves.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multPowerSufferedTypesMoves.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(), multPowerUsedTypesMoves.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multPowerUsedTypesMoves.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),multPowerMoves.getKeys(),_data);
         DataInfoChecker.checkPositiveOrZeroRates(multPowerMoves.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),multPowerUsedMoves.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multPowerUsedMoves.values(),_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),multPowerSufferedMoves.getKeys(),_data);
+        DataInfoChecker.checkPositiveOrZeroRates(multPowerSufferedMoves.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getTypes(),efficiencyMoves.getTypes(),_data);
         DataInfoChecker.checkPositiveOrZeroRates(efficiencyMoves.values(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatIfContainsType.getStatistics(),_data);
@@ -59,6 +72,7 @@ public final class EffectGlobal extends Effect {
         DataInfoChecker.checkStringListContains(_data.getTypes(),disableImmuAgainstTypes,_data);
         DataInfoChecker.checkStringListContains(_data.getAbilities().getKeys(),cancelProtectingAbilities,_data);
         DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),unusableMoves,_data);
+        DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),immuDamageByDisappearingMoves,_data);
         DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),movesUsedByTargetedFighters,_data);
         DataInfoChecker.checkPositiveOrZero(multEffectLovingAlly,_data);
         DataInfoChecker.checkStringListContains(_data.getMovesEffectGlobal(),cancelEffects,_data);
@@ -122,12 +136,28 @@ public final class EffectGlobal extends Effect {
         effectGlobalCore.setPreventStatus(_preventStatus);
     }
 
+    public String getPreventStatusFail() {
+        return effectGlobalCore.getPreventStatusFail();
+    }
+
+    public void setPreventStatusFail(String _preventStatus) {
+        effectGlobalCore.setPreventStatusFail(_preventStatus);
+    }
+
     public StringList getImmuneTypes() {
         return effectGlobalCore.getImmuneTypes();
     }
 
     public void setImmuneTypes(StringList _immuneTypes) {
         effectGlobalCore.setImmuneTypes(_immuneTypes);
+    }
+
+    public StringList getGroundedTypes() {
+        return effectGlobalCore.getGroundedTypes();
+    }
+
+    public void setGroundedTypes(StringList _immuneTypes) {
+        effectGlobalCore.setGroundedTypes(_immuneTypes);
     }
 
     public Rate getDamageEndRound() {
@@ -224,6 +254,22 @@ public final class EffectGlobal extends Effect {
         multPowerMoves = _multPowerMoves;
     }
 
+    public StringMap<Rate> getMultPowerUsedMoves() {
+        return multPowerUsedMoves;
+    }
+
+    public void setMultPowerUsedMoves(StringMap<Rate> _p) {
+        this.multPowerUsedMoves = _p;
+    }
+
+    public StringMap<Rate> getMultPowerSufferedMoves() {
+        return multPowerSufferedMoves;
+    }
+
+    public void setMultPowerSufferedMoves(StringMap<Rate> _p) {
+        this.multPowerSufferedMoves = _p;
+    }
+
     public StatisticTypeList<Rate> getMultStatIfContainsType() {
         return multStatIfContainsType;
     }
@@ -241,12 +287,36 @@ public final class EffectGlobal extends Effect {
         cancelEffects = _cancelEffects;
     }
 
+    public StringList getImmuDamageByDisappearingMoves() {
+        return immuDamageByDisappearingMoves;
+    }
+
+    public void setImmuDamageByDisappearingMoves(StringList _p) {
+        this.immuDamageByDisappearingMoves = _p;
+    }
+
     public StringMap<Rate> getMultDamageTypesMoves() {
         return multDamageTypesMoves;
     }
 
     public void setMultDamageTypesMoves(StringMap<Rate> _multDamageTypesMoves) {
         multDamageTypesMoves = _multDamageTypesMoves;
+    }
+
+    public StringMap<Rate> getMultPowerUsedTypesMoves() {
+        return multPowerUsedTypesMoves;
+    }
+
+    public void setMultPowerUsedTypesMoves(StringMap<Rate> _p) {
+        this.multPowerUsedTypesMoves = _p;
+    }
+
+    public StringMap<Rate> getMultPowerSufferedTypesMoves() {
+        return multPowerSufferedTypesMoves;
+    }
+
+    public void setMultPowerSufferedTypesMoves(StringMap<Rate> _p) {
+        this.multPowerSufferedTypesMoves = _p;
     }
 
     public IdList<Statistic> getCancelChgtStat() {

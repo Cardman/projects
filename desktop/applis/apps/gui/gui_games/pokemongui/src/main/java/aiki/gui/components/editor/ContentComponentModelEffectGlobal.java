@@ -27,6 +27,8 @@ public final class ContentComponentModelEffectGlobal {
     private GeneComponentModelLsStrSub<String,StringList> preventStatus;
 
     private GeneComponentModelLsStrSub<String,StringList> immuneTypes;
+    private GeneComponentModelLsStrSub<String,StringList> immuDamageByDisappearingMoves;
+    private GeneComponentModelLsStrSub<String,StringList> groundedTypes;
 
     private GeneComponentModelLsStrSub<String,StringList> disableImmuAgainstTypes;
     private GeneComponentModelLsStrSub<String,StringList> cancelProtectingAbilities;
@@ -40,17 +42,25 @@ public final class ContentComponentModelEffectGlobal {
     private CrudGeneFormSimpleFormSub<String,Rate> multDamagePrepaRound;
 
     private CrudGeneFormSimpleFormSub<String,Rate> multPowerMoves;
+    private CrudGeneFormSimpleFormSub<String,Rate> multPowerUsedMoves;
+    private CrudGeneFormSimpleFormSub<String,Rate> multPowerSufferedMoves;
     private CrudGeneFormSimpleFormSub<String,Rate> multDamageTypesMoves;
+    private CrudGeneFormSimpleFormSub<String,Rate> multPowerUsedTypesMoves;
+    private CrudGeneFormSimpleFormSub<String,Rate> multPowerSufferedTypesMoves;
     private CrudGeneFormSimpleFormSub<TypesDuo, Rate> efficiencyMoves;
 
     private CrudGeneFormSimpleFormSub<StatisticType,Rate> multStatIfContainsType;
     private GeneComponentModelLsStrSub<Statistic,IdList<Statistic>> cancelChgtStat;
 
     private GeneComponentModelEltEnumSub<String> invokedMoveTerrain;
+    private GeneComponentModelSubscribeString preventStatusFail;
 
     private AbsPanel form;
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        preventStatusFail = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_FORBID_STATUS_FAIL,preventStatusFail.geneEnum()));
+        preventStatusFail.addComplete();
         cancelChgtStat = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_CANCEL_CHGT_STATIS,cancelChgtStat.geneEnum()));
         weather = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
@@ -79,6 +89,10 @@ public final class ContentComponentModelEffectGlobal {
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_FORBID_STATUS,preventStatus.geneEnum()));
         immuneTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_IMMUNE_TYPES,immuneTypes.geneEnum()));
+        immuDamageByDisappearingMoves = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_IMMUNE_DISAPPEARED,immuDamageByDisappearingMoves.geneEnum()));
+        groundedTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_GROUNDED_TYPES,groundedTypes.geneEnum()));
         disableImmuAgainstTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_TYPES,disableImmuAgainstTypes.geneEnum()));
         changedTypesTerrain = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
@@ -97,9 +111,21 @@ public final class ContentComponentModelEffectGlobal {
         multDamageTypesMoves = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
         multDamageTypesMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(),_core.getProgramInfos(),_core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE,multDamageTypesMoves.getGroup()));
+        multPowerUsedTypesMoves = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multPowerUsedTypesMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(),_core.getProgramInfos(),_core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE_US, multPowerUsedTypesMoves.getGroup()));
+        multPowerSufferedTypesMoves = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multPowerSufferedTypesMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(),_core.getProgramInfos(),_core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE_SUF, multPowerSufferedTypesMoves.getGroup()));
         multPowerMoves = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
         multPowerMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryMv(),_core.getProgramInfos(),_core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE,multPowerMoves.getGroup()));
+        multPowerUsedMoves = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multPowerUsedMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryMv(),_core.getProgramInfos(),_core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE_US,multPowerUsedMoves.getGroup()));
+        multPowerSufferedMoves = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multPowerSufferedMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryMv(),_core.getProgramInfos(),_core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE_SUF,multPowerSufferedMoves.getGroup()));
         multStatIfContainsType = new CrudGeneFormSimpleFormSub<StatisticType, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
         multStatIfContainsType.initFormWithVal(new DisplayEntryCustSubElementStatisticType<Rate>(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<StatisticType>(new GeneComponentModelSubscribeStatisticType(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_STATISTIC,MessagesDataEffglobal.M_P_49_POKEMON_TYPE_STAT)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,DataBase.EMPTY_STRING,MessagesDataEffglobal.M_P_49_RATE_POKEMON_STATISTIC);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_STAT_TYPE,multStatIfContainsType.getGroup()));
@@ -119,6 +145,7 @@ public final class ContentComponentModelEffectGlobal {
     }
 
     void buildEntity(EffectGlobal _edited) {
+        _edited.setPreventStatusFail(preventStatusFail.tryRet());
         _edited.setWeather(weather.isSelected());
         _edited.setCanceledIfUsed(canceledIfUsed.isSelected());
         _edited.setReverseOrderOfSortBySpeed(reverseOrderOfSortBySpeed.isSelected());
@@ -131,6 +158,8 @@ public final class ContentComponentModelEffectGlobal {
         _edited.setMultEffectLovingAlly(multEffectLovingAlly.valueRate());
         _edited.setPreventStatus(preventStatus.tryRet());
         _edited.setImmuneTypes(immuneTypes.tryRet());
+        _edited.setImmuDamageByDisappearingMoves(immuDamageByDisappearingMoves.tryRet());
+        _edited.setGroundedTypes(groundedTypes.tryRet());
         _edited.setDisableImmuAgainstTypes(disableImmuAgainstTypes.tryRet());
         _edited.setCancelProtectingAbilities(cancelProtectingAbilities.tryRet());
         _edited.setUnusableMoves(unusableMoves.tryRet());
@@ -141,11 +170,16 @@ public final class ContentComponentModelEffectGlobal {
         _edited.setCancelChgtStat(cancelChgtStat.tryRet());
         _edited.setMultDamagePrepaRound(ConverterCommonMapUtil.buildStringMapRate(multDamagePrepaRound.getList()));
         _edited.setMultPowerMoves(ConverterCommonMapUtil.buildStringMapRate(multPowerMoves.getList()));
+        _edited.setMultPowerUsedMoves(ConverterCommonMapUtil.buildStringMapRate(multPowerUsedMoves.getList()));
+        _edited.setMultPowerSufferedMoves(ConverterCommonMapUtil.buildStringMapRate(multPowerSufferedMoves.getList()));
         _edited.setMultDamageTypesMoves(ConverterCommonMapUtil.buildStringMapRate(multDamageTypesMoves.getList()));
+        _edited.setMultPowerUsedTypesMoves(ConverterCommonMapUtil.buildStringMapRate(multPowerUsedTypesMoves.getList()));
+        _edited.setMultPowerSufferedTypesMoves(ConverterCommonMapUtil.buildStringMapRate(multPowerSufferedTypesMoves.getList()));
         _edited.setEfficiencyMoves(ConverterCommonMapUtil.buildTypesDuos(efficiencyMoves.getList()));
         _edited.setMultStatIfContainsType(ConverterCommonMapUtil.buildStatisticTypeRate(multStatIfContainsType.getList()));
     }
     void feedForm(EffectGlobal _edited) {
+        preventStatusFail.setupValue(_edited.getPreventStatusFail());
         weather.setSelected(_edited.getWeather());
         canceledIfUsed.setSelected(_edited.getCanceledIfUsed());
         reverseOrderOfSortBySpeed.setSelected(_edited.getReverseOrderOfSortBySpeed());
@@ -158,6 +192,8 @@ public final class ContentComponentModelEffectGlobal {
         multEffectLovingAlly.valueRate(_edited.getMultEffectLovingAlly());
         preventStatus.setupValue(_edited.getPreventStatus());
         immuneTypes.setupValue(_edited.getImmuneTypes());
+        immuDamageByDisappearingMoves.setupValue(_edited.getImmuDamageByDisappearingMoves());
+        groundedTypes.setupValue(_edited.getGroundedTypes());
         disableImmuAgainstTypes.setupValue(_edited.getDisableImmuAgainstTypes());
         cancelProtectingAbilities.setupValue(_edited.getCancelProtectingAbilities());
         unusableMoves.setupValue(_edited.getUnusableMoves());
@@ -168,12 +204,20 @@ public final class ContentComponentModelEffectGlobal {
         cancelChgtStat.setupValue(_edited.getCancelChgtStat());
         multDamagePrepaRound.setupValues(new MapToEntriesListUtil<String,Rate>().build(_edited.getMultDamagePrepaRound()));
         multPowerMoves.setupValues(new MapToEntriesListUtil<String,Rate>().build(_edited.getMultPowerMoves()));
+        multPowerUsedMoves.setupValues(new MapToEntriesListUtil<String,Rate>().build(_edited.getMultPowerUsedMoves()));
+        multPowerSufferedMoves.setupValues(new MapToEntriesListUtil<String,Rate>().build(_edited.getMultPowerSufferedMoves()));
         multDamageTypesMoves.setupValues(new MapToEntriesListUtil<String,Rate>().build(_edited.getMultDamageTypesMoves()));
+        multPowerUsedTypesMoves.setupValues(new MapToEntriesListUtil<String,Rate>().build(_edited.getMultPowerUsedTypesMoves()));
+        multPowerSufferedTypesMoves.setupValues(new MapToEntriesListUtil<String,Rate>().build(_edited.getMultPowerSufferedTypesMoves()));
         efficiencyMoves.setupValues(new MapToEntriesListUtil<TypesDuo, Rate>().build(_edited.getEfficiencyMoves()));
         multStatIfContainsType.setupValues(new MapToEntriesListUtil<StatisticType, Rate>().build(_edited.getMultStatIfContainsType()));
     }
     void display(boolean _dis) {
         form.setVisible(_dis);
+    }
+
+    public GeneComponentModelSubscribeString getPreventStatusFail() {
+        return preventStatusFail;
     }
 
     public AbsCustCheckBox getWeather() {
@@ -212,8 +256,24 @@ public final class ContentComponentModelEffectGlobal {
         return multDamageTypesMoves;
     }
 
+    public CrudGeneFormSimpleFormSub<String, Rate> getMultPowerUsedTypesMoves() {
+        return multPowerUsedTypesMoves;
+    }
+
+    public CrudGeneFormSimpleFormSub<String, Rate> getMultPowerSufferedTypesMoves() {
+        return multPowerSufferedTypesMoves;
+    }
+
     public CrudGeneFormSimpleFormSub<String, Rate> getMultPowerMoves() {
         return multPowerMoves;
+    }
+
+    public CrudGeneFormSimpleFormSub<String, Rate> getMultPowerUsedMoves() {
+        return multPowerUsedMoves;
+    }
+
+    public CrudGeneFormSimpleFormSub<String, Rate> getMultPowerSufferedMoves() {
+        return multPowerSufferedMoves;
     }
 
     public CrudGeneFormSimpleFormSub<TypesDuo, Rate> getEfficiencyMoves() {
@@ -242,6 +302,14 @@ public final class ContentComponentModelEffectGlobal {
 
     public GeneComponentModelLsStrSub<String,StringList> getImmuneTypes() {
         return immuneTypes;
+    }
+
+    public GeneComponentModelLsStrSub<String, StringList> getImmuDamageByDisappearingMoves() {
+        return immuDamageByDisappearingMoves;
+    }
+
+    public GeneComponentModelLsStrSub<String, StringList> getGroundedTypes() {
+        return groundedTypes;
     }
 
     public GeneComponentModelLsStrSub<String,StringList> getMovesUsedByTargetedFighters() {

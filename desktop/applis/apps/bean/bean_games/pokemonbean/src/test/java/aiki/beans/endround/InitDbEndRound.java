@@ -239,6 +239,10 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return ((EffectEndRoundGlobalBean) dispEndRound(_ev)).getImmuneTypes();
     }
 
+    public static CustList<TranslatedKey> callEffectEndRoundGlobalBeanImmuDamageByDisappearingMovesGet(int _ev) {
+        return ((EffectEndRoundGlobalBean) dispEndRound(_ev)).getImmuDamageByDisappearingMoves();
+    }
+
     public static boolean callEffectEndRoundGlobalBeanPuttingKoGet(int _ev) {
         return ((EffectEndRoundGlobalBean) dispEndRound(_ev)).getPuttingKo();
     }
@@ -584,6 +588,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
         gl_.setHealingEndRound(Rate.one());
         gl_.setPuttingKo(_puttingKo);
         gl_.getImmuneTypes().add(T_TYPE_ROUND_1);
+        gl_.getImmuDamageByDisappearingMoves().add(M_END_1);
         m_.getEffects().add(gl_);
         EffectEndRoundGlobal c_ = Instances.newEffectEndRoundGlobal();
         c_.setEndRoundRank(_rk);

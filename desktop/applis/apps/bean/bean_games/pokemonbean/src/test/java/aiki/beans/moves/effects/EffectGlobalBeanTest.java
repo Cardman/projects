@@ -1,11 +1,32 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.CommonBean;
+import aiki.db.*;
 import code.maths.Rate;
 import code.util.StringList;
 import org.junit.Test;
 
 public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
+    @Test
+    public void getReasonsCounter1() {
+        assertSizeEq(1, callEffectCounterAttackBeanReasonsPreventStatusGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getReasonsCounter2() {
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,elt(callEffectCounterAttackBeanReasonsPreventStatusGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0));
+    }
+    @Test
+    public void getMapVarsFailCounter1() {
+        assertSizeEq(1,callEffectCounterAttackBeanGetMapVarsFailCounter(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getMapVarsFailCounter2() {
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectCounterAttackBeanGetMapVarsFailCounter(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
+    public void getMapVarsFailCounter3() {
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectCounterAttackBeanGetMapVarsFailCounter(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
     @Test
     public void invokingMovesChangingTypes() {
         StringList moves_ = EffectGlobalBean.invokingMovesChangingTypes(feedDbMoveEffDataDamMovesChangingTypes(eff(true, true, true, true, true)).getData());
@@ -147,6 +168,14 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
         assertEq(T_TYPE1_TR,eltTkTr(callEffectGlobalBeanImmuneTypesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0));
     }
     @Test
+    public void getGroundedTypes1() {
+        assertSizeEq(1,callEffectGlobalBeanGroundedTypesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getGroundedTypes2() {
+        assertEq(T_TYPE1_TR,eltTkTr(callEffectGlobalBeanGroundedTypesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0));
+    }
+    @Test
     public void getPreventStatus1() {
         assertSizeEq(1,callEffectGlobalBeanPreventStatusGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
     }
@@ -183,6 +212,30 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
         assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectGlobalBeanMultPowerMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
     }
     @Test
+    public void getMultPowerUsedMoves1() {
+        assertSizeEq(1,callEffectGlobalBeanMultPowerUsedMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getMultPowerUsedMoves2() {
+        assertEq(M_STA,firstTkRtKey(eltTkRtKey(callEffectGlobalBeanMultPowerUsedMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
+    public void getMultPowerUsedMoves3() {
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectGlobalBeanMultPowerUsedMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
+    public void getMultPowerSufferedMoves1() {
+        assertSizeEq(1,callEffectGlobalBeanMultPowerSufferedMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getMultPowerSufferedMoves2() {
+        assertEq(M_STA,firstTkRtKey(eltTkRtKey(callEffectGlobalBeanMultPowerSufferedMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
+    public void getMultPowerSufferedMoves3() {
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectGlobalBeanMultPowerSufferedMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
     public void getMultDamageTypesMoves1() {
         assertSizeEq(1,callEffectGlobalBeanMultDamageTypesMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
     }
@@ -193,6 +246,30 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     @Test
     public void getMultDamageTypesMoves3() {
         assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectGlobalBeanMultDamageTypesMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
+    public void getMultDamageUsedTypesMoves1() {
+        assertSizeEq(1,callEffectGlobalBeanMultDamageUsedTypesMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getMultDamageUsedTypesMoves2() {
+        assertEq(T_TYPE1_TR,firstTkRtTr(eltTkRtKey(callEffectGlobalBeanMultDamageUsedTypesMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
+    public void getMultDamageUsedTypesMoves3() {
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectGlobalBeanMultDamageUsedTypesMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
+    public void getMultDamageSufferedTypesMoves1() {
+        assertSizeEq(1,callEffectGlobalBeanMultDamageSufferedTypesMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getMultDamageSufferedTypesMoves2() {
+        assertEq(T_TYPE1_TR,firstTkRtTr(eltTkRtKey(callEffectGlobalBeanMultDamageSufferedTypesMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
+    public void getMultDamageSufferedTypesMoves3() {
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectGlobalBeanMultDamageSufferedTypesMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
     }
     @Test
     public void getMultDamagePrepaRound1() {

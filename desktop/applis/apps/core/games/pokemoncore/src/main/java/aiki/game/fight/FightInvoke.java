@@ -1,7 +1,6 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectCopyMove;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectInvoke;
@@ -97,18 +96,22 @@ final class FightInvoke {
         String derniereAttaqueSubie_=creatureLanceur_.getLastSufferedMove();
         StringList attaquesInvocables_ = new StringList();
         for (String m: FightMoves.enabledGlobalMoves(_fight, _import)) {
-            MoveData moveDta_ = _import.getMove(m);
-            int nbEffects_ = moveDta_.nbEffets();
-            for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
-                Effect eff_ = moveDta_.getEffet(i);
-                if (!(eff_ instanceof EffectGlobal)) {
-                    continue;
-                }
-                EffectGlobal effectLoc_ = (EffectGlobal) eff_;
-                if (!StringUtil.quickEq(effectLoc_.getInvokedMoveTerrain(), DataBase.EMPTY_STRING)) {
-                    attaquesInvocables_.add(effectLoc_.getInvokedMoveTerrain());
-                }
+            EffectGlobal eff_ = FightSuccess.effectGlobalProtectedAgainstMoveTypeGlobal(_fight, _lanceur, m, _import);
+            if (!StringUtil.quickEq(eff_.getInvokedMoveTerrain(), DataBase.EMPTY_STRING)) {
+                attaquesInvocables_.add(eff_.getInvokedMoveTerrain());
             }
+//            MoveData moveDta_ = _import.getMove(m);
+//            int nbEffects_ = moveDta_.nbEffets();
+//            for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
+//                Effect eff_ = moveDta_.getEffet(i);
+//                if (!(eff_ instanceof EffectGlobal)) {
+//                    continue;
+//                }
+//                EffectGlobal effectLoc_ = (EffectGlobal) eff_;
+//                if (!StringUtil.quickEq(effectLoc_.getInvokedMoveTerrain(), DataBase.EMPTY_STRING)) {
+//                    attaquesInvocables_.add(effectLoc_.getInvokedMoveTerrain());
+//                }
+//            }
         }
         if (attaquesInvocables_.isEmpty() && _effet.getMoveFctEnv().contains(_fight.getEnvType())) {
             attaquesInvocables_.add(_effet.getMoveFctEnv().getVal(_fight.getEnvType()));

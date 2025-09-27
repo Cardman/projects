@@ -37,6 +37,9 @@ final class FightValues {
         for(String c:attaquesGlobales_){
             variables_.put(_import.prefixNbTourGlobal(c),Long.toString(_fight.getEnabledMoves().getVal(c).getNbTurn()));
         }
+        for(String e:_import.getVarParamsMove(_import.immuTypeAttFighter())){
+            statBool(_import, _import.prefixImmuTypeAttFighter(e), variables_, FightSuccess.againstTypeProtected(_fight,_fighter,_fighter, _import, e));
+        }
         variables_.put(_import.prefixFighterAttaqueChoisie(), creatureCbtLanceur_.getFinalChosenMove());
         moves(creatureCbtLanceur_, variables_, _import.prefixFighterAttaques(), _import, _fight, _fighter, _import.prefixFighterAttaquesTypes());
         variables_.put(_import.prefixFighterClone(),creatureCbtLanceur_.getClone().toNumberString());
@@ -336,7 +339,7 @@ final class FightValues {
         StringList immuTypesIndiv_ = _import.getVarParamsMove(_import.immuTypeAttCombattantEntrant());
         if(effet_ instanceof EffectTeamWhileSendFoe){
             for(String e:immuTypesIndiv_){
-                statBool(_import, _import.prefixImmuTypeAttCombattantEntrant(e), variables_, FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import));
+                statBool(_import, _import.prefixImmuTypeAttCombattantEntrant(e), variables_, FightSuccess.againstTypeProtected(_fight,_lanceur,_cible, _import, e));
             }
         }
         statBool(_import, _import.prefixPasAttaqueInvoc(), variables_, effet_ instanceof EffectInvoke && FightInvoke.invokableMoves(_fight, _lanceur, _cible, ((EffectInvoke) effet_), _import).isEmpty());
@@ -378,9 +381,11 @@ final class FightValues {
             }
         }
         statBool(_import, _import.prefixPasUtilisAttaqueCible(), variables_, pasUtiliseAttaqueCible_);
-        StringList immuTypesIndiv_ = _import.getVarParamsMove(_import.immuTypeAttCible());
-        for(String e:immuTypesIndiv_){
-            statBool(_import, _import.prefixImmuTypeAttCible(e), variables_, FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import));
+        for(String e:_import.getVarParamsMove(_import.immuTypeAttCible())){
+            statBool(_import, _import.prefixImmuTypeAttCible(e), variables_, FightSuccess.againstTypeProtected(_fight,_lanceur,_cible, _import, e));
+        }
+        for(String e:_import.getVarParamsMove(_import.immuTypeAttLanceur())){
+            statBool(_import, _import.prefixImmuTypeAttLanceur(e), variables_, FightSuccess.againstTypeProtected(_fight,_cible,_lanceur, _import, e));
         }
         boolean aucunBoostPossible_ = aucunBoostPossible(_import, creatureCbtCible_);
         statBool(_import, _import.prefixAucunBoostPossible(), variables_, aucunBoostPossible_);

@@ -471,6 +471,14 @@ public abstract class CommonBean {
 
     public abstract void beforeDisplaying();
 
+    protected static void feed(NatStringTreeMap<String> _mapVars, NatStringTreeMap<String> _mapVarsFail) {
+        StringList desc_ = new StringList(_mapVars.getKeys());
+        desc_.sort();
+        for (String k: desc_) {
+            _mapVarsFail.put(k, _mapVars.getVal(k));
+        }
+    }
+
     public String getLanguage() {
         return language;
     }

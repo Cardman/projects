@@ -14,8 +14,10 @@ public final class EffectGlobalCore {
     private Rate multAccuracy;
     private boolean unusableItem;
     private StringList preventStatus;
+    private String preventStatusFail;
 
     private StringList immuneTypes;
+    private StringList groundedTypes;
 
     private Rate damageEndRound;
 
@@ -24,6 +26,7 @@ public final class EffectGlobalCore {
     private Rate healingEndRoundGround;
     public void validate(DataBase _data) {
         DataInfoChecker.checkStringListContains(_data.getTypes(),immuneTypes,_data);
+        DataInfoChecker.checkStringListContains(_data.getTypes(),groundedTypes,_data);
         DataInfoChecker.checkPositiveOrZero(healingEndRound,_data);
         DataInfoChecker.checkPositiveOrZero(healingEndRoundGround,_data);
         DataInfoChecker.checkPositiveOrZero(damageEndRound,_data);
@@ -87,12 +90,28 @@ public final class EffectGlobalCore {
         preventStatus = _preventStatus;
     }
 
+    public String getPreventStatusFail() {
+        return preventStatusFail;
+    }
+
+    public void setPreventStatusFail(String _p) {
+        this.preventStatusFail = _p;
+    }
+
     public StringList getImmuneTypes() {
         return immuneTypes;
     }
 
     public void setImmuneTypes(StringList _immuneTypes) {
         immuneTypes = _immuneTypes;
+    }
+
+    public StringList getGroundedTypes() {
+        return groundedTypes;
+    }
+
+    public void setGroundedTypes(StringList _p) {
+        this.groundedTypes = _p;
     }
 
     public Rate getDamageEndRound() {

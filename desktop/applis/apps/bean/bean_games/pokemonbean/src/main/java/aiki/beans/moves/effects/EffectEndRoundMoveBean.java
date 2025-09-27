@@ -39,11 +39,12 @@ public class EffectEndRoundMoveBean extends EffectBean {
         reasonsEndRound = CommonBean.getFormattedReasons(data_, effect_.getFailEndRound(), getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailEndRound(),getLanguage());
         NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap<String>();
-        StringList desc_ = new StringList(mapVars_.getKeys());
-        desc_.sort();
-        for (String k: desc_) {
-            mapVarsFail_.put(k, mapVars_.getVal(k));
-        }
+        feed(mapVars_,mapVarsFail_);
+//        StringList desc_ = new StringList(mapVars_.getKeys());
+//        desc_.sort();
+//        for (String k: desc_) {
+//            mapVarsFail_.put(k, mapVars_.getVal(k));
+//        }
         mapVarsFailEndRound = mapVarsFail_;
     }
 

@@ -161,6 +161,8 @@ public final class MessagesDataBaseConstants {
     public static final String DEF_PAS_PP_ATTAQUE_CIBLE ="PAS_PP_ATTAQUE_CIBLE";
     public static final String DEF_PAS_UTILIS_ATTAQUE_CIBLE ="PAS_UTILIS_ATTAQUE_CIBLE";
     public static final String DEF_IMMU_TYPE_ATT_CIBLE ="IMMU_TYPE_ATT_CIBLE";
+    public static final String DEF_IMMU_TYPE_ATT_LANCEUR ="IMMU_TYPE_ATT_LANCEUR";
+    public static final String DEF_IMMU_TYPE_ATT_FIGHTER ="IMMU_TYPE_ATT_FIGHTER";
     public static final String DEF_AUCUN_BOOST_POSSIBLE ="AUCUN_BOOST_POSSIBLE";
     public static final String DEF_LANCEUR_EFFET ="LANCEUR_EFFET";
     public static final String DEF_TYPES_ATTAQUES_RES_VIDE ="TYPES_ATTAQUES_RES_VIDE";
@@ -239,6 +241,8 @@ public final class MessagesDataBaseConstants {
         _db.sommeBoostPosLanceur(DEF_SOMME_BOOST_POS_LANCEUR);
         _db.immuTypeAttCombattantEntrant(DEF_IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
         _db.immuTypeAttCible(DEF_IMMU_TYPE_ATT_CIBLE);
+        _db.immuTypeAttLanceur(DEF_IMMU_TYPE_ATT_LANCEUR);
+        _db.immuTypeAttFighter(DEF_IMMU_TYPE_ATT_FIGHTER);
         _db.equipeNbUtilisation(DEF_EQUIPE_NB_UTILISATION);
         _db.equipeAdvNbUtilisation(DEF_EQUIPE_ADV_NB_UTILISATION);
         _db.equipeAdvCombattantEntrantNbUtilisation(DEF_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION);
@@ -398,6 +402,8 @@ public final class MessagesDataBaseConstants {
         _bdd.sommeBoostPosLanceur(DataBase.EMPTY_STRING);
         _bdd.immuTypeAttCombattantEntrant(DataBase.EMPTY_STRING);
         _bdd.immuTypeAttCible(DataBase.EMPTY_STRING);
+        _bdd.immuTypeAttLanceur(DataBase.EMPTY_STRING);
+        _bdd.immuTypeAttFighter(DataBase.EMPTY_STRING);
         _bdd.equipeNbUtilisation(DataBase.EMPTY_STRING);
         _bdd.equipeAdvNbUtilisation(DataBase.EMPTY_STRING);
         _bdd.equipeAdvCombattantEntrantNbUtilisation(DataBase.EMPTY_STRING);

@@ -203,7 +203,7 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
-        assertEq(0, FightSuccess.forbiddenStatus(fight_,data_).size());
+        assertEq(0, FightSuccess.forbiddenStatus(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),data_).size());
     }
 
     @Test
@@ -246,11 +246,105 @@ public class FightSuccessTest extends InitializationDataBase {
         FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
         FightInitialization.initFight(fight_, data_);
         fight_.enableGlobalMove(ZENITH);
-        StringList list_ = FightSuccess.forbiddenStatus(fight_,data_);
+        StringList list_ = FightSuccess.forbiddenStatus(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),data_);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, GEL));
     }
 
+    @Test
+    public void forbiddenStatus3Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(MULTITYPE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel( 3);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemon_);
+        player_.getTeam().add(lasPk_);
+        Egg egg_ = new Egg(PIKACHU);
+        player_.getTeam().add(egg_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(PIKACHU);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PARATONNERRE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel( 3);
+        foePokemon_.setMoves(new StringList(JACKPOT));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(PIKACHU);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PARATONNERRE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel( 4);
+        foePokemon_.setMoves(new StringList(JACKPOT));
+        foeTeam_.add(foePokemon_);
+        GymLeader trainer_ = new GymLeader();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 2);
+        Fight fight_ = FightFacade.newFight();
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
+        FightInitialization.initFight(fight_, data_);
+        fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).affecterTypes(new StringList(VOL));
+        fight_.enableGlobalMove(CHAMP_BRUMEUX);
+        StringList list_ = FightSuccess.forbiddenStatus(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),data_);
+        assertEq(0, list_.size());
+    }
+
+    @Test
+    public void forbiddenStatus4Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(ARTIKODIN);
+        pokemon_.setItem(PLAQUE_DRACO);
+        pokemon_.setAbility(MULTITYPE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel( 3);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemon_);
+        player_.getTeam().add(lasPk_);
+        Egg egg_ = new Egg(PIKACHU);
+        player_.getTeam().add(egg_);
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        PkTrainer foePokemon_ = new PkTrainer();
+        foePokemon_.setName(PIKACHU);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PARATONNERRE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel( 3);
+        foePokemon_.setMoves(new StringList(JACKPOT));
+        foeTeam_.add(foePokemon_);
+        foePokemon_ = new PkTrainer();
+        foePokemon_.setName(PIKACHU);
+        foePokemon_.setItem(MAGNET);
+        foePokemon_.setAbility(PARATONNERRE);
+        foePokemon_.setGender(Gender.NO_GENDER);
+        foePokemon_.setLevel( 4);
+        foePokemon_.setMoves(new StringList(JACKPOT));
+        foeTeam_.add(foePokemon_);
+        GymLeader trainer_ = new GymLeader();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward( 200);
+        trainer_.setMultiplicityFight( 2);
+        Fight fight_ = FightFacade.newFight();
+        FightInitialization.initFight(fight_, player_, diff_, trainer_, data_);
+        FightInitialization.initFight(fight_, data_);
+        fight_.getFighter(tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO)).affecterTypes(new StringList(SOL));
+        fight_.enableGlobalMove(CHAMP_BRUMEUX);
+        StringList list_ = FightSuccess.forbiddenStatus(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),data_);
+        assertEq(1, list_.size());
+        assertTrue(StringUtil.contains(list_, SOMMEIL));
+    }
+    @Test
+    public void effectGlobalProtectedAgainstMoveTypeGlobalDirNo() {
+        assertTrue(FightSuccess.effectGlobalProtectedAgainstMoveTypeGlobalDir(TUNNEL,initDb()).getImmuDamageByDisappearingMoves().isEmpty());
+    }
     @Test
     public void tirage1Test() {
         DataBase data_ = initDb();

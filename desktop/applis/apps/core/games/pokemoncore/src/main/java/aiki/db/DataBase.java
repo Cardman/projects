@@ -2165,6 +2165,12 @@ public final class DataBase {
     public String prefixImmuTypeAttCible(String _e) {
         return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,immuTypeAttCible(),SEP_BETWEEN_KEYS,_e);
     }
+    public String prefixImmuTypeAttLanceur(String _e) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,immuTypeAttLanceur(),SEP_BETWEEN_KEYS,_e);
+    }
+    public String prefixImmuTypeAttFighter(String _e) {
+        return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,immuTypeAttFighter(),SEP_BETWEEN_KEYS,_e);
+    }
     public String prefixPasPpAttaqueCible() {
         return StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS,pasPpAttaqueCible());
     }
@@ -2743,6 +2749,22 @@ public final class DataBase {
 
     public void immuTypeAttCible(String _p) {
         this.getConstNonNum().setImmuTypeAttCible(_p);
+    }
+
+    public String immuTypeAttLanceur() {
+        return getConstNonNum().getImmuTypeAttLanceur();
+    }
+
+    public void immuTypeAttLanceur(String _p) {
+        this.getConstNonNum().setImmuTypeAttLanceur(_p);
+    }
+
+    public String immuTypeAttFighter() {
+        return getConstNonNum().getImmuTypeAttFighter();
+    }
+
+    public void immuTypeAttFighter(String _p) {
+        this.getConstNonNum().setImmuTypeAttFighter(_p);
     }
 
     public String equipeAdvCombattantEntrantNbUtilisation() {
@@ -3925,6 +3947,8 @@ public final class DataBase {
         }
         if (_e instanceof EffectGlobal) {
             EffectGlobal effetGlobal_ = (EffectGlobal) _e;
+            variables.addAllElts(getVariableWords(effetGlobal_
+                    .getPreventStatusFail(), prefixedVar()));
             updateInfoEffectGlobal(_moveName, effetGlobal_);
         }
         if (_e instanceof EffectStatistic) {
@@ -5537,7 +5561,10 @@ public final class DataBase {
         if (_e instanceof EffectGlobal) {
             EffectGlobal eff_ = (EffectGlobal) _e;
             eff_.getCancelEffects().replace(_oldName, _newName);
+            eff_.getImmuDamageByDisappearingMoves().replace(_oldName, _newName);
             eff_.getMultPowerMoves().move(_oldName, _newName);
+            eff_.getMultPowerUsedMoves().move(_oldName, _newName);
+            eff_.getMultPowerSufferedMoves().move(_oldName, _newName);
             eff_.getUnusableMoves().replace(_oldName, _newName);
             eff_.getMovesUsedByTargetedFighters().replace(_oldName, _newName);
         }
@@ -5567,7 +5594,10 @@ public final class DataBase {
         if (_e instanceof EffectGlobal) {
             EffectGlobal eff_ = (EffectGlobal) _e;
             ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getCancelEffects()));
+            ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getImmuDamageByDisappearingMoves()));
             ls_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultPowerMoves()));
+            ls_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultPowerUsedMoves()));
+            ls_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultPowerSufferedMoves()));
             ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getUnusableMoves()));
             ls_.add(new ChangeStringFieldMatchStringListContains(eff_.getMovesUsedByTargetedFighters()));
         }
@@ -6302,8 +6332,11 @@ public final class DataBase {
         if (_e instanceof EffectGlobal) {
             EffectGlobal eff_ = (EffectGlobal) _e;
             eff_.getImmuneTypes().replace(_oldName, _newName);
+            eff_.getGroundedTypes().replace(_oldName, _newName);
             eff_.getMultDamagePrepaRound().move(_oldName, _newName);
             eff_.getMultDamageTypesMoves().move(_oldName, _newName);
+            eff_.getMultPowerUsedTypesMoves().move(_oldName, _newName);
+            eff_.getMultPowerSufferedTypesMoves().move(_oldName, _newName);
             eff_.getDisableImmuAgainstTypes().replace(_oldName, _newName);
             for (TypesDuo t: eff_.getEfficiencyMoves().getKeys()) {
                 convertDuo(t, _oldName, _newName);
@@ -6351,8 +6384,11 @@ public final class DataBase {
         if (_e instanceof EffectGlobal) {
             EffectGlobal eff_ = (EffectGlobal) _e;
             matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getImmuneTypes()));
+            matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getGroundedTypes()));
             matches_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultDamagePrepaRound()));
             matches_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultDamageTypesMoves()));
+            matches_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultPowerUsedTypesMoves()));
+            matches_.add(new ChangeStringFieldMatchMapContains<Rate>(eff_.getMultPowerSufferedTypesMoves()));
             matches_.add(new ChangeStringFieldMatchStringListContains(eff_.getDisableImmuAgainstTypes()));
             for (TypesDuo t: eff_.getEfficiencyMoves().getKeys()) {
                 matches_.addAllElts(convertDuo(t));
@@ -6801,7 +6837,9 @@ public final class DataBase {
                 StringUtil.concat(coeffEffBaseTypesCombattantEntrant(), SEP_BETWEEN_KEYS),
                 StringUtil.concat(coeffEffBaseTypesFighter(), SEP_BETWEEN_KEYS),
                 StringUtil.concat(coeffEffBaseTypesLanceur(), SEP_BETWEEN_KEYS),
-                StringUtil.concat(immuTypeAttCible(), SEP_BETWEEN_KEYS));
+                StringUtil.concat(immuTypeAttCible(), SEP_BETWEEN_KEYS),
+                StringUtil.concat(immuTypeAttLanceur(), SEP_BETWEEN_KEYS),
+                StringUtil.concat(immuTypeAttFighter(), SEP_BETWEEN_KEYS));
     }
     public StringList categoriesPart() {
         return new StringList(StringUtil.concat(cibleDegatsRecus(),SEP_BETWEEN_KEYS),

@@ -50,6 +50,7 @@ e.add(MessagesDataBaseConstants.DEF_PK_SAUVAGE_PIERRES_EVOS,DataBase.ITEM_FORMUL
 e.add(MessagesDataBaseConstants.DEF_CIBLE_BOOST,DataBase.STATIS_FORMULA+"\ttarg_boost__{0}\t{0} in terms of boost of the target");
 e.add(MessagesDataBaseConstants.DEF_PAS_PARTENAIRE_ARRIERE,DataBase.MOVE_FORMULA+"\tno_back_part\tNo back partner");
 e.add(MessagesDataBaseConstants.DEF_LANCEUR_DISPARAIT,DataBase.MOVE_FORMULA+"\tusr_disap\tThe user disappears while the round");
+e.add(MessagesDataBaseConstants.DEF_FIGHTER_DISPARAIT,DataBase.MOVE_FORMULA+"\tfig_disap\tThe fighter disappears while the round");
 e.add(MessagesDataBaseConstants.DEF_LANCEUR_JOUE,DataBase.MOVE_FORMULA+"\tusr_acted\tThe user has acted");
 e.add(MessagesDataBaseConstants.DEF_LANCEUR_DEGATS_RECUS_TOTAL,DataBase.MOVE_FORMULA+"\tusr_amt_suff_damg\tFull suffered damage against the user");
 e.add(MessagesDataBaseConstants.DEF_LANCEUR_NB_UTILISATION,DataBase.MOVE_FORMULA+"\tusr_nb_uses__{0}\tNumber of uses of the move {0} of the user");
@@ -66,6 +67,8 @@ e.add(MessagesDataBaseConstants.DEF_CIBLE_GENRE,DataBase.MOVE_FORMULA+"\ttarg_gr
 e.add(MessagesDataBaseConstants.DEF_CIBLE_ATTAQUE_CHOISIE,DataBase.MOVE_FORMULA+"\ttarg_chosen_move\tChosen move of the target");
 e.add(MessagesDataBaseConstants.DEF_CIBLE_NB_UTILISATION,DataBase.MOVE_FORMULA+"\ttarg_nb_uses__{0}\tNumber of uses of the move {0} of the target");
 e.add(MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_CIBLE,DataBase.TYPE_FORMULA+"\timmu_move_type_targ__{0}\tThe target is protected against the moves of type {0}");
+e.add(MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_LANCEUR,DataBase.TYPE_FORMULA+"\timmu_move_type_usr__{0}\tThe user is protected against the moves of type {0}");
+e.add(MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_FIGHTER,DataBase.TYPE_FORMULA+"\timmu_move_type_fighter__{0}\tThe fighter is protected against the moves of type {0}");
 e.add(MessagesDataBaseConstants.DEF_CLIMATS,DataBase.MOVE_FORMULA+"\tweathers\tEnabled weathers");
 e.add(MessagesDataBaseConstants.DEF_CIBLE_CLONE,DataBase.MOVE_FORMULA+"\ttarg_clone\tPV of the clone of the target");
 e.add(MessagesDataBaseConstants.DEF_CIBLE_ATTAQUES,DataBase.MOVE_FORMULA+"\ttarg_moves\tMoves of the target");
@@ -170,6 +173,7 @@ f.add(MessagesDataBaseConstants.DEF_PK_SAUVAGE_PIERRES_EVOS,DataBase.ITEM_FORMUL
 f.add(MessagesDataBaseConstants.DEF_CIBLE_BOOST,DataBase.STATIS_FORMULA+"\tcib_boost__{0}\t{0} en terme de boost de la cible");
 f.add(MessagesDataBaseConstants.DEF_PAS_PARTENAIRE_ARRIERE,DataBase.MOVE_FORMULA+"\tpas_part_arr\tPas de partenaire en arrière");
 f.add(MessagesDataBaseConstants.DEF_LANCEUR_DISPARAIT,DataBase.MOVE_FORMULA+"\tlanc_disp\tLe lanceur disparaît pendant le tour");
+f.add(MessagesDataBaseConstants.DEF_FIGHTER_DISPARAIT,DataBase.MOVE_FORMULA+"\tcbt_disp\tLe combattant disparaît pendant le tour");
 f.add(MessagesDataBaseConstants.DEF_LANCEUR_JOUE,DataBase.MOVE_FORMULA+"\tlanc_joue\tLe lanceur a joué");
 f.add(MessagesDataBaseConstants.DEF_LANCEUR_DEGATS_RECUS_TOTAL,DataBase.MOVE_FORMULA+"\tlanc_deg_recu_tot\tDégâts totaux reçs par le lanceur");
 f.add(MessagesDataBaseConstants.DEF_LANCEUR_NB_UTILISATION,DataBase.MOVE_FORMULA+"\tlanc_nb_ut__{0}\tNombre d''utilisation de l''attaque {0} du lanceur");
@@ -186,6 +190,8 @@ f.add(MessagesDataBaseConstants.DEF_CIBLE_GENRE,DataBase.MOVE_FORMULA+"\tcib_gr\
 f.add(MessagesDataBaseConstants.DEF_CIBLE_ATTAQUE_CHOISIE,DataBase.MOVE_FORMULA+"\tcib_att_choisie\tAttaque choisie de la cible");
 f.add(MessagesDataBaseConstants.DEF_CIBLE_NB_UTILISATION,DataBase.MOVE_FORMULA+"\tcib_nb_ut__{0}\tNombre d''utilisation de l''attaque {0} de la cible");
 f.add(MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_CIBLE,DataBase.TYPE_FORMULA+"\timmu_type_att_cib__{0}\tLa cible est immunisée aux attaques de type {0}");
+f.add(MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_LANCEUR,DataBase.TYPE_FORMULA+"\timmu_type_att_lanceur__{0}\tLe lanceur est immunisé aux attaques de type {0}");
+f.add(MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_FIGHTER,DataBase.TYPE_FORMULA+"\timmu_type_att_cbt__{0}\tLe combattant est immunisé aux attaques de type {0}");
 f.add(MessagesDataBaseConstants.DEF_CLIMATS,DataBase.MOVE_FORMULA+"\tclimats\tClimats actifs");
 f.add(MessagesDataBaseConstants.DEF_CIBLE_CLONE,DataBase.MOVE_FORMULA+"\tcib_clone\tPV du clone de la cible");
 f.add(MessagesDataBaseConstants.DEF_CIBLE_ATTAQUES,DataBase.MOVE_FORMULA+"\tcib_att\tAttaques de la cible");

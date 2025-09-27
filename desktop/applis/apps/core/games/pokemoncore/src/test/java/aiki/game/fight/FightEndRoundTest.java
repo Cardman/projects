@@ -6083,6 +6083,42 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), animKo_.getUser());
         assertTrue(animKo_.isKoUser());
     }
+
+    @Test
+    public void effectEndRoundGlobal18Test() {
+        DataBase data_ = initDb();
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(SIPHON,10L);
+        moves_.put(DEMI_TOUR,10L);
+        Fight fight_ = effectEndRoundPositionRelationCom(data_, diff_, moves_);
+        fight_.enableGlobalMove(TEMPETESABLE);
+        TeamPosition player_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
+        TeamPosition ally_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
+        TeamPosition foe_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
+        fight_.getFighter(ally_).setItem(LUNETTES_FILTRE);
+        fight_.getFighter(foe_).setItem(BAIE_MEPO);
+        fight_.getFighter(player_).setItem(NULL_REF);
+        fight_.getFighter(player_).setFirstChosenMoveTarget(TUNNEL,tc(KEY_FOE,POKEMON_TARGET_ZERO));
+        fight_.getFighter(player_).choisirAttaqueFin();
+        fight_.getFighter(player_).setDisappeared(true);
+        Fighter fighter_;
+        FightEndRound.effectEndRoundGlobal(fight_, TEMPETESABLE, diff_, data_);
+        fighter_ = fight_.getFighter(foe_);
+        assertEq(new Rate("69/4"),fighter_.getRemainingHp());
+        fighter_ = fight_.getFighter(player_);
+        assertEq(new Rate("1873/100"),fighter_.getRemainingHp());
+        fighter_ = fight_.getFighter(ally_);
+        assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertEq(1, fight_.getEffects().size());
+        AnimationAutoEffect anim_ = (AnimationAutoEffect) fight_.getEffects().first();
+        assertSame(AutoEffectKind.RECOIL,anim_.getAutoEffectKind());
+        assertEq(tc(KEY_FOE, POKEMON_TARGET_ZERO), anim_.getUser());
+        assertTrue(!anim_.isKoUser());
+    }
     @Test
     public void effectEndRoundGlobal1SimulationTest() {
         DataBase data_ = initDb();

@@ -622,6 +622,13 @@ public final class DocumentWriterAikiCoreUtil {
     public static final String FIELD_CATCH_TEAM = "565";
     public static final String FIELD_GYM_TRAINER = "566";
     public static final String FIELD_IMMU_DAMAGE_SEC = "567";
+    public static final String FIELD_GROUNDED_TYPES = "568";
+    public static final String FIELD_MULT_POWER_USED_TYPES_MOVES = "569";
+    public static final String FIELD_MULT_POWER_SUFFERED_TYPES_MOVES = "570";
+    public static final String FIELD_MULT_POWER_USED_MOVES = "571";
+    public static final String FIELD_MULT_POWER_SUFFERED_MOVES = "572";
+    public static final String FIELD_IMMU_DAMAGE_BY_DISAPPEARING_MOVES = "573";
+    public static final String FIELD_PREVENT_FAIL_STATUS = "574";
     public static final String TYPE_BALL = "0";
     public static final String TYPE_BERRY = "1";
     public static final String TYPE_BOOST = "2";
@@ -2114,6 +2121,13 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(setListStatistic(_object.getCancelChgtStat(),FIELD_CANCEL_CHGT_STAT,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getInvokedMoveTerrain(),FIELD_INVOKED_MOVE_TERRAIN,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getChangedTypesTerrain(),FIELD_CHANGED_TYPES_TERRAIN,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getGroundedTypes(),FIELD_GROUNDED_TYPES,_document));
+        _element.appendChild(DocumentWriterMathUtil.setStringMapRate(_object.getMultPowerUsedTypesMoves(),FIELD_MULT_POWER_USED_TYPES_MOVES,_document));
+        _element.appendChild(DocumentWriterMathUtil.setStringMapRate(_object.getMultPowerSufferedTypesMoves(),FIELD_MULT_POWER_SUFFERED_TYPES_MOVES,_document));
+        _element.appendChild(DocumentWriterMathUtil.setStringMapRate(_object.getMultPowerUsedMoves(),FIELD_MULT_POWER_USED_MOVES,_document));
+        _element.appendChild(DocumentWriterMathUtil.setStringMapRate(_object.getMultPowerSufferedMoves(),FIELD_MULT_POWER_SUFFERED_MOVES,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getImmuDamageByDisappearingMoves(),FIELD_IMMU_DAMAGE_BY_DISAPPEARING_MOVES,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPreventStatusFail(),FIELD_PREVENT_FAIL_STATUS,_document));
         setEffect(_object, _element, _document);
     }
 

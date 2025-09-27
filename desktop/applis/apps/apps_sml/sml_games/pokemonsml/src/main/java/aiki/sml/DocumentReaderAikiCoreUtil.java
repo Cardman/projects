@@ -3505,6 +3505,37 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setChangedTypesTerrain(DocumentReaderCoreUtil.getStringList(_element));
             return;
         }
+        getEffectGlobal2(_object, _fieldName, _element);
+    }
+    private static void getEffectGlobal2(EffectGlobal _object, String _fieldName, Element _element) {
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_GROUNDED_TYPES)) {
+            _object.setGroundedTypes(DocumentReaderCoreUtil.getStringList(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_POWER_USED_TYPES_MOVES)) {
+            _object.setMultPowerUsedTypesMoves(DocumentReaderMathUtil.getStringMapRate(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_POWER_SUFFERED_TYPES_MOVES)) {
+            _object.setMultPowerSufferedTypesMoves(DocumentReaderMathUtil.getStringMapRate(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_POWER_USED_MOVES)) {
+            _object.setMultPowerUsedMoves(DocumentReaderMathUtil.getStringMapRate(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_MULT_POWER_SUFFERED_MOVES)) {
+            _object.setMultPowerSufferedMoves(DocumentReaderMathUtil.getStringMapRate(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_IMMU_DAMAGE_BY_DISAPPEARING_MOVES)) {
+            _object.setImmuDamageByDisappearingMoves(DocumentReaderCoreUtil.getStringList(_element));
+            return;
+        }
+        if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_PREVENT_FAIL_STATUS)) {
+            _object.setPreventStatusFail(DocumentReaderCoreUtil.getString(_element));
+            return;
+        }
         getEffect(_object, _fieldName, _element);
     }
 

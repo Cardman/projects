@@ -568,6 +568,9 @@ m646statusMoveData_.setStoppableMoveMulti(true);
 m646statusMoveData_.setIgnVarAccurUserNeg(true);
 m646statusMoveData_.setIgnVarEvasTargetPos(true);
 m646statusMoveData_.setTargetChoice(TargetChoice.LANCEUR);
+MonteCarloNumber m646monteCarloNumber_=new MonteCarloNumber(new CollCapacity(1));
+m646monteCarloNumber_.addQuickEvent(Rate.newRate(R_5),LgInt.newLgInt(R_1));
+m646statusMoveData_.setRepeatRoundLaw(m646monteCarloNumber_);
 return m646statusMoveData_;
 }
 static MoveData m293(){

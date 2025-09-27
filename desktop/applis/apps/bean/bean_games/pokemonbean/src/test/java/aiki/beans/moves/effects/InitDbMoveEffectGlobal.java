@@ -1,6 +1,7 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.*;
+import aiki.db.*;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
@@ -181,6 +182,9 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
     public static CustList<TranslatedKey> callEffectGlobalBeanImmuneTypesGet(EffectGlobalBean _str, int... _args) {
         return _str.getImmuneTypes();
     }
+    public static CustList<TranslatedKey> callEffectGlobalBeanGroundedTypesGet(EffectGlobalBean _str, int... _args) {
+        return _str.getGroundedTypes();
+    }
 
     public static String callEffectGlobalBeanInvokedMoveTerrainGet(EffectGlobalBean _str, int... _args) {
         return _str.getInvokedMoveTerrain().getKey();
@@ -210,6 +214,14 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         return _str.getMultDamageTypesMoves();
     }
 
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectGlobalBeanMultDamageUsedTypesMovesGet(EffectGlobalBean _str, int... _args) {
+        return _str.getMultPowerUsedTypesMoves();
+    }
+
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectGlobalBeanMultDamageSufferedTypesMovesGet(EffectGlobalBean _str, int... _args) {
+        return _str.getMultPowerSufferedTypesMoves();
+    }
+
     public static Rate callEffectGlobalBeanMultEffectLovingAllyGet(EffectGlobalBean _str, int... _args) {
         return _str.getMultEffectLovingAlly();
     }
@@ -218,6 +230,21 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         return _str.getMultPowerMoves();
     }
 
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectGlobalBeanMultPowerUsedMovesGet(EffectGlobalBean _str, int... _args) {
+        return _str.getMultPowerUsedMoves();
+    }
+
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectGlobalBeanMultPowerSufferedMovesGet(EffectGlobalBean _str, int... _args) {
+        return _str.getMultPowerSufferedMoves();
+    }
+
+    public static CustList<String> callEffectCounterAttackBeanReasonsPreventStatusGet(EffectGlobalBean _str, int... _args) {
+        return _str.getReasonsPreventStatus();
+    }
+
+    public static AbsMap<String,String> callEffectCounterAttackBeanGetMapVarsFailCounter(EffectGlobalBean _str, int... _args) {
+        return _str.getMapVarsFailPreventStatus();
+    }
     public static AbsMap<TranslatedKeyPair,Rate> callEffectGlobalBeanMultStatIfContainsTypeGet(EffectGlobalBean _str, int... _args) {
         return _str.getMultStatIfContainsType();
     }
@@ -282,6 +309,7 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
         facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
         trs(facade_);
+        facade_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
         facade_.getData().completeVariables();
@@ -351,7 +379,11 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         e_.setMultEffectLovingAlly(Rate.one());
         e_.getDisableImmuAgainstTypes().add(T_TYPE1);
         e_.getMultDamageTypesMoves().addEntry(T_TYPE1,Rate.one());
+        e_.getMultPowerUsedTypesMoves().addEntry(T_TYPE1,Rate.one());
+        e_.getMultPowerSufferedTypesMoves().addEntry(T_TYPE1,Rate.one());
         e_.getMultPowerMoves().addEntry(M_STA,Rate.one());
+        e_.getMultPowerUsedMoves().addEntry(M_STA,Rate.one());
+        e_.getMultPowerSufferedMoves().addEntry(M_STA,Rate.one());
         e_.getUnusableMoves().add(M_STA);
         e_.getCancelEffects().add(M_STA);
         e_.getCancelProtectingAbilities().add(A_ABILITY);
@@ -360,10 +392,13 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         e_.setInvokedMoveTerrain(M_STA);
         e_.getChangedTypesTerrain().add(T_TYPE1);
         e_.getImmuneTypes().add(T_TYPE1);
+        e_.getImmuDamageByDisappearingMoves().add(M_DAM);
+        e_.getGroundedTypes().add(T_TYPE1);
         e_.getPreventStatus().add(S_STA_SIM);
         e_.getMultStatIfContainsType().addEntry(new StatisticType(Statistic.SPEED,T_TYPE1),Rate.one());
         e_.getMultDamagePrepaRound().addEntry(T_TYPE1,Rate.one());
         e_.getMovesUsedByTargetedFighters().add(M_STA);
+        e_.setPreventStatusFail(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         return e_;
     }
 }

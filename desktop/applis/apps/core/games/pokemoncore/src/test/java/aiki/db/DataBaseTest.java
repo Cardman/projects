@@ -1360,6 +1360,21 @@ public class DataBaseTest extends EquallablePkUtil {
     }
 
     @Test
+    public void initBase168(){
+        DataBase data_ = newData();
+        data_.initValue(DataBaseConstants.KEY_IMMU_TYPE_ATT_LANCEUR,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_IMMU_TYPE_ATT_LANCEUR));
+        assertEq("0",data_.immuTypeAttLanceur());
+    }
+
+    @Test
+    public void initBase169(){
+        DataBase data_ = newData();
+        data_.initValue(DataBaseConstants.KEY_IMMU_TYPE_ATT_FIGHTER,"0");
+        assertEq("0",data_.retValueOther(DataBaseConstants.KEY_IMMU_TYPE_ATT_FIGHTER));
+        assertEq("0",data_.immuTypeAttFighter());
+    }
+    @Test
     public void test() {
         DataBase data_ = InitializationDataBase.initDataBase();
         assertTrue(!data_.isError());
@@ -2364,6 +2379,7 @@ public class DataBaseTest extends EquallablePkUtil {
         EffectGlobal effStatus_;
         effStatus_ = new EffectGlobal();
         effStatus_.setFail("");
+        effStatus_.setPreventStatusFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         completeMembersMoveOne(data_, moveDamage_);
@@ -2384,6 +2400,7 @@ public class DataBaseTest extends EquallablePkUtil {
         EffectGlobal effStatus_;
         effStatus_ = new EffectGlobal();
         effStatus_.setFail("");
+        effStatus_.setPreventStatusFail("");
         effStatus_.setWeather(true);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());

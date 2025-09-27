@@ -1777,6 +1777,8 @@ public class InitializationDataBase extends EquallablePkUtil {
         litteral_.addEntry(MessagesDataBaseConstants.DEF_CIBLE_ATTAQUE_CHOISIE, StringUtil.concat(MOVE_FORMULA,TAB,"targ_chosen_move",TAB,"Chosen move of the target"));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_CIBLE_NB_UTILISATION, StringUtil.concat(MOVE_FORMULA,TAB,"targ_nb_uses__{0}",TAB,"Number of uses of the move {0} of the target"));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_CIBLE, StringUtil.concat(TYPE_FORMULA,TAB,"immu_move_type_targ__{0}",TAB,"The target is protected against the moves of type {0}"));
+        litteral_.addEntry(MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_FIGHTER, StringUtil.concat(TYPE_FORMULA,TAB,"immu_move_type_fighter__{0}",TAB,"The fighter is protected against the moves of type {0}"));
+        litteral_.addEntry(MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_LANCEUR, StringUtil.concat(TYPE_FORMULA,TAB,"immu_move_type_usr__{0}",TAB,"The user is protected against the moves of type {0}"));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_CLIMATS, StringUtil.concat(MOVE_FORMULA,TAB,"weathers",TAB,"Enabled weathers"));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_CIBLE_CLONE, StringUtil.concat(MOVE_FORMULA,TAB,"targ_clone",TAB,"PV of the clone of the target"));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_CIBLE_ATTAQUES, StringUtil.concat(MOVE_FORMULA,TAB,"targ_moves",TAB,"Moves of the target"));
@@ -1798,6 +1800,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         litteral_.addEntry(MessagesDataBaseConstants.DEF_PK_SAUVAGE_MASSE, StringUtil.concat(ITEM_FORMULA,TAB,"wild_pk_wt",TAB,"Weight of wild pokemon"));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_TYPES_ATTAQUES_RES_VIDE, StringUtil.concat(MOVE_FORMULA,TAB,"res_types_move_empty",TAB,"No resisting type against the last suffered move."));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_LANCEUR_STATIS, StringUtil.concat(STATIS_FORMULA,TAB,"usr_statis__{0}",TAB,"{0} in terms of base of statistic of the user"));
+        litteral_.addEntry(MessagesDataBaseConstants.DEF_FIGHTER_DISPARAIT, StringUtil.concat(MOVE_FORMULA,TAB,"fighter_disap",TAB,"The fighter disappears while the round"));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_CIBLE_DISPARAIT, StringUtil.concat(MOVE_FORMULA,TAB,"targ_disap",TAB,"The target disappears while the round"));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_LANCEUR_DEGATS_RECUS_TOUR, StringUtil.concat(CAT_FORMULA,TAB,"usr_suffered_damg_rd__{0}",TAB,"Suffered damage against the user by moves of category {0}."));
         litteral_.addEntry(MessagesDataBaseConstants.DEF_LANCEUR_MASSE, StringUtil.concat(MOVE_FORMULA,TAB,"usr_weight",TAB,"Weight of the user"));

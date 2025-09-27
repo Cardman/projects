@@ -162,7 +162,9 @@ public final class DataBaseConstants {
     public static final String KEY_COMBATTANT_ENTRANT_TYPES ="154";
     public static final String KEY_COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT ="155";
     public static final String KEY_EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION ="156";
-    public static final int MAX_EXCLUSIVE = 157;
+    public static final String KEY_IMMU_TYPE_ATT_LANCEUR ="157";
+    public static final String KEY_IMMU_TYPE_ATT_FIGHTER ="158";
+    public static final int MAX_EXCLUSIVE = 159;
 
     private String prefixVar;
     private String niveau;
@@ -212,6 +214,8 @@ public final class DataBaseConstants {
     private String sommeBoostPosFighter;
     private String immuTypeAttCombattantEntrant;
     private String immuTypeAttCible;
+    private String immuTypeAttLanceur;
+    private String immuTypeAttFighter;
     private String equipeAdvCombattantEntrantNbUtilisation;
     private String nbTourGlobal;
     private String nbUtiliAttEqTour;
@@ -726,6 +730,10 @@ public final class DataBaseConstants {
             found = true;
             return lanceurObjet;
         }
+        if (StringUtil.quickEq(_key, KEY_IMMU_TYPE_ATT_LANCEUR)){
+            found = true;
+            return immuTypeAttLanceur;
+        }
         return "";
     }
 
@@ -825,6 +833,10 @@ public final class DataBaseConstants {
         if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_FIGHTER)){
             found = true;
             return coeffEffBaseTypesFighter;
+        }
+        if (StringUtil.quickEq(_key, KEY_IMMU_TYPE_ATT_FIGHTER)){
+            found = true;
+            return immuTypeAttFighter;
         }
         return "";
     }
@@ -1372,6 +1384,9 @@ public final class DataBaseConstants {
         if (StringUtil.quickEq(_key, KEY_LANCEUR_OBJET)){
             lanceurObjet=_value;
         }
+        if (StringUtil.quickEq(_key, KEY_IMMU_TYPE_ATT_LANCEUR)){
+            immuTypeAttLanceur=_value;
+        }
     }
 
     private void initValueOtherLanceur1(String _key, String _value) {
@@ -1442,6 +1457,9 @@ public final class DataBaseConstants {
         }
         if (StringUtil.quickEq(_key, KEY_COEFF_EFF_BASE_TYPES_FIGHTER)){
             coeffEffBaseTypesFighter=_value;
+        }
+        if (StringUtil.quickEq(_key, KEY_IMMU_TYPE_ATT_FIGHTER)){
+            immuTypeAttFighter=_value;
         }
     }
 
@@ -1697,6 +1715,8 @@ public final class DataBaseConstants {
             pasPpAttaqueCible=DataBase.EMPTY_STRING;
             pasUtilisAttaqueCible=DataBase.EMPTY_STRING;
             immuTypeAttCible=DataBase.EMPTY_STRING;
+            immuTypeAttLanceur=DataBase.EMPTY_STRING;
+            immuTypeAttFighter=DataBase.EMPTY_STRING;
             aucunBoostPossible=DataBase.EMPTY_STRING;
             lanceurEffet=DataBase.EMPTY_STRING;
             typesAttaquesResVide=DataBase.EMPTY_STRING;
@@ -2264,6 +2284,9 @@ public final class DataBaseConstants {
         if (incorrectKey(lanceurTypes)) {
             lanceurTypes=MessagesDataBaseConstants.DEF_LANCEUR_TYPES;
         }
+        if (incorrectKey(immuTypeAttLanceur)) {
+            immuTypeAttLanceur=MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_LANCEUR;
+        }
     }
 
     private void lanceur1() {
@@ -2334,6 +2357,9 @@ public final class DataBaseConstants {
         }
         if (incorrectKey(coeffEffBaseTypesFighter)) {
             coeffEffBaseTypesFighter=MessagesDataBaseConstants.DEF_COEFF_EFF_BASE_TYPES_FIGHTER;
+        }
+        if (incorrectKey(immuTypeAttFighter)) {
+            immuTypeAttFighter=MessagesDataBaseConstants.DEF_IMMU_TYPE_ATT_FIGHTER;
         }
     }
 
@@ -2706,6 +2732,8 @@ public final class DataBaseConstants {
         _str.add(pasPpAttaqueCible);
         _str.add(pasUtilisAttaqueCible);
         _str.add(immuTypeAttCible);
+        _str.add(immuTypeAttLanceur);
+        _str.add(immuTypeAttFighter);
         _str.add(aucunBoostPossible);
         _str.add(lanceurEffet);
         _str.add(typesAttaquesResVide);
@@ -3110,6 +3138,22 @@ public final class DataBaseConstants {
 
     public void setImmuTypeAttCible(String _p) {
         this.immuTypeAttCible = _p;
+    }
+
+    public String getImmuTypeAttLanceur() {
+        return immuTypeAttLanceur;
+    }
+
+    public void setImmuTypeAttLanceur(String _p) {
+        this.immuTypeAttLanceur = _p;
+    }
+
+    public String getImmuTypeAttFighter() {
+        return immuTypeAttFighter;
+    }
+
+    public void setImmuTypeAttFighter(String _p) {
+        this.immuTypeAttFighter = _p;
     }
 
     public String getEquipeAdvCombattantEntrantNbUtilisation() {

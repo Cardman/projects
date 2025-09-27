@@ -12,6 +12,7 @@ import code.util.*;
 
 public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
     private CustList<TranslatedKey> immuneTypes;
+    private CustList<TranslatedKey> immuDamageByDisappearingMoves;
     private Rate damageEndRound;
     private Rate healingEndRound;
     private Rate healingEndRoundGround;
@@ -31,6 +32,7 @@ public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
 //        }
 //        immuneTypes_.sort();
         immuneTypes = listTrStringsTy(effect_.getImmuneTypes(),getFacade());
+        immuDamageByDisappearingMoves = listTrStringsMv(effect_.getImmuDamageByDisappearingMoves(),getFacade());
         damageEndRound = effect_.getDamageEndRound();
         healingEndRound = effect_.getHealingEndRound();
         healingEndRoundGround = effect_.getHealingEndRoundGround();
@@ -45,6 +47,7 @@ public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
         displayIntDef(healingEndRound,MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_HEALING_END_ROUND);
         displayBoolTrue(toInt(puttingKo),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_PUTTING_KO);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuneTypes,MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_IMMUNE_TYPES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuDamageByDisappearingMoves,MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_IMMUNE_DISAPPEARED);
     }
     public static EffectGlobal global(MoveData _move) {
         for (Effect e: _move.getEffects()) {
@@ -73,5 +76,9 @@ public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
 
     public CustList<TranslatedKey> getImmuneTypes() {
         return immuneTypes;
+    }
+
+    public CustList<TranslatedKey> getImmuDamageByDisappearingMoves() {
+        return immuDamageByDisappearingMoves;
     }
 }

@@ -47,6 +47,14 @@ public final class EndRoundBeanTest extends InitDbEndRound {
         assertEq(T_TYPE_ROUND_1_TR,eltTkTr(callEffectEndRoundGlobalBeanImmuneTypesGet(5),0));
     }
     @Test
+    public void getImmuDamageByDisappearingMoves1() {
+        assertSizeEq(1,callEffectEndRoundGlobalBeanImmuDamageByDisappearingMovesGet(5));
+    }
+    @Test
+    public void getImmuDamageByDisappearingMoves2() {
+        assertEq(M_END_1_TR,eltTkTr(callEffectEndRoundGlobalBeanImmuDamageByDisappearingMovesGet(5),0));
+    }
+    @Test
     public void getMovesSameCategory1() {
         assertSizeEq(2,callEffectEndRoundPositionTargetBeanGetMovesSameCategory(7));
     }
